@@ -45,29 +45,47 @@ const LogColors: Record<LogLevel, string> = {
 
 export const Logs = () => {
   const [settings] = SettingsContext.use();
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
   const [logs, setLogs] = useState<LogEvent[]>([]);
+  const [filteredLogs, setFilteredLogs] = useState<LogEvent[]>([]);
+  const [userScrolled, setUserScrolled] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");
   const [_regexPattern, setRegexPattern] = useState<RegExp | null>(null);
-  const [filteredLogs, setFilteredLogs] = useState<LogEvent[]>([]);
   const [isInvalidRegex, setIsInvalidRegex] = useState(false);
 
   useEffect(() => {
     const scrollToBottom = () => {
-      if (messagesEndRef.current) {
+      if (messagesEndRef.current && !userScrolled) {
         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
       }
     };
-    if (settings.scrollOnNewLog)
+
+    if (settings.scrollOnNewLog) {
       scrollToBottom();
-  }, [filteredLogs]);
+    }
+  }, [filteredLogs, userScrolled]);
 
   // Add a useEffect to clear logs div when settings.scrollOnNewLog changes to prevent duplicate entries.
   useEffect(() => {
     setLogs([]);
   }, [settings.scrollOnNewLog]);
+
+  // Add a scroll event listener to detect manual scrolling
+  useEffect(() => {
+    const disableAutoScroll = () => {
+      // Check if the user scrolled manually
+      if (messagesEndRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = messagesEndRef.current;
+        setUserScrolled(scrollTop + clientHeight < scrollHeight);
+      }
+    };
+
+    messagesEndRef.current?.addEventListener("scroll", disableAutoScroll);
+
+    return () => {
+      messagesEndRef.current?.removeEventListener("scroll", disableAutoScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const es = APIClient.events.logs();

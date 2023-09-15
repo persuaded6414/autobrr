@@ -660,21 +660,41 @@ export const Events = ({ network, channel }: EventsProps) => {
   }, [isFullscreen, toggleFullscreen]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [userScrolled, setUserScrolled] = useState(false);
 
   useEffect(() => {
     const scrollToBottom = () => {
-      if (messagesEndRef.current) {
+      if (messagesEndRef.current && !userScrolled) {
         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
       }
     };
-    if (settings.scrollOnNewLog)
+
+    if (settings.scrollOnNewLog) {
       scrollToBottom();
-  }, [logs]);
+    }
+  }, [logs, userScrolled]);
 
   // Add a useEffect to clear logs div when settings.scrollOnNewLog changes to prevent duplicate entries.
   useEffect(() => {
     setLogs([]);
   }, [settings.scrollOnNewLog]);
+
+  // Add a scroll event listener to detect manual scrolling
+  useEffect(() => {
+    const disableAutoScroll = () => {
+      // Check if the user scrolled manually
+      if (messagesEndRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = messagesEndRef.current;
+        setUserScrolled(scrollTop + clientHeight < scrollHeight);
+      }
+    };
+
+    messagesEndRef.current?.addEventListener("scroll", disableAutoScroll);
+
+    return () => {
+      messagesEndRef.current?.removeEventListener("scroll", disableAutoScroll);
+    };
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("overflow-hidden", isFullscreen);
