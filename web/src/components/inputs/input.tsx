@@ -39,8 +39,9 @@ export const TextField = ({
 }: TextFieldProps) => (
   <div
     className={classNames(
+      "col-span-12",
       hidden ? "hidden" : "",
-      columns ? `col-span-${columns}` : "col-span-12"
+      columns ? `sm:col-span-${columns}` : ""
     )}
   >
     {label && (
@@ -175,8 +176,9 @@ export const RegexField = ({
   return (
     <div
       className={classNames(
+        "col-span-12",
         hidden ? "hidden" : "",
-        columns ? `col-span-${columns}` : "col-span-12"
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       {label && (
@@ -315,8 +317,9 @@ export const RegexTextAreaField = ({
   return (
     <div
       className={classNames(
+        "col-span-12",
         hidden ? "hidden" : "",
-        columns ? `col-span-${columns}` : "col-span-12"
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       {label && (
@@ -405,8 +408,9 @@ export const TextArea = ({
 }: TextAreaProps) => (
   <div
     className={classNames(
+      "col-span-12",
       hidden ? "hidden" : "",
-      columns ? `col-span-${columns}` : "col-span-12"
+      columns ? `sm:col-span-${columns}` : ""
     )}
   >
     {label && (
@@ -477,8 +481,9 @@ export const TextAreaAutoResize = ({
 }: TextAreaAutoResizeProps) => (
   <div
     className={classNames(
+      "col-span-12",
       hidden ? "hidden" : "",
-      columns ? `col-span-${columns}` : "col-span-12"
+      columns ? `sm:col-span-${columns}` : ""
     )}
   >
     {label && (
@@ -549,7 +554,8 @@ export const PasswordField = ({
   return (
     <div
       className={classNames(
-        columns ? `col-span-${columns}` : "col-span-12"
+        "col-span-12",
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       {label && (

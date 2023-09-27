@@ -81,8 +81,10 @@ function TabNavLink({ item }: NavLinkProps) {
       to={item.href}
       end
       className={({ isActive }) => classNames(
-        "hover:text-blue-600 dark:hover:text-white hover:border-blue-600 dark:hover:border-blue-500 whitespace-nowrap py-4 px-1 font-medium text-sm",
-        isActive ? "border-b-2 border-blue-600 dark:border-blue-500 text-blue-600 dark:text-white" : "text-gray-500"
+        "transition whitespace-nowrap py-4 duration-3000 px-1 font-medium text-sm",
+        isActive
+          ? "border-b-2 border-blue-600 dark:border-blue-500 text-blue-600 dark:text-white"
+          : "text-gray-500 hover:text-blue-500 dark:hover:text-white"
       )}
       aria-current={splitLocation[2] === item.href ? "page" : undefined}
     >
@@ -720,7 +722,7 @@ export function CollapsableSection({ title, subtitle, children, defaultOpen }: C
       <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
         <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
           <h3 className="ml-2 mt-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">{title}</h3>
-          <p className="ml-2 mt-1 text-sm text-gray-500 dark:text-gray-400 truncate">{subtitle}</p>
+          <p className="ml-2 mt-1 text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
         </div>
         <div className="mt-3 sm:mt-0 sm:ml-4">
           <button

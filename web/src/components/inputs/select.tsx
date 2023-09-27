@@ -50,7 +50,8 @@ export const MultiSelect = ({
   return (
     <div
       className={classNames(
-        columns ? `col-span-${columns}` : "col-span-12"
+        "col-span-12",
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       <label
@@ -108,7 +109,8 @@ export const IndexerMultiSelect = ({
   return (
     <div
       className={classNames(
-        columns ? `col-span-${columns}` : "col-span-12"
+        "col-span-12",
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       <label
@@ -281,7 +283,8 @@ export const Select = ({
   return (
     <div
       className={classNames(
-        columns ? `col-span-${columns}` : "col-span-6"
+        "col-span-12",
+        columns ? `sm:col-span-${columns}` : ""
       )}
     >
       <Field name={name} type="select">
