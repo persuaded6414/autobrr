@@ -107,7 +107,7 @@ export const Logs = () => {
       </div>
 
       <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-4 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg px-2 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 px-2 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4">
           <div className="flex relative mb-3">
             <DebounceInput
               minLength={2}
@@ -165,7 +165,7 @@ export const Logs = () => {
       </div>
 
       <div className="max-w-screen-xl mx-auto pb-10 px-2 sm:px-4 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg px-4 sm:px-6 pt-3 sm:pt-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 px-4 sm:px-6 pt-3 sm:pt-4">
           <LogFiles />
         </div>
       </div>

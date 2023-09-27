@@ -118,20 +118,20 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
         text="Are you sure you want to remove this filter? This action cannot be undone."
       />
 
-      <div className="mt-4 pt-4 flex justify-between">
+      <div className="mt-4 pt-4 flex flex-col-reverse sm:flex-row flex-wrap-reverse justify-between">
         <button
           type="button"
-          className="inline-flex items-center justify-center px-4 py-2 rounded-md sm:text-sm bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
+          className="flex items-center justify-center px-4 py-2 rounded-md sm:text-sm transition bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
           onClick={toggleDeleteModal}
         >
           Remove
         </button>
 
-        <div>
+        <div className="flex justify-between mb-4 sm:mb-0">
           {/* {dirty && <span className="mr-4 text-sm text-gray-500">Unsaved changes..</span>} */}
           <button
             type="button"
-            className="bg-white dark:bg-gray-700 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+            className="bg-white dark:bg-gray-700 py-2 px-4 border border-gray-300 dark:border-gray-600 transition rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
             onClick={(e) => {
               e.preventDefault();
               reset();
@@ -143,7 +143,7 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
           </button>
           <button
             type="submit"
-            className="ml-4 relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="ml-1 sm:ml-4 flex items-center px-4 py-2 border border-transparent transition shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Save
           </button>
@@ -324,7 +324,7 @@ export function FilterDetails() {
         <h1 className="text-3xl font-bold text-black dark:text-white truncate" title={filter.name}>{filter.name}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
           <div className="pt-1 px-4 pb-6 block">
             <div className="border-b border-gray-200 dark:border-gray-700">
               <nav className="-mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
@@ -718,23 +718,23 @@ export function CollapsableSection({ title, subtitle, children, defaultOpen }: C
   const [isOpen, toggleOpen] = useToggle(defaultOpen ?? false);
 
   return (
-    <div className="mt-6 lg:pb-6 border-b border-gray-200 dark:border-gray-700">
-      <div className="flex justify-between items-center cursor-pointer" onClick={toggleOpen}>
+    <div className="pt-3 pb-3 border-dashed border-b-2 border-gray-200 dark:border-gray-700">
+      <div className="flex justify-between items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" onClick={toggleOpen}>
         <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
-          <h3 className="ml-2 mt-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">{title}</h3>
+          <h3 className="ml-2 mt-2 text-lg leading-6 font-semibold text-gray-900 dark:text-gray-200 underline decoration-dotted underline-offset-4 decoration-amber-600 dark:decoration-amber-400">{title}</h3>
           <p className="ml-2 mt-1 text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
         </div>
-        <div className="mt-3 sm:mt-0 sm:ml-4">
+        <div className="sm:mt-0 sm:ml-4">
           <button
             type="button"
             className="inline-flex items-center px-4 py-2 border-transparent text-sm font-medium text-white"
           >
-            {isOpen ? <ChevronDownIcon className="-mr-4 h-6 w-6 text-gray-500" aria-hidden="true" /> : <ChevronRightIcon className="-mr-4 h-6 w-6 text-gray-500" aria-hidden="true" />}
+            {isOpen ? <ChevronDownIcon className="-mr-4 h-6 w-6 text-gray-400" aria-hidden="true" /> : <ChevronRightIcon className="-mr-4 h-6 w-6 text-gray-400" aria-hidden="true" />}
           </button>
         </div>
       </div>
       {isOpen && (
-        <div className="mt-2 grid grid-cols-12 gap-6">
+        <div className="mt-2 mb-3 grid grid-cols-12 gap-6">
           {children}
         </div>
       )}
