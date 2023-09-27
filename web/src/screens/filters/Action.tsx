@@ -8,7 +8,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Field, FieldArray, FieldProps, FormikValues, useFormikContext } from "formik";
 import type { FieldArrayRenderProps } from "formik";
 import { Dialog, Switch as SwitchBasic, Transition } from "@headlessui/react";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon, BoltIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
@@ -76,7 +76,7 @@ export function FilterActions({ filter, values }: FilterActionsProps) {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <FieldArray name="actions">
         {({ remove, push }: FieldArrayRenderProps) => (
           <Fragment>
@@ -90,9 +90,13 @@ export function FilterActions({ filter, values }: FilterActionsProps) {
               <div className="ml-4 mt-4 flex-shrink-0">
                 <button
                   type="button"
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+                  className="relative inline-flex items-center px-4 py-2 border border-transparent transition shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
                   onClick={() => push(newAction)}
                 >
+                  <BoltIcon
+                    className="w-5 h-5 mr-1"
+                    aria-hidden="true"
+                  />
                   Add new
                 </button>
               </div>

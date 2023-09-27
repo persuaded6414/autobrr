@@ -138,7 +138,6 @@ export const IndexerMultiSelect = ({
                 const item = values && values.map((i) => ({ id: i.value, name: i.label }));
                 setFieldValue(field.name, item);
               }}
-              className={settingsContext.darkTheme ? "dark" : ""}
             />
             {meta.touched && meta.error && (
               <p className="error text-sm text-red-600 mt-1">* {meta.error}</p>
@@ -307,7 +306,7 @@ export const Select = ({
                   </div>
                 </Listbox.Label>
                 <div className="mt-2 relative">
-                  <Listbox.Button className="bg-white dark:bg-gray-800 relative w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2.5 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 dark:text-gray-200 sm:text-sm">
+                  <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? options.find((c) => c.value === field.value)?.label
@@ -331,43 +330,38 @@ export const Select = ({
                   >
                     <Listbox.Options
                       static
-                      className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                      className="absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 focus:outline-none sm:text-sm"
                     >
                       {options.map((opt) => (
                         <Listbox.Option
                           key={opt.value}
-                          className={({ active }) =>
+                          className={({ active: hovered, selected }) =>
                             classNames(
-                              active
-                                ? "text-white dark:text-gray-100 bg-blue-600 dark:bg-gray-800"
+                              selected ? "font-bold dark:bg-gray-950" : "font-normal",
+                              hovered
+                                ? "text-white dark:text-gray-100 dark:bg-gray-800"
                                 : "text-gray-900 dark:text-gray-300",
                               "cursor-default select-none relative py-2 pl-3 pr-9"
                             )
                           }
                           value={opt.value}
                         >
-                          {({ selected, active }) => (
+                          {({ selected }) => (
                             <>
-                              <span
-                                className={classNames(
-                                  selected ? "font-semibold" : "font-normal",
-                                  "block truncate"
-                                )}
-                              >
+                              <span className="block truncate">
                                 {opt.label}
                               </span>
 
                               {selected ? (
                                 <span
                                   className={classNames(
-                                    active ? "text-white dark:text-gray-100" : "text-blue-600 dark:text-gray-700",
+                                    selected
+                                      ? "text-blue-500 dark:text-blue-500"
+                                      : "",
                                     "absolute inset-y-0 right-0 flex items-center pr-4"
                                   )}
                                 >
-                                  <CheckIcon
-                                    className="h-5 w-5"
-                                    aria-hidden="true"
-                                  />
+                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
                                 </span>
                               ) : null}
                             </>

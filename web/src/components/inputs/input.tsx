@@ -67,8 +67,8 @@ export const TextField = ({
             defaultValue={defaultValue}
             autoComplete={autoComplete}
             className={classNames(
-              meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "dark:bg-gray-800",
+              meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
+              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "",
               "mt-2 block w-full dark:text-gray-100 rounded-md"
             )}
             disabled={disabled}
@@ -207,10 +207,10 @@ export const RegexField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
+                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
                 disabled
                   ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
-                  : "dark:bg-gray-800",
+                  : "",
                 useRegex
                   ? "pr-10"
                   : "",
@@ -223,9 +223,9 @@ export const RegexField = ({
               <div className="relative">
                 <div className="flex float-right items-center">
                   {!meta.error ? (
-                    <CheckCircleIcon className="dark:bg-gray-800 bg-white h-8 w-8 mb-2.5 pl-1 text-green-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
+                    <CheckCircleIcon className="h-8 w-8 mb-2.5 pl-1 text-green-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
                   ) : (
-                    <XCircleIcon className="dark:bg-gray-800 bg-white h-8 w-8 mb-2.5 pl-1 text-red-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
+                    <XCircleIcon className="h-8 w-8 mb-2.5 pl-1 text-red-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
                   )}
                 </div>
               </div>
@@ -349,10 +349,10 @@ export const RegexTextAreaField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
+                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
                 disabled
                   ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
-                  : "dark:bg-gray-800",
+                  : "",
                 useRegex
                   ? "pr-10"
                   : "",
@@ -366,9 +366,9 @@ export const RegexTextAreaField = ({
               <div className="relative">
                 <div className="flex float-right items-center">
                   {!meta.error ? (
-                    <CheckCircleIcon className="dark:bg-gray-800 bg-white h-8 w-8 mb-2.5 pl-1 text-green-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
+                    <CheckCircleIcon className="h-8 w-8 mb-2.5 pl-1 text-green-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
                   ) : (
-                    <XCircleIcon className="dark:bg-gray-800 bg-white h-8 w-8 mb-2.5 pl-1 text-red-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
+                    <XCircleIcon className="h-8 w-8 mb-2.5 pl-1 text-red-500 right-2 absolute transform -translate-y-1/2" aria-hidden="true" style={{ overflow: "hidden" }} />
                   )}
                 </div>
               </div>
@@ -510,8 +510,8 @@ export const TextAreaAutoResize = ({
             defaultValue={defaultValue}
             autoComplete={autoComplete}
             className={classNames(
-              meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "dark:bg-gray-800",
+              meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
+              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "",
               "mt-2 block w-full dark:text-gray-100 rounded-md"
             )}
             placeholder={placeholder}
@@ -655,9 +655,9 @@ export const NumberField = ({
             className={classNames(
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300",
-              "mt-2 block w-full border border-gray-300 dark:border-gray-700 dark:text-gray-100 rounded-md",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "dark:bg-gray-800"
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
+              "mt-2 block w-full border rounded-md",
+              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : ""
             )}
             placeholder={placeholder}
             disabled={disabled}

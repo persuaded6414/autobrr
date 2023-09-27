@@ -35,7 +35,7 @@ export const Switch = ({
   const checked = field?.checked ?? $checked;
 
   return (
-    <HeadlessSwitch.Group as="div" className="flex items-center space-x-4">
+    <HeadlessSwitch.Group as="div" className="py-2 flex items-center space-x-4">
       <HeadlessSwitch.Label>{label}</HeadlessSwitch.Label>
       <HeadlessSwitch
         as="button"
@@ -86,7 +86,7 @@ const SwitchGroup = ({
   tooltip,
   heading
 }: SwitchGroupProps) => (
-  <HeadlessSwitch.Group as="ol" className="py-4 flex items-center justify-between">
+  <HeadlessSwitch.Group as="ol" className="flex items-center justify-between">
     {label && <div className="flex flex-col">
       <HeadlessSwitch.Label
         passive

@@ -3,22 +3,25 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
-import { NumberField, Select, TextField } from "@components/inputs";
-import { TextArea } from "@components/inputs/input";
 import { Fragment, useRef } from "react";
-import { EmptyListState } from "@components/emptystates";
-import { useToggle } from "@hooks/hooks";
-import { classNames } from "@utils";
 import { Switch as SwitchBasic } from "@headlessui/react";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ArrowDownIcon, ArrowUpIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
+import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
+
+
+import { classNames } from "@utils";
+import { useToggle } from "@hooks/hooks";
+import { TextArea } from "@components/inputs/input";
+import { EmptyListState } from "@components/emptystates";
+import { NumberField, Select, TextField } from "@components/inputs";
 import {
   ExternalFilterTypeNameMap,
   ExternalFilterTypeOptions,
   ExternalFilterWebhookMethodOptions
 } from "@domain/constants";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+
 import { DeleteModal } from "@components/modals";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 
 export function External() {
   const { values } = useFormikContext<Filter>();
@@ -32,13 +35,15 @@ export function External() {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <FieldArray name="external">
         {({ remove, push, move }: FieldArrayRenderProps) => (
-          <Fragment>
+          <>
             <div className="-ml-4 -mt-4 mb-6 flex justify-between items-center flex-wrap sm:flex-nowrap">
               <div className="ml-4 mt-4">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">External filters</h3>
+                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+                  External filters
+                </h3>
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                   Run external scripts or webhooks and check status as part of filtering.
                 </p>
@@ -46,9 +51,13 @@ export function External() {
               <div className="ml-4 mt-4 flex-shrink-0">
                 <button
                   type="button"
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+                  className="relative inline-flex items-center px-4 py-2 transition border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
                   onClick={() => push(newItem)}
                 >
+                  <SquaresPlusIcon
+                    className="w-5 h-5 mr-1"
+                    aria-hidden="true"
+                  />
                   Add new
                 </button>
               </div>
@@ -64,7 +73,7 @@ export function External() {
                 : <EmptyListState text="No external filters yet!" />
               }
             </div>
-          </Fragment>
+          </>
         )}
       </FieldArray>
     </div>

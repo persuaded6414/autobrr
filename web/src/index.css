@@ -99,14 +99,32 @@ code {
   border: 1px solid var(--rmsc-main);
 }
 
-.rmsc.dark {
-  --rmsc-main: #3B82F6 !important;
-  --rmsc-hover: #464646 !important;
-  --rmsc-selected: #1b1b1b !important;
-  --rmsc-border: #3F3F46 !important;
-  --rmsc-gray: #71717a !important;
-  --rmsc-bg: #27272A !important;
+html:not(.dark) .rmsc {
+  --rmsc-main: theme(colors.blue.500) !important;
+  --rmsc-hover: theme(colors.gray.200) !important;
+  --rmsc-selected: theme(colors.gray.300) !important;
+  --rmsc-border: theme(colors.gray.400) !important;
+  --rmsc-gray: theme(colors.gray.500) !important;
+  --rmsc-bg: theme(colors.gray.100) !important;
+  color: #000 !important;
+}
+
+html.dark .rmsc {
+  --rmsc-main: theme(colors.blue.500) !important;
+  --rmsc-hover: theme(colors.gray.800) !important;
+  --rmsc-selected: theme(colors.gray.950) !important;
+  --rmsc-border: theme(colors.gray.700) !important;
+  --rmsc-gray: theme(colors.gray.500) !important;
+  --rmsc-bg: theme(colors.gray.900) !important;
   color: #fff !important;
+}
+
+html .dropdown-content > div {
+  @apply border border-gray-400 shadow;
+}
+
+html.dark .dropdown-content > div {
+  @apply border border-gray-700 shadow;
 }
 
 @layer base {
@@ -128,11 +146,10 @@ code {
     width: 8px;
   }
   *::-webkit-scrollbar-thumb {
-    background-color: #e4e4e7;
-    border-radius: 14px;
+    @apply bg-gray-200 rounded-xl;
   }
   .dark *::-webkit-scrollbar-thumb {
-    background-color: #52525b;
+    @apply bg-gray-600;
   }
 }
 
