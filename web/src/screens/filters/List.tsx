@@ -102,7 +102,7 @@ export function Filters() {
           {({ open }) => (
             <>
               <button
-                className="relative inline-flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-l-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+                className="relative inline-flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-l-md transition text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
                 onClick={(e: { stopPropagation: () => void; }) => {
                   if (!open) {
                     e.stopPropagation();
@@ -113,7 +113,7 @@ export function Filters() {
                 <PlusIcon className="h-5 w-5 mr-1" />
                 Create Filter
               </button>
-              <Menu.Button className="relative inline-flex items-center px-2 py-2 border-l border-spacing-1 dark:border-black shadow-sm text-sm font-medium rounded-r-md text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500">
+              <Menu.Button className="relative inline-flex items-center px-2 py-2 border-l border-spacing-1 dark:border-black shadow-sm text-sm font-medium rounded-r-md transition text-white bg-blue-600 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500">
                 <ChevronDownIcon className="h-5 w-5" />
               </Menu.Button>
               <Transition
@@ -133,11 +133,12 @@ export function Filters() {
                         type="button"
                         className={classNames(
                           active ? "bg-gray-50 dark:bg-gray-600" : "",
-                          "flex items-center w-full text-left py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-blue-500"
+                          "flex items-center w-full text-left py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-200 rounded-md focus:outline-none"
                         )}
                         onClick={() => setShowImportModal(true)}
                       >
-                        <ArrowUpOnSquareIcon className="mr-1 w-4 h-4" />Import filter
+                        <ArrowUpOnSquareIcon className="mr-1 w-4 h-4" />
+                        <span>Import filter</span>
                       </button>
                     )}
                   </Menu.Item>
@@ -201,8 +202,8 @@ function FilterList({ toggleCreateFilter }: any) {
 
   return (
     <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8 relative">
-      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800">
-        <div className="rounded-t-lg flex justify-between px-4 bg-gray-50 dark:bg-gray-800  border-b border-gray-200 dark:border-gray-700">
+      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+        <div className="rounded-t-lg flex justify-between px-4 bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
           <div className="flex gap-4">
             <StatusButton data={filtered.all} label="All" value="" currentValue={status} dispatch={dispatchFilter} />
             <StatusButton data={filtered.enabled} label="Enabled" value="enabled" currentValue={status} dispatch={dispatchFilter} />
@@ -594,10 +595,10 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
     <li
       key={filter.id}
       className={classNames(
-        "flex items-center hover:bg-gray-100 dark:hover:bg-[#222225] rounded-b-lg",
+        "flex items-center transition first:rounded-t-md last:rounded-b-md",
         idx % 2 === 0 ?
           "bg-white dark:bg-[#2e2e31]" :
-          "bg-gray-50 dark:bg-gray-800"
+          "bg-gray-100 dark:bg-gray-900 dark:bg-opacity-30"
       )}
     >
       <span
@@ -763,11 +764,11 @@ const ListboxFilter = ({
     onChange={onChange}
   >
     <div className="relative">
-      <Listbox.Button className="relative w-full py-2 pr-5 text-left dark:text-gray-400 text-sm">
+      <Listbox.Button className="relative w-full py-2 pr-4 text-left dark:text-gray-400 text-sm">
         <span className="block truncate">{label}</span>
         <span className="absolute inset-y-0 right-0 flex items-center pointer-events-none">
           <ChevronDownIcon
-            className="w-3 h-3 text-gray-600 hover:text-gray-600"
+            className="w-3 h-3"
             aria-hidden="true"
           />
         </span>

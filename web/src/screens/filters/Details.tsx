@@ -45,12 +45,15 @@ import {
 import DEBUG from "@components/debug";
 import Toast from "@components/notifications/Toast";
 import { DeleteModal } from "@components/modals";
+import { WarningAlert } from "@components/alerts";
 import { TitleSubtitle } from "@components/headings";
+import { SectionLoader } from "@components/SectionLoader";
 import { RegexTextAreaField, TextAreaAutoResize } from "@components/inputs/input";
+
+import { External } from "@screens/filters/External";
+
 import { FilterActions } from "./Action";
 import { filterKeys } from "./List";
-import { External } from "@screens/filters/External";
-import { SectionLoader } from "@components/SectionLoader";
 
 interface tabType {
   name: string;
@@ -314,14 +317,14 @@ export function FilterDetails() {
 
   return (
     <main>
-      <div className="my-6 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-        <h1 className="text-3xl font-bold text-black dark:text-white">
+      <div className="my-6 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center text-black dark:text-white">
+        <h1 className="text-3xl font-bold">
           <NavLink to="/filters">
             Filters
           </NavLink>
         </h1>
-        <ChevronRightIcon className="h-6 w-6 text-gray-500" aria-hidden="true" />
-        <h1 className="text-3xl font-bold text-black dark:text-white truncate" title={filter.name}>{filter.name}</h1>
+        <ChevronRightIcon className="h-6 w-6 mx-1" aria-hidden="true" />
+        <h1 className="text-3xl font-bold truncate" title={filter.name}>{filter.name}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
@@ -552,20 +555,13 @@ export function Music({ values }: AdvancedProps) {
       </div>
 
       <div className="space-y-6 sm:space-y-5 divide-y divide-gray-200">
-        <div className="pt-6 sm:pt-5">
-          <div role="group" aria-labelledby="label-email">
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
-              {/* <div>
-                    <div className="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" >
-                      Extra
-                    </div>
-                  </div> */}
-              <div className="mt-4 sm:mt-0 sm:col-span-2">
-                <div className="max-w-lg space-y-4">
-                  <CheckboxField name="log" label="Log" sublabel="Must include Log." disabled={values.perfect_flac} />
-                  <CheckboxField name="cue" label="Cue" sublabel="Must include Cue." disabled={values.perfect_flac} />
-                  <CheckboxField name="perfect_flac" label="Perfect FLAC" sublabel="Override all options about quality, source, format, and cue/log/log score." tooltip={<div><p>Override all options about quality, source, format, and cue/log/log score.</p><a href='https://autobrr.com/filters#quality-1' className='text-blue-400 visited:text-blue-400' target='_blank'>https://autobrr.com/filters#quality-1</a></div>} />
-                </div>
+        <div role="group" aria-labelledby="label-email">
+          <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
+            <div className="mt-4 sm:mt-0 sm:col-span-2">
+              <div className="max-w-lg space-y-4">
+                <CheckboxField name="log" label="Log" sublabel="Must include Log." disabled={values.perfect_flac} />
+                <CheckboxField name="cue" label="Cue" sublabel="Must include Cue." disabled={values.perfect_flac} />
+                <CheckboxField name="perfect_flac" label="Perfect FLAC" sublabel="Override all options about quality, source, format, and cue/log/log score." tooltip={<div><p>Override all options about quality, source, format, and cue/log/log score.</p><a href='https://autobrr.com/filters#quality-1' className='text-blue-400 visited:text-blue-400' target='_blank'>https://autobrr.com/filters#quality-1</a></div>} />
               </div>
             </div>
           </div>
@@ -678,37 +674,6 @@ export function Advanced({ values }: AdvancedProps) {
   );
 }
 
-interface WarningAlertProps {
-  text: string | JSX.Element;
-  alert?: string;
-  colors?: string;
-  className?: string;
-}
-
-function WarningAlert({ text, alert, colors, className }: WarningAlertProps) {
-  return (
-    <div
-      className={classNames(
-        className ?? "",
-        "col-span-12 flex items-center px-4 py-3 text-md font-medium rounded-lg",
-        colors ?? "text-amber-800 bg-amber-100 border border-amber-700 dark:border-none dark:bg-amber-200 dark:text-amber-800"
-      )}
-      role="alert">
-      <svg aria-hidden="true" className="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
-        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <path fillRule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-          clipRule="evenodd"></path>
-      </svg>
-      <span className="sr-only">Info</span>
-      <div>
-        <span className="font-extrabold">{alert ?? "Warning!"}</span>
-        {" "}{text}
-      </div>
-    </div>
-  );
-}
-
 interface CollapsableSectionProps {
   title: string;
   subtitle: string;
@@ -723,13 +688,20 @@ export function CollapsableSection({ title, subtitle, children, defaultOpen = fa
     <div className="pt-3 pb-3 border-dashed border-b-2 border-gray-200 dark:border-gray-700">
       <div className="flex select-none items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" onClick={toggleOpen}>
         <div className="flex items-center">
-          <button type="button" className="mr-1 text-sm font-medium text-white">
-            {isOpen ? <ChevronDownIcon className="h-6 w-6 text-gray-400" aria-hidden="true" /> : <ChevronRightIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />}
+          <button
+            type="button"
+            className={classNames(
+              isOpen ? "rotate-0" : "-rotate-90",
+              "mr-1 text-sm font-medium text-white transition-transform"
+            )}
+          >
+            <ChevronDownIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />
           </button>
           <h3 className="text-lg leading-6 font-semibold text-gray-900 dark:text-gray-200 underline decoration-dotted underline-offset-4 decoration-blue-600 dark:decoration-sky-400">{title}</h3>
           <p className="ml-2 text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
         </div>
       </div>
+      {/*TODO: Animate this too*/}
       {isOpen && (
         <div className="px-2 mt-3 mb-2 grid grid-cols-12 gap-3">
           {children}

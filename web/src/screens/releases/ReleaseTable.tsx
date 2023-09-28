@@ -232,9 +232,9 @@ export const ReleaseTable = () => {
             ))
           )}
         </div>
-        <div className="bg-white shadow-lg dark:bg-gray-800 rounded-md overflow-auto">
-          <table {...getTableProps()} className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-800">
+        <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-lg rounded-md overflow-auto">
+          <table {...getTableProps()} className="min-w-full rounded-md divide-y divide-gray-300 dark:divide-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-800">
               <tr>
                 <th
                   scope="col"
@@ -398,9 +398,9 @@ export const ReleaseTable = () => {
           ))
         )}
       </div>
-      <div className="bg-white shadow-lg dark:bg-gray-800 rounded-md overflow-auto">
-        <table {...getTableProps()} className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-800">
+      <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 shadow-lg rounded-md overflow-auto">
+        <table {...getTableProps()} className="min-w-full rounded-md divide-y divide-gray-300 dark:divide-gray-700">
+          <thead className="bg-gray-100 dark:bg-gray-900 dark:bg-opacity-30">
             {headerGroups.map((headerGroup) => {
               const { key: rowKey, ...rowRest } = headerGroup.getHeaderGroupProps();
               return (
@@ -413,7 +413,7 @@ export const ReleaseTable = () => {
                       <th
                         key={`${rowKey}-${columnKey}`}
                         scope="col"
-                        className="first:pl-5 pl-3 pr-3 py-3 first:rounded-tl-md last:rounded-tr-md text-xs font-medium tracking-wider text-left text-gray-500 uppercase group"
+                        className="first:pl-5 pl-3 pr-3 py-3 first:rounded-tl-md last:rounded-tr-md text-xs font-medium tracking-wider text-left text-gray-600 dark:text-gray-400 uppercase group transition hover:bg-gray-200 dark:hover:bg-gray-700"
                         {...columnRest}
                       >
                         <div className="flex items-center justify-between">

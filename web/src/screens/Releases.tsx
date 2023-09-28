@@ -21,7 +21,7 @@ export const Releases = () => {
       <div className="mt-6 mb-4 mx-auto flex flex-col max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-black dark:text-white">Releases</h1>
 
-        <p className="flex mt-1 text-sm text-gray-800 dark:text-gray-200">
+        <p className="flex flex-wrap mt-1 text-sm text-gray-800 dark:text-gray-200">
           The search engine uses a special pattern-matching engine to filter out results.
           Please
           <button
@@ -29,7 +29,7 @@ export const Releases = () => {
               e.preventDefault();
               setIsHintOpen((state) => !state);
             }}
-            className="flex items-center shadow-md border rounded-md mx-1 px-1 text-black bg-lime-100 hover:bg-lime-200 border-lime-500 dark:text-white dark:bg-lime-950 dark:hover:bg-lime-900 dark:border-lime-800"
+            className="flex items-center shadow-md border rounded-md mx-1 px-1 transition text-black bg-lime-100 hover:bg-lime-200 border-lime-500 dark:text-white dark:bg-lime-950 dark:hover:bg-lime-900 dark:border-lime-800"
           >
             click here
             {isHintOpen ? (
@@ -48,7 +48,7 @@ export const Releases = () => {
             <div className={"rounded-t-md py-1 px-2 rounded-b-md bg-white dark:bg-gray-900"}>
               You can use <b>2</b> special <span className="underline decoration-2 underline-offset-2 decoration-amber-500">wildcard characters</span> for the purpose of pattern matching.
               <br />
-              - Percent (<Code>%</Code>) - for matching any <i>sequence</i> of characters (equivalent to <Code>*</Code> in Regex)
+              - Percent (<Code>%</Code>) - for matching any <i>sequence</i> of characters (equivalent to <Code>.*</Code> in Regex)
               <br />
               - Underscore (<Code>_</Code>) - for matching any <i>single</i> character (equivalent to <Code>.</Code> in Regex)
               <br /><br />

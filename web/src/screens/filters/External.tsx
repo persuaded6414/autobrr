@@ -114,28 +114,30 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
       <div
         className={classNames(
           idx % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700",
-          "flex items-center sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-600"
+          "flex items-center transition px-2 sm:px-6 rounded-md hover:bg-gray-50 dark:hover:bg-gray-900"
         )}
       >
-        <div className="flex flex-col pr-2 justify-between">
-          {idx > 0 && (
-            <button type="button" className="bg-gray-600 hover:bg-gray-700" onClick={moveUp}>
-              <ArrowUpIcon
-                className="p-0.5 h-4 w-4 text-gray-400"
-                aria-hidden="true"
-              />
-            </button>
-          )}
+        {((idx > 0) || (idx < values.external.length - 1)) ? (
+          <div className="flex flex-col pr-2 justify-between">
+            {idx > 0 && (
+              <button type="button" onClick={moveUp}>
+                <ArrowUpIcon
+                  className="p-0.5 h-4 w-4 text-gray-400"
+                  aria-hidden="true"
+                />
+              </button>
+            )}
 
-          {idx < values.external.length - 1 && (
-            <button type="button" className="bg-gray-600 hover:bg-gray-700" onClick={moveDown}>
-              <ArrowDownIcon
-                className="p-0.5 h-4 w-4 text-gray-400"
-                aria-hidden="true"
-              />
-            </button>
-          )}
-        </div>
+            {idx < values.external.length - 1 && (
+              <button type="button" onClick={moveDown}>
+                <ArrowDownIcon
+                  className="p-0.5 h-4 w-4 text-gray-400"
+                  aria-hidden="true"
+                />
+              </button>
+            )}
+          </div>
+        ) : null}
 
         <Field name={`external.${idx}.enabled`} type="checkbox">
           {({
@@ -167,16 +169,16 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
           )}
         </Field>
 
-        <button className="px-4 py-4 w-full flex" type="button" onClick={toggleEdit}>
+        <button className="pl-2 pr-0 sm:px-4 py-4 w-full flex items-center" type="button" onClick={toggleEdit}>
           <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="truncate">
               <div className="flex text-sm">
-                <p className="ml-4 font-medium text-dark-600 dark:text-gray-100 truncate">
+                <p className="font-medium text-dark-600 dark:text-gray-100 truncate">
                   {external.name}
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
+            <div className="flex-shrink-0 sm:mt-0 sm:ml-5">
               <div className="flex overflow-hidden -space-x-1">
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                   {ExternalFilterTypeNameMap[external.type]}
@@ -191,7 +193,7 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
 
       </div>
       {edit && (
-        <div className="px-4 py-4 flex items-center sm:px-6 border dark:border-gray-600">
+        <div className="px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-600">
           <DeleteModal
             isOpen={deleteModalIsOpen}
             isLoading={false}

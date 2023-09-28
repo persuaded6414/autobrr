@@ -476,7 +476,7 @@ const Control = (props: ControlProps) => {
   return (
     <components.Control
       {...props}
-      className="p-1 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
+      className="block w-full shadow-sm sm:text-sm rounded-md border p-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
       children={props.children}
     />
   );
@@ -486,7 +486,7 @@ const Menu = (props: MenuProps) => {
   return (
     <components.Menu
       {...props}
-      className="dark:bg-gray-800 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm"
+      className="dark:bg-gray-900 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm"
       children={props.children}
     />
   );
@@ -496,7 +496,7 @@ const Option = (props: OptionProps) => {
   return (
     <components.Option
       {...props}
-      className="dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:bg-gray-900"
+      className="dark:text-gray-400 dark:bg-gray-900 dark:hover:bg-gray-950 dark:hover:text-gray-100 dark:focus:bg-gray-950"
       children={props.children}
     />
   );

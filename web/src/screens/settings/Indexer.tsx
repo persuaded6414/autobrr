@@ -83,7 +83,7 @@ const ImplementationBadgeIRC = () => (
 );
 
 const ImplementationBadgeTorznab = () => (
-  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-orange-200 dark:bg-orange-400 text-orange-800 dark:text-orange-800">
+  <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-orange-200 dark:bg-orange-400 text-orange-800 dark:text-amber-900">
     Torznab
   </span>
 );

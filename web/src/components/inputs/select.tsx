@@ -85,7 +85,6 @@ export const MultiSelect = ({
 
               setFieldValue(field.name, am);
             }}
-            className={settingsContext.darkTheme ? "dark" : ""}
           />
         )}
       </Field>
@@ -178,7 +177,7 @@ export function DownloadClientSelect({
                   Client
                 </Listbox.Label>
                 <div className="mt-2 relative">
-                  <Listbox.Button className="bg-white dark:bg-gray-800 relative w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 dark:text-gray-200 sm:text-sm">
+                  <Listbox.Button className="block w-full shadow-sm sm:text-sm rounded-md border py-2 pl-3 pr-10 text-left focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? clients.find((c) => c.id === field.value)?.name
@@ -200,7 +199,7 @@ export function DownloadClientSelect({
                   >
                     <Listbox.Options
                       static
-                      className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                      className="absolute z-10 mt-1 w-full border border-gray-400 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm"
                     >
                       {clients
                         .filter((c) => c.type === action.type)
@@ -209,7 +208,7 @@ export function DownloadClientSelect({
                             key={client.id}
                             className={({ active }) => classNames(
                               active
-                                ? "text-white dark:text-gray-100 bg-blue-600 dark:bg-gray-800"
+                                ? "text-white dark:text-gray-100 bg-blue-600 dark:bg-gray-950"
                                 : "text-gray-900 dark:text-gray-300",
                               "cursor-default select-none relative py-2 pl-3 pr-9"
                             )}
@@ -229,7 +228,7 @@ export function DownloadClientSelect({
                                 {selected ? (
                                   <span
                                     className={classNames(
-                                      active ? "text-white dark:text-gray-100" : "text-blue-600 dark:text-gray-700",
+                                      active ? "text-white dark:text-gray-100" : "text-blue-600 dark:text-blue-500",
                                       "absolute inset-y-0 right-0 flex items-center pr-4"
                                     )}
                                   >
@@ -337,11 +336,15 @@ export const Select = ({
                           key={opt.value}
                           className={({ active: hovered, selected }) =>
                             classNames(
-                              selected ? "font-bold dark:bg-gray-950" : "font-normal",
-                              hovered
-                                ? "text-white dark:text-gray-100 dark:bg-gray-800"
-                                : "text-gray-900 dark:text-gray-300",
-                              "cursor-default select-none relative py-2 pl-3 pr-9"
+                              selected
+                                ? "font-bold text-black dark:text-white bg-gray-300 dark:bg-gray-950"
+                                : (
+                                  hovered
+                                    ? "text-black dark:text-gray-100 font-normal"
+                                    : "text-gray-700 dark:text-gray-300 font-normal"
+                                ),
+                              hovered ? "bg-gray-200 dark:bg-gray-800" : "",
+                              "transition-colors cursor-default select-none relative py-2 pl-3 pr-9"
                             )
                           }
                           value={opt.value}
@@ -351,19 +354,14 @@ export const Select = ({
                               <span className="block truncate">
                                 {opt.label}
                               </span>
-
-                              {selected ? (
-                                <span
-                                  className={classNames(
-                                    selected
-                                      ? "text-blue-500 dark:text-blue-500"
-                                      : "",
-                                    "absolute inset-y-0 right-0 flex items-center pr-4"
-                                  )}
-                                >
-                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                </span>
-                              ) : null}
+                              <span
+                                className={classNames(
+                                  selected ? "visible" : "invisible",
+                                  "absolute inset-y-0 right-0 flex items-center pr-4"
+                                )}
+                              >
+                                <CheckIcon className="h-5 w-5 text-blue-600 dark:text-blue-500" aria-hidden="true" />
+                              </span>
                             </>
                           )}
                         </Listbox.Option>

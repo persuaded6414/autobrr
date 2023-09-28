@@ -12,22 +12,31 @@ import { ChevronRightIcon, BoltIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
+
+import { classNames } from "@utils";
+import { useToggle } from "@hooks/hooks";
+import { APIClient } from "@api/APIClient";
 import {
   ActionContentLayoutOptions,
   ActionRtorrentRenameOptions,
   ActionTypeNameMap,
   ActionTypeOptions
 } from "@domain/constants";
-import { AlertWarning } from "@components/alerts";
-import { DownloadClientSelect, NumberField, Select, SwitchGroup, TextField } from "@components/inputs";
-import { APIClient } from "@api/APIClient";
-import { EmptyListState } from "@components/emptystates";
-import { useToggle } from "@hooks/hooks";
-import { classNames } from "@utils";
+
+import {
+  DownloadClientSelect,
+  NumberField,
+  Select,
+  SwitchGroup,
+  TextField
+} from "@components/inputs";
+import { WarningAlert } from "@components/alerts";
 import { DeleteModal } from "@components/modals";
-import { CollapsableSection } from "./Details";
 import { TextArea } from "@components/inputs/input";
+import { EmptyListState } from "@components/emptystates";
 import Toast from "@components/notifications/Toast";
+
+import { CollapsableSection } from "./Details";
 
 interface FilterActionsProps {
   filter: Filter;
@@ -160,14 +169,12 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   switch (action.type) {
   case "TEST":
     return (
-      <AlertWarning
-        text="The test action does nothing except to show if the filter works."
-      />
+      <WarningAlert className="mt-2" text="The test action does nothing except to show if the filter works." />
     );
   case "EXEC":
     return (
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <TextField
             name={`actions.${idx}.exec_cmd`}
             label="Command"
@@ -185,7 +192,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "WATCH_FOLDER":
     return (
-      <div className="mt-6 grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-6 pt-2">
         <TextField
           name={`actions.${idx}.watch_folder`}
           label="Watch folder"
@@ -196,7 +203,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "WEBHOOK":
     return (
-      <div className="mt-6 grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-6 pt-2">
         <TextField
           name={`actions.${idx}.webhook_host`}
           label="Host"
@@ -215,7 +222,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "QBITTORRENT":
     return (
       <div className="w-full">
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -232,7 +239,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <TextField
             name={`actions.${idx}.category`}
             label="Category"
@@ -249,7 +256,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsableSection title="Rules" subtitle="client options">
           <div className="col-span-12">
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
                 name={`actions.${idx}.limit_download_speed`}
                 label="Limit download speed (KiB/s)"
@@ -262,7 +269,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
 
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
                 name={`actions.${idx}.limit_ratio`}
                 label="Ratio limit"
@@ -307,7 +314,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsableSection title="Advanced" subtitle="Advanced options">
           <div className="col-span-12">
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
                 name={`actions.${idx}.reannounce_interval`}
                 label="Reannounce interval. Run every X seconds"
@@ -338,7 +345,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "DELUGE_V2":
     return (
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -364,7 +371,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <NumberField
             name={`actions.${idx}.limit_download_speed`}
             label="Limit download speed (KB/s)"
@@ -375,7 +382,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <div className="col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
@@ -388,7 +395,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "RTORRENT":
     return (
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -436,7 +443,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "TRANSMISSION":
     return (
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -453,7 +460,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <div className="col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
@@ -464,7 +471,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsableSection title="Re-announce" subtitle="Re-announce options">
           <div className="col-span-12">
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
                 name={`actions.${idx}.reannounce_interval`}
                 label="Reannounce interval. Run every X seconds"
@@ -494,7 +501,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "PORLA":
     return (
       <div className="w-full">
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -511,7 +518,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <TextField
             name={`actions.${idx}.label`}
             label="Preset"
@@ -522,7 +529,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsableSection title="Rules" subtitle="client options">
           <div className="col-span-12">
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
                 name={`actions.${idx}.limit_download_speed`}
                 label="Limit download speed (KiB/s)"
@@ -542,7 +549,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "WHISPARR":
   case "READARR":
     return (
-      <div className="mt-6 grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-6 pt-2">
         <DownloadClientSelect
           name={`actions.${idx}.client_id`}
           action={action}
@@ -558,7 +565,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "SABNZBD":
     return (
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="grid grid-cols-12 gap-6 pt-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -616,7 +623,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
       <div
         className={classNames(
           idx % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700",
-          "flex items-center sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-600"
+          "flex items-center px-2 sm:px-6 transition rounded-md hover:bg-gray-50 dark:hover:bg-gray-900"
         )}
       >
         <Field name={`actions.${idx}.enabled`} type="checkbox">
@@ -649,16 +656,16 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
           )}
         </Field>
 
-        <button className="px-4 py-4 w-full flex" type="button" onClick={toggleEdit}>
+        <button className="pl-2 pr-0 sm:px-4 py-4 w-full flex items-center" type="button" onClick={toggleEdit}>
           <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="truncate">
               <div className="flex text-sm">
-                <p className="ml-4 font-medium text-dark-600 dark:text-gray-100 truncate">
+                <p className="font-medium text-dark-600 dark:text-gray-100 truncate">
                   {action.name}
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
+            <div className="flex-shrink-0 sm:mt-0 sm:ml-5">
               <div className="flex overflow-hidden -space-x-1">
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                   {ActionTypeNameMap[action.type]}
@@ -676,31 +683,19 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
 
       </div>
       {edit && (
-        <div className="px-4 py-4 flex items-center sm:px-6 border dark:border-gray-600">
-          <Transition.Root show={deleteModalIsOpen} as={Fragment}>
-            <Dialog
-              as="div"
-              static
-              className="fixed inset-0 overflow-y-auto"
-              initialFocus={cancelButtonRef}
-              open={deleteModalIsOpen}
-              onClose={toggleDeleteModal}
-            >
-              <DeleteModal
-                isOpen={deleteModalIsOpen}
-                isLoading={removeMutation.isLoading}
-                buttonRef={cancelButtonRef}
-                toggle={toggleDeleteModal}
-                deleteAction={() => removeAction(action.id)}
-                title="Remove filter action"
-                text="Are you sure you want to remove this action? This action cannot be undone."
-              />
-            </Dialog>
-          </Transition.Root>
+        <div className="px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-600">
+          <DeleteModal
+            isOpen={deleteModalIsOpen}
+            isLoading={removeMutation.isLoading}
+            buttonRef={cancelButtonRef}
+            toggle={toggleDeleteModal}
+            deleteAction={() => removeAction(action.id)}
+            title="Remove filter action"
+            text="Are you sure you want to remove this action? This action cannot be undone."
+          />
 
           <div className="w-full">
-
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-6 pt-2">
               <Select
                 name={`actions.${idx}.type`}
                 label="Type"
@@ -714,25 +709,23 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
 
             <TypeForm action={action} clients={clients} idx={idx} />
 
-            <div className="pt-6 divide-y divide-gray-200">
-              <div className="mt-4 pt-4 flex justify-between">
+            <div className="mt-4 pt-4 flex justify-between">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center px-4 py-2 rounded-md sm:text-sm bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
+                onClick={toggleDeleteModal}
+              >
+                Remove
+              </button>
+
+              <div>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center px-4 py-2 rounded-md sm:text-sm bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
-                  onClick={toggleDeleteModal}
+                  className="light:bg-white light:border light:border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 dark:text-gray-500 light:hover:bg-gray-50 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  onClick={toggleEdit}
                 >
-                  Remove
+                  Close
                 </button>
-
-                <div>
-                  <button
-                    type="button"
-                    className="light:bg-white light:border light:border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 dark:text-gray-500 light:hover:bg-gray-50 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    onClick={toggleEdit}
-                  >
-                    Close
-                  </button>
-                </div>
               </div>
             </div>
 

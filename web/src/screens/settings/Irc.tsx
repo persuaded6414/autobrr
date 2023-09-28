@@ -245,7 +245,7 @@ const ListItem = ({ network, expanded }: ListItemProps) => {
     <li>
       <div
         className={classNames(
-          "grid grid-cols-12 gap-2 lg:gap-4 items-center py-2 cursor-pointer",
+          "grid grid-cols-12 gap-2 lg:gap-4 items-center py-2 cursor-pointer first:rounded-t-md last:rounded-b-md transition",
           network.enabled && !network.healthy ? "bg-red-50 dark:bg-red-900 hover:bg-red-100 dark:hover:bg-red-800" : "hover:bg-gray-50 dark:hover:bg-gray-700"
         )}
         onClick={(e) => {
@@ -514,7 +514,7 @@ const ListItemDropdown = ({
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute right-0 w-32 md:w-56 mt-2 origin-top-right bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-10 focus:outline-none"
+          className="absolute right-0 w-32 md:w-56 mt-2 origin-top-right bg-white dark:bg-gray-900 border border-gray-400 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-10 focus:outline-none"
         >
           <div className="px-1 py-1">
             <Menu.Item>

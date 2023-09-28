@@ -62,7 +62,12 @@ export const TextFieldWide = ({
             type="text"
             value={field.value ? field.value : defaultValue ?? ""}
             onChange={field.onChange}
-            className={classNames(meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700", "block w-full shadow-sm dark:bg-gray-800 sm:text-sm dark:text-white rounded-md")}
+            className={classNames(
+              meta.touched && meta.error
+                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+            )}
             placeholder={placeholder}
             hidden={hidden}
             required={required}
@@ -127,7 +132,12 @@ export const PasswordFieldWide = ({
                 value={field.value ? field.value : defaultValue ?? ""}
                 onChange={field.onChange}
                 type={isVisible ? "text" : "password"}
-                className={classNames(meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700", "block w-full pr-10 dark:bg-gray-800 shadow-sm dark:text-gray-100 sm:text-sm rounded-md")}
+                className={classNames(
+                  meta.touched && meta.error
+                    ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                    : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                  "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+                )}
                 placeholder={placeholder}
                 required={required}
               />
@@ -192,8 +202,8 @@ export const NumberFieldWide = ({
             className={classNames(
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
-              "block w-full shadow-sm dark:bg-gray-800 sm:text-sm dark:text-white rounded-md"
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
             )}
             onWheel={(event) => {
               if (event.currentTarget === document.activeElement) {

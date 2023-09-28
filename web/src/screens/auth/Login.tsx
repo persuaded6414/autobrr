@@ -72,7 +72,7 @@ export const Login = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md shadow-lg">
         <div className="bg-white dark:bg-gray-800 py-10 px-4 sm:rounded-lg sm:px-10">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-6">
+            <div className="space-y-3">
               <TextInput<LoginFormFields>
                 name="username"
                 id="username"
