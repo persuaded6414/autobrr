@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import { Fragment, useRef } from "react";
+import { useRef } from "react";
 import { Switch as SwitchBasic } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { ArrowDownIcon, ArrowUpIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
 import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
-
 
 import { classNames } from "@utils";
 import { useToggle } from "@hooks/hooks";

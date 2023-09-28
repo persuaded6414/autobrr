@@ -25,7 +25,7 @@ port = 7474
 #
 # Optional
 #
-#logPath = ""
+#logPath = "log/autobrr.log"
 
 # Log level
 #
@@ -55,7 +55,7 @@ logLevel = "TRACE"
 #
 # Default: true
 #
-checkForUpdates = false
+checkForUpdates = true
 
 # Session secret
 #
