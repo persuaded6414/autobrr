@@ -721,7 +721,7 @@ function FilterIndexers({ indexers }: FilterIndexersProps) {
           ? indexers.map((indexer, idx) => (
             <IndexerTag key={idx} indexer={indexer} />
           ))
-          : <span className="hidden sm:flex text-red-400 dark:text-red-800 p-1 text-xs tracking-wide rounded border border-red-400 dark:border-red-700 bg-red-100 dark:bg-red-400">NO INDEXERS SELECTED</span>
+          : <span className="hidden uppercase sm:flex text-white p-1 text-xs tracking-wide rounded bg-red-600">NO INDEXER</span>
         }
       </>
     );
