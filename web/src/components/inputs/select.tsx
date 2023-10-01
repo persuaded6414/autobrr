@@ -275,7 +275,7 @@ export const Select = ({
   tooltip,
   optionDefaultText,
   options,
-  columns
+  columns = 6
 }: SelectFieldProps) => {
   return (
     <div
@@ -295,12 +295,10 @@ export const Select = ({
           >
             {({ open }) => (
               <>
-                <Listbox.Label className="flex float-left mb-2 text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
-                  <div className="flex">
-                    {tooltip ? (
-                      <DocsTooltip label={label}>{tooltip}</DocsTooltip>
-                    ) : label}
-                  </div>
+                <Listbox.Label className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                  {tooltip ? (
+                    <DocsTooltip label={label}>{tooltip}</DocsTooltip>
+                  ) : label}
                 </Listbox.Label>
                 <div className="mt-2 relative">
                   <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">

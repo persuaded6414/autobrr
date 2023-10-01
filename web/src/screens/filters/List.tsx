@@ -609,7 +609,7 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
           onChange={toggleActive}
           className={classNames(
             filter.enabled ? "bg-blue-500 dark:bg-blue-500" : "bg-gray-200 dark:bg-gray-700",
-            "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            "flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           )}
         >
           <span className="sr-only">Use setting</span>
@@ -617,7 +617,7 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
             aria-hidden="true"
             className={classNames(
               filter.enabled ? "translate-x-5" : "translate-x-0",
-              "inline-block h-5 w-5 rounded-full bg-white dark:bg-gray-200 shadow transform ring-0 transition ease-in-out duration-200"
+              "h-5 w-5 rounded-full bg-white dark:bg-gray-200 shadow transform ring-0 transition ease-in-out duration-200"
             )}
           />
         </Switch>
@@ -635,7 +635,7 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
           <span className="mr-2 break-words whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
             Priority: {filter.priority}
           </span>
-          <span className="whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
+          <span className="z-10 whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
             <Tooltip
               label={
                 <Link

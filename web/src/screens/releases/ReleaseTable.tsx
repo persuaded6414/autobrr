@@ -95,6 +95,7 @@ export const ReleaseTable = () => {
             )}
           >
             <Tooltip
+              requiresClick
               label={props.cell.value}
               maxWidth="max-w-[90vw]"
             >
