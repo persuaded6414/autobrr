@@ -47,11 +47,7 @@ import Toast from "@components/notifications/Toast";
 import { DeleteModal } from "@components/modals";
 import { WarningAlert } from "@components/alerts";
 import { TitleSubtitle } from "@components/headings";
-import { SectionLoader } from "@components/SectionLoader";
 import { RegexTextAreaField, TextAreaAutoResize } from "@components/inputs/input";
-
-import { External } from "@screens/filters/External";
-
 import { FilterActions } from "./Action";
 import { filterKeys } from "./List";
 import { External } from "@screens/filters/External";

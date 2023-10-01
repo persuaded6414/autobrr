@@ -21,7 +21,6 @@ import {
 } from "@domain/constants";
 
 import { DeleteModal } from "@components/modals";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 import { DocsLink } from "@components/ExternalLink";
 
 export function External() {
