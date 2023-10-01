@@ -21,6 +21,8 @@ import {
 } from "@domain/constants";
 
 import { DeleteModal } from "@components/modals";
+import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
+import { DocsLink } from "@components/ExternalLink";
 
 export function External() {
   const { values } = useFormikContext<Filter>();
@@ -271,11 +273,7 @@ const TypeForm = ({ external, idx }: TypeFormProps) => {
                   For custom commands you should specify the full path to the binary/program
                   you want to run. And you can include your own static variables:
                 </p>
-                <a
-                  href="https://autobrr.com/filters/actions#custom-commands--exec"
-                  className="text-blue-400 visited:text-blue-400"
-                  target="_blank">https://autobrr.com/filters/actions#custom-commands--exec
-                </a>
+                <DocsLink href="https://autobrr.com/filters/actions#custom-commands--exec" />
               </div>
             }
           />
