@@ -241,7 +241,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
                   <p>Set a custom save path for this action. Automatic Torrent Management will take care of this if using qBittorrent with categories.</p>
                   <br />
                   <p>The field can use macros to transform/add values from metadata:</p>
-                  <DocsLink href="https://autobrr.com/filters/actions#macros" />
+                  <DocsLink href="https://autobrr.com/filters/macros" />
                 </div>
               }
             />
@@ -257,7 +257,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             tooltip={
               <div>
                 <p>The field can use macros to transform/add values from metadata:</p>
-                <DocsLink href="https://autobrr.com/filters/actions#macros" />
+                <DocsLink href="https://autobrr.com/filters/macros" />
               </div>
             }
           />
@@ -269,7 +269,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             tooltip={
               <div>
                 <p>The field can use macros to transform/add values from metadata:</p>
-                <DocsLink href="https://autobrr.com/filters/actions#macros" />
+                <DocsLink href="https://autobrr.com/filters/macros" />
               </div>
             }
           />
