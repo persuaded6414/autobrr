@@ -14,20 +14,20 @@ import { SettingsContext } from "@utils/Context";
 import { DocsTooltip } from "@components/tooltips/DocsTooltip";
 
 export interface MultiSelectOption {
-    value: string | number;
-    label: string;
-    key?: string;
-    disabled?: boolean;
+  value: string | number;
+  label: string;
+  key?: string;
+  disabled?: boolean;
 }
 
 interface MultiSelectProps {
-    name: string;
-    label?: string;
-    options: MultiSelectOption[];
-    columns?: COL_WIDTHS;
-    creatable?: boolean;
-    disabled?: boolean;
-    tooltip?: JSX.Element;
+  name: string;
+  label?: string;
+  options: MultiSelectOption[];
+  columns?: COL_WIDTHS;
+  creatable?: boolean;
+  disabled?: boolean;
+  tooltip?: JSX.Element;
 }
 
 export const MultiSelect = ({
@@ -93,8 +93,8 @@ export const MultiSelect = ({
 
 
 interface IndexerMultiSelectOption {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 export const IndexerMultiSelect = ({
@@ -102,55 +102,52 @@ export const IndexerMultiSelect = ({
   label,
   options,
   columns
-}: MultiSelectProps) => {
-  const settingsContext = SettingsContext.useValue();
-  return (
-    <div
-      className={classNames(
-        "col-span-12",
-        columns ? `sm:col-span-${columns}` : ""
-      )}
+}: MultiSelectProps) => (
+  <div
+    className={classNames(
+      "col-span-12",
+      columns ? `sm:col-span-${columns}` : ""
+    )}
+  >
+    <label
+      className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-200"
+      htmlFor={label}
     >
-      <label
-        className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-200"
-        htmlFor={label}
-      >
-        {label}
-      </label>
+      {label}
+    </label>
 
-      <Field name={name} type="select" multiple={true}>
-        {({
-          field,
-          meta,
-          form: { setFieldValue }
-        }: FieldProps) => (
-          <>
-            <RMSC
-              {...field}
-              options={options}
-              labelledBy={name}
-              value={field.value && field.value.map((item: IndexerMultiSelectOption) => ({
-                value: item.id, label: item.name
-              }))}
-              onChange={(values: MultiSelectOption[]) => {
-                const item = values && values.map((i) => ({ id: i.value, name: i.label }));
-                setFieldValue(field.name, item);
-              }}
-            />
-            {meta.touched && meta.error && (
-              <p className="error text-sm text-red-600 mt-1">* {meta.error}</p>
-            )}
-          </>
-        )}
-      </Field>
-    </div>
-  );
-};
+    <Field name={name} type="select" multiple={true}>
+      {({
+        field,
+        meta,
+        form: { setFieldValue }
+      }: FieldProps) => (
+        <>
+          <RMSC
+            {...field}
+            options={options}
+            labelledBy={name}
+            value={field.value && field.value.map((item: IndexerMultiSelectOption) => ({
+              value: item.id, label: item.name
+            }))}
+            onChange={(values: MultiSelectOption[]) => {
+              const item = values && values.map((i) => ({ id: i.value, name: i.label }));
+              setFieldValue(field.name, item);
+            }}
+          />
+          {meta.touched && meta.error && (
+            <p className="error text-sm text-red-600 mt-1">* {meta.error}</p>
+          )}
+        </>
+      )}
+    </Field>
+  </div>
+);
 
 interface DownloadClientSelectProps {
-    name: string;
-    action: Action;
-    clients: DownloadClient[];
+  name: string;
+  action: Action;
+  clients: DownloadClient[];
 }
 
 export function DownloadClientSelect({
@@ -176,7 +173,7 @@ export function DownloadClientSelect({
                   Client
                 </Listbox.Label>
                 <div className="mt-2 relative">
-                  <Listbox.Button className="block w-full shadow-sm sm:text-sm rounded-md border py-2 pl-3 pr-10 text-left focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
+                  <Listbox.Button className="block w-full shadow-sm sm:text-sm rounded-md border py-2 pl-3 pr-10 text-left focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? clients.find((c) => c.id === field.value)?.name
@@ -256,17 +253,17 @@ export function DownloadClientSelect({
 }
 
 export interface SelectFieldOption {
-    label: string;
-    value: string;
+  label: string;
+  value: string;
 }
 
 export interface SelectFieldProps {
-    name: string;
-    label: string;
-    optionDefaultText: string;
-    options: SelectFieldOption[];
-    columns?: COL_WIDTHS;
-    tooltip?: JSX.Element;
+  name: string;
+  label: string;
+  optionDefaultText: string;
+  options: SelectFieldOption[];
+  columns?: COL_WIDTHS;
+  tooltip?: JSX.Element;
 }
 
 export const Select = ({
@@ -290,8 +287,11 @@ export const Select = ({
           form: { setFieldValue }
         }: FieldProps) => (
           <Listbox
-            value={field.value}
-            onChange={(value) => setFieldValue(field?.name, value)}
+            // ?? null is required here otherwise React throws:
+            // "console.js:213 A component is changing from uncontrolled to controlled.
+            // This may be caused by the value changing from undefined to a defined value, which should not happen."
+            value={field.value ?? null}
+            onChange={(value) => setFieldValue(field.name, value)}
           >
             {({ open }) => (
               <>
@@ -301,7 +301,7 @@ export const Select = ({
                   ) : label}
                 </Listbox.Label>
                 <div className="mt-2 relative">
-                  <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100">
+                  <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? options.find((c) => c.value === field.value)?.label
@@ -325,7 +325,7 @@ export const Select = ({
                   >
                     <Listbox.Options
                       static
-                      className="absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100 focus:outline-none sm:text-sm"
+                      className="absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100 focus:outline-none sm:text-sm"
                     >
                       {options.map((opt) => (
                         <Listbox.Option

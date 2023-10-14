@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Field, FieldArray, FieldProps, FormikValues, useFormikContext } from "formik";
 import type { FieldArrayRenderProps } from "formik";
-import { Dialog, Switch as SwitchBasic, Transition } from "@headlessui/react";
 import { ChevronRightIcon, BoltIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -37,7 +36,8 @@ import { EmptyListState } from "@components/emptystates";
 import Toast from "@components/notifications/Toast";
 import { DocsLink } from "@components/ExternalLink";
 
-import { CollapsableSection } from "./Details";
+import { CollapsibleSection } from "./Details";
+import { Checkbox } from "@components/Checkbox";
 
 interface FilterActionsProps {
   filter: Filter;
@@ -89,7 +89,7 @@ export function FilterActions({ filter, values }: FilterActionsProps) {
     <div className="mt-5">
       <FieldArray name="actions">
         {({ remove, push }: FieldArrayRenderProps) => (
-          <Fragment>
+          <>
             <div className="-ml-4 -mt-4 mb-6 flex justify-between items-center flex-wrap sm:flex-nowrap">
               <div className="ml-4 mt-4">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">Actions</h3>
@@ -122,7 +122,7 @@ export function FilterActions({ filter, values }: FilterActionsProps) {
                 : <EmptyListState text="No actions yet!" />
               }
             </div>
-          </Fragment>
+          </>
         )}
       </FieldArray>
     </div>
@@ -275,7 +275,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <CollapsableSection title="Rules" subtitle="client options">
+        <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
           <div className="col-span-12">
             <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
@@ -315,11 +315,9 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               name={`actions.${idx}.ignore_rules`}
               label="Ignore client rules"
               tooltip={
-                <div>
-                  <p>
-                    Choose to ignore rules set in <Link className="text-blue-400 visited:text-blue-400" to="/settings/clients">Client Settings</Link>.
-                  </p>
-                </div>
+                <p>
+                  Choose to ignore rules set in <Link className="text-blue-400 visited:text-blue-400" to="/settings/clients">Client Settings</Link>.
+                </p>
               }
             />
           </div>
@@ -328,7 +326,8 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               name={`actions.${idx}.content_layout`}
               label="Content Layout"
               optionDefaultText="Select content layout"
-              options={ActionContentLayoutOptions}></Select>
+              options={ActionContentLayoutOptions}
+            />
 
             <div className="mt-2">
               <SwitchGroup
@@ -338,9 +337,9 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
           </div>
-        </CollapsableSection>
+        </CollapsibleSection>
 
-        <CollapsableSection title="Advanced" subtitle="Advanced options">
+        <CollapsibleSection title="Advanced">
           <div className="col-span-12">
             <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
@@ -366,7 +365,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               description="Delete stalled torrents after X attempts"
             />
           </div>
-        </CollapsableSection>
+        </CollapsibleSection>
       </div>
     );
   case "DELUGE_V1":
@@ -497,7 +496,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <CollapsableSection title="Re-announce" subtitle="Re-announce options">
+        <CollapsibleSection title="Re-announce" subtitle="Re-announce options">
           <div className="col-span-12">
             <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
@@ -523,7 +522,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               description="Delete stalled torrents after X attempts"
             />
           </div>
-        </CollapsableSection>
+        </CollapsibleSection>
       </div>
     );
   case "PORLA":
@@ -555,7 +554,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             tooltip={<div>A case-sensitive preset name as configured in Porla.</div>} />
         </div>
 
-        <CollapsableSection title="Rules" subtitle="client options">
+        <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
           <div className="col-span-12">
             <div className="grid grid-cols-12 gap-6 pt-2">
               <NumberField
@@ -568,7 +567,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
           </div>
-        </CollapsableSection>
+        </CollapsibleSection>
       </div>
     );
   case "RADARR":
@@ -651,7 +650,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
       <div
         className={classNames(
           idx % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700",
-          "flex items-center px-2 sm:px-6 transition rounded-md hover:bg-gray-50 dark:hover:bg-gray-900"
+          "flex items-center mt-1 px-2 sm:px-6 transition rounded-md hover:bg-gray-50 dark:hover:bg-gray-900"
         )}
       >
         <Field name={`actions.${idx}.enabled`} type="checkbox">
@@ -659,39 +658,22 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
             field,
             form: { setFieldValue }
           }: FieldProps) => (
-            <SwitchBasic
+            <Checkbox
               {...field}
-              type="button"
-              value={field.value}
-              checked={field.checked ?? false}
-              onChange={(value: boolean) => {
-                setFieldValue(field?.name ?? "", value);
+              value={!!field.checked}
+              setValue={(value: boolean) => {
+                setFieldValue(field.name, value);
               }}
-              className={classNames(
-                field.value ? "bg-blue-500" : "bg-gray-200 dark:bg-gray-600",
-                "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              )}
-            >
-              <span className="sr-only">toggle enabled</span>
-              <span
-                aria-hidden="true"
-                className={classNames(
-                  field.value ? "translate-x-5" : "translate-x-0",
-                  "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-                )}
-              />
-            </SwitchBasic>
+            />
           )}
         </Field>
 
         <button className="pl-2 pr-0 sm:px-4 py-4 w-full flex items-center" type="button" onClick={toggleEdit}>
           <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-            <div className="truncate">
-              <div className="flex text-sm">
-                <p className="font-medium text-dark-600 dark:text-gray-100 truncate">
-                  {action.name}
-                </p>
-              </div>
+            <div className="flex text-sm truncate">
+              <p className="font-medium text-dark-600 dark:text-gray-100 truncate">
+                {action.name}
+              </p>
             </div>
             <div className="flex-shrink-0 sm:mt-0 sm:ml-5">
               <div className="flex overflow-hidden -space-x-1">
@@ -711,7 +693,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
 
       </div>
       {edit && (
-        <div className="px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-600">
+        <div className="mt-1 px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-750">
           <DeleteModal
             isOpen={deleteModalIsOpen}
             isLoading={removeMutation.isLoading}

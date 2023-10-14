@@ -94,8 +94,8 @@ export function Settings() {
       </div>
 
       <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
-          <div className="divide-y divide-gray-200 dark:divide-gray-700 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-225 dark:border-gray-775">
+          <div className="divide-y divide-gray-150 dark:divide-gray-775 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
             <SidebarNav subNavigation={subNavigation}/>
             <Suspense
               fallback={

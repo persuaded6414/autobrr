@@ -4,7 +4,6 @@
  */
 
 import { useRef } from "react";
-import { Switch as SwitchBasic } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { ArrowDownIcon, ArrowUpIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
 import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext } from "formik";
@@ -22,6 +21,7 @@ import {
 
 import { DeleteModal } from "@components/modals";
 import { DocsLink } from "@components/ExternalLink";
+import { Checkbox } from "@components/Checkbox";
 
 export function External() {
   const { values } = useFormikContext<Filter>();
@@ -144,28 +144,13 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
             field,
             form: { setFieldValue }
           }: FieldProps) => (
-            <SwitchBasic
+            <Checkbox
               {...field}
-              type="button"
-              value={field.value}
-              checked={field.checked ?? false}
-              onChange={(value: boolean) => {
-                setFieldValue(field?.name ?? "", value);
+              value={!!field.checked}
+              setValue={(value: boolean) => {
+                setFieldValue(field.name, value);
               }}
-              className={classNames(
-                field.value ? "bg-blue-500" : "bg-gray-200 dark:bg-gray-600",
-                "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              )}
-            >
-              <span className="sr-only">toggle enabled</span>
-              <span
-                aria-hidden="true"
-                className={classNames(
-                  field.value ? "translate-x-5" : "translate-x-0",
-                  "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-                )}
-              />
-            </SwitchBasic>
+            />
           )}
         </Field>
 

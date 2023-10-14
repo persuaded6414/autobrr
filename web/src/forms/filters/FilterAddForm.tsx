@@ -81,7 +81,7 @@ export function FilterAddForm({ isOpen, toggle }: filterAddFormProps) {
                   validate={validate}
                 >
                   {({ values }) => (
-                    <Form className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-scroll">
+                    <Form className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-auto">
                       <div className="flex-1">
                         <div className="px-4 py-6 bg-gray-50 dark:bg-gray-900 sm:px-6">
                           <div className="flex items-start justify-between space-x-3">
@@ -127,7 +127,7 @@ export function FilterAddForm({ isOpen, toggle }: filterAddFormProps) {
                                     {...field}
                                     id="name"
                                     type="text"
-                                    className="block w-full shadow-sm sm:text-sm rounded-md border py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+                                    className="block w-full shadow-sm sm:text-sm rounded-md border py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                                   />
 
                                   {meta.touched && meta.error &&

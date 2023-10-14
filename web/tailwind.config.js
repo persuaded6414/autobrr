@@ -1,4 +1,6 @@
-const colors = require("tailwindcss/colors")
+import { lerpColors } from "tailwind-lerp-colors";
+
+const extendedColors = lerpColors();
 
 module.exports = {
   content: [
@@ -23,7 +25,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: colors.zinc,
+        ...extendedColors,
+        gray: extendedColors.zinc,
       },
       margin: { // for the checkmarks used for regex validation in Filters/Advanced
         "2.5": "0.625rem", // 10px, between mb-2 (8px) and mb-3 (12px)

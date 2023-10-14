@@ -101,9 +101,9 @@ code {
 
 html:not(.dark) .rmsc {
   --rmsc-main: theme(colors.blue.500) !important;
-  --rmsc-hover: theme(colors.gray.200) !important;
-  --rmsc-selected: theme(colors.gray.300) !important;
-  --rmsc-border: theme(colors.gray.400) !important;
+  --rmsc-hover: theme(colors.gray.175) !important;
+  --rmsc-selected: theme(colors.blue.150) !important;
+  --rmsc-border: theme(colors.gray.300) !important;
   --rmsc-gray: theme(colors.gray.500) !important;
   --rmsc-bg: theme(colors.gray.100) !important;
   color: #000 !important;
@@ -111,11 +111,11 @@ html:not(.dark) .rmsc {
 
 html.dark .rmsc {
   --rmsc-main: theme(colors.blue.500) !important;
-  --rmsc-hover: theme(colors.gray.800) !important;
-  --rmsc-selected: theme(colors.gray.950) !important;
-  --rmsc-border: theme(colors.gray.700) !important;
+  --rmsc-hover: theme(colors.gray.750) !important;
+  --rmsc-selected: theme(colors.gray.900) !important;
+  --rmsc-border: theme(colors.gray.750) !important;
   --rmsc-gray: theme(colors.gray.500) !important;
-  --rmsc-bg: theme(colors.gray.900) !important;
+  --rmsc-bg: theme(colors.gray.850) !important;
   color: #fff !important;
 }
 
@@ -123,16 +123,20 @@ html:not(.dark) .rmsc input[type="checkbox"] {
   @apply border-gray-400;
 }
 
+html .rmsc input[type="checkbox"]:checked {
+  @apply bg-blue-500 border-blue-500;
+}
+
 html.dark .rmsc input[type="checkbox"] {
-  @apply bg-gray-900 border-gray-400;
+  @apply bg-gray-775 border-gray-650;
 }
 
-html .dropdown-content > div {
-  @apply border border-gray-400 shadow;
+html .dropdown-content > div.panel-content {
+  @apply border border-gray-350 !shadow-2xl;
 }
 
-html.dark .dropdown-content > div {
-  @apply border border-gray-700 shadow;
+html.dark .dropdown-content > div.panel-content {
+  @apply border border-gray-700 !shadow-2xl;
 }
 
 @layer base {
@@ -151,7 +155,7 @@ html.dark .dropdown-content > div {
   }
   *::-webkit-scrollbar {
     height: 8px;
-    width: 9px;
+    width: 10px;
   }
   *::-webkit-scrollbar-thumb {
     @apply bg-gray-400 rounded-xl;

@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ArrowPathIcon, CheckIcon } from "@heroicons/react/24/solid";
-import { ClockIcon, ExclamationCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
+import { ClockIcon, XMarkIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 
 import { APIClient } from "@api/APIClient";
 import { classNames, simplifyDate } from "@utils";
@@ -117,8 +117,8 @@ interface StatusCellMapEntry {
 
 const StatusCellMap: Record<string, StatusCellMapEntry> = {
   "PUSH_ERROR": {
-    colors: "bg-pink-100 text-pink-800 hover:bg-pink-300",
-    icon: <ExclamationCircleIcon className="h-5 w-5" aria-hidden="true" />,
+    colors: "bg-red-100 text-red-800 hover:bg-red-275",
+    icon: <XMarkIcon className="h-5 w-5" aria-hidden="true" />,
     textFormatter: (status: ReleaseActionStatus) => (
       <>
         <span>
@@ -159,7 +159,7 @@ const StatusCellMap: Record<string, StatusCellMapEntry> = {
     )
   },
   "PUSH_APPROVED": {
-    colors: "bg-green-100 text-green-800 hover:bg-green-300",
+    colors: "bg-green-175 text-green-900 hover:bg-green-300",
     icon: <CheckIcon className="h-5 w-5" aria-hidden="true" />,
     textFormatter: (status: ReleaseActionStatus) => (
       <>

@@ -70,7 +70,7 @@ export function APIKeyAddForm({ isOpen, toggle }: apiKeyAddFormProps) {
                   validate={validate}
                 >
                   {({ values }) => (
-                    <Form className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-scroll">
+                    <Form className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-auto">
                       <div className="flex-1">
                         <div className="px-4 py-6 bg-gray-50 dark:bg-gray-900 sm:px-6">
                           <div className="flex items-start justify-between space-x-3">

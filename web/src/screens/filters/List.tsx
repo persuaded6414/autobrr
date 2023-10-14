@@ -35,6 +35,7 @@ import { DeleteModal } from "@components/modals";
 
 import { Importer } from "./Importer";
 import { Tooltip } from "@components/tooltips/Tooltip";
+import { Checkbox } from "@components/Checkbox";
 
 export const filterKeys = {
   all: ["filters"] as const,
@@ -202,8 +203,8 @@ function FilterList({ toggleCreateFilter }: any) {
 
   return (
     <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8 relative">
-      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
-        <div className="rounded-t-lg flex justify-between px-4 bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-700">
+      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800 border border-gray-225 dark:border-gray-775">
+        <div className="rounded-t-lg flex justify-between px-4 bg-gray-100 dark:bg-gray-850 border-b border-gray-200 dark:border-gray-750">
           <div className="flex gap-4">
             <StatusButton data={filtered.all} label="All" value="" currentValue={status} dispatch={dispatchFilter} />
             <StatusButton data={filtered.enabled} label="Enabled" value="enabled" currentValue={status} dispatch={dispatchFilter} />
@@ -217,7 +218,7 @@ function FilterList({ toggleCreateFilter }: any) {
         </div>
 
         {data && data.length > 0 ? (
-          <ol className="min-w-full">
+          <ol className="min-w-full divide-y divide-gray-150 dark:divide-gray-775">
             {filtered.filtered.length > 0
               ? filtered.filtered.map((filter: Filter, idx) => (
                 <FilterListItem filter={filter} values={filter} key={filter.id} idx={idx} />
@@ -255,8 +256,10 @@ const StatusButton = ({ data, label, value, currentValue, dispatch }: StatusButt
   return (
     <button
       className={classNames(
-        currentValue == value ? "font-bold border-b-2 border-blue-500 dark:text-gray-100 text-gray-900" : "font-medium text-gray-600 dark:text-gray-400",
-        "py-4 pb-4 text-left text-xs tracking-wider"
+        "py-4 pb-4 text-left text-xs tracking-wider transition border-b-2",
+        currentValue === value
+          ? "font-bold  border-blue-500 dark:text-gray-100 text-gray-950"
+          : "font-medium border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200",
       )}
       onClick={setFilter}
       value={value}
@@ -435,7 +438,7 @@ const FilterItemDropdown = ({ filter, onToggle }: FilterItemDropdownProps) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-10 focus:outline-none z-10"
+          className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-gray-825 divide-y divide-gray-200 dark:divide-gray-750 rounded-md shadow-lg border border-gray-750 focus:outline-none z-10"
         >
           <div className="px-1 py-1">
             <Menu.Item>
@@ -595,42 +598,27 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
     <li
       key={filter.id}
       className={classNames(
-        "flex items-center transition first:rounded-t-md last:rounded-b-md",
-        idx % 2 === 0 ?
-          "bg-white dark:bg-[#2e2e31]" :
-          "bg-gray-100 dark:bg-gray-900 dark:bg-opacity-30"
+        "flex items-center transition last:rounded-b-md",
+        idx % 2 === 0
+          ? "bg-white dark:bg-gray-800"
+          : "bg-gray-100 dark:bg-gray-850"
       )}
     >
       <span
-        className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-100"
+        className="px-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-100"
       >
-        <Switch
-          checked={filter.enabled}
-          onChange={toggleActive}
-          className={classNames(
-            filter.enabled ? "bg-blue-500 dark:bg-blue-500" : "bg-gray-200 dark:bg-gray-700",
-            "flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          )}
-        >
-          <span className="sr-only">Use setting</span>
-          <span
-            aria-hidden="true"
-            className={classNames(
-              filter.enabled ? "translate-x-5" : "translate-x-0",
-              "h-5 w-5 rounded-full bg-white dark:bg-gray-200 shadow transform ring-0 transition ease-in-out duration-200"
-            )}
-          />
-        </Switch>
+        <Checkbox
+          value={filter.enabled}
+          setValue={toggleActive}
+        />
       </span>
       <div className="py-2 flex flex-col overflow-hidden w-full justify-center">
-        <span className="w-full break-words whitespace-wrap text-sm font-bold text-gray-900 dark:text-gray-100">
-          <Link
-            to={filter.id.toString()}
-            className="hover:text-black dark:hover:text-gray-300"
-          >
-            {filter.name}
-          </Link>
-        </span>
+        <Link
+          to={filter.id.toString()}
+          className="transition w-full break-words whitespace-wrap text-sm font-bold text-gray-900 dark:text-gray-100 hover:text-black dark:hover:text-gray-350"
+        >
+          {filter.name}
+        </Link>
         <div className="flex items-center">
           <span className="mr-2 break-words whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
             Priority: {filter.priority}
@@ -663,10 +651,10 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
           </span>
         </div>
       </div>
-      <span className="hidden md:flex px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+      <span className="hidden md:flex px-4 whitespace-nowrap text-sm font-medium text-gray-900">
         <FilterIndexers indexers={filter.indexers} />
       </span>
-      <span className="min-w-fit px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <span className="min-w-fit px-4 py-2 whitespace-nowrap text-right text-sm font-medium">
         <FilterItemDropdown
           values={values}
           filter={filter}

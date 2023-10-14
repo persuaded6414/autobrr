@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import { ReactNode, Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -33,7 +33,6 @@ import { useToggle } from "@hooks/hooks";
 import { classNames } from "@utils";
 
 import {
-  CheckboxField,
   IndexerMultiSelect,
   MultiSelect,
   NumberField,
@@ -83,7 +82,7 @@ function TabNavLink({ item }: NavLinkProps) {
       to={item.href}
       end
       className={({ isActive }) => classNames(
-        "transition border-b-2 whitespace-nowrap py-4 duration-3000 px-1 font-medium text-sm",
+        "transition border-b-2 whitespace-nowrap py-4 duration-3000 px-1 font-medium text-sm first:rounded-tl-lg last:rounded-tr-lg",
         isActive
           ? "text-blue-600 dark:text-white border-blue-600 dark:border-blue-500"
           : "text-gray-500 hover:text-blue-500 dark:hover:text-white border-transparent"
@@ -109,7 +108,7 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
   const cancelModalButtonRef = useRef(null);
 
   return (
-    <div className="mt-3">
+    <div>
       <DeleteModal
         isOpen={deleteModalIsOpen}
         isLoading={isLoading}
@@ -326,16 +325,15 @@ export function FilterDetails() {
         <h1 className="text-3xl font-bold truncate" title={filter.name}>{filter.name}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-225 dark:border-gray-775">
+          <div className="rounded-t-lg bg-gray-100 dark:bg-gray-825 border-b border-gray-200 dark:border-gray-750">
+            <nav className="px-4 -mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
+              {tabs.map((tab) => (
+                <TabNavLink item={tab} key={tab.href} />
+              ))}
+            </nav>
+          </div>
           <div className="pt-1 px-4 pb-6 block">
-            <div className="border-b border-gray-200 dark:border-gray-700">
-              <nav className="-mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
-                {tabs.map((tab) => (
-                  <TabNavLink item={tab} key={tab.href} />
-                ))}
-              </nav>
-            </div>
-
             <Formik
               initialValues={{
                 id: filter.id,
@@ -452,7 +450,7 @@ export function General() {
         <div className="mt-6 grid grid-cols-12 gap-3">
           <TextField name="name" label="Filter name" columns={6} placeholder="eg. Filter 1" />
 
-          <div className="col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             {!isLoading && <IndexerMultiSelect name="indexers" options={opts} label="Indexers" columns={6} />}
           </div>
         </div>
@@ -460,7 +458,7 @@ export function General() {
 
       <div>
         <TitleSubtitle title="Rules" subtitle="Specify rules on how torrents should be handled/selected." />
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <TextField
             name="min_size"
             label="Min size"
@@ -542,9 +540,8 @@ export function General() {
 
 export function MoviesTv() {
   return (
-    <div>
-
-      <div className="mt-6 grid grid-cols-12 gap-6">
+    <div className="divide-y divide-gray-150 dark:divide-gray-775">
+      <div className="py-6 grid grid-cols-12 gap-3">
         <TextAreaAutoResize
           name="shows"
           label="Movies / Shows"
@@ -570,13 +567,13 @@ export function MoviesTv() {
           }
         />
       </div>
-      <div className="mt-6 lg:pb-8">
+      <div className="py-6">
         <TitleSubtitle
           title="Seasons and Episodes"
           subtitle="Set season and episode match constraints."
         />
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <TextField
             name="seasons"
             label="Seasons"
@@ -601,25 +598,24 @@ export function MoviesTv() {
               </div>
             }
           />
-        </div>
 
-        <div className="mt-6">
-          <CheckboxField
-            name="smart_episode"
-            label="Smart Episode"
-            sublabel="Do not match episodes older than the last one matched."
-          />{" "}
-          {/*Do not match older or already existing episodes.*/}
+          <div className="col-span-12 sm:col-span-6">
+            <SwitchGroup
+              name="smart_episode"
+              label="Smart Episode"
+              description="Do not match episodes older than the last one matched."
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-6 lg:pb-8">
+      <div className="py-6">
         <TitleSubtitle
           title="Quality"
           subtitle="Set resolution, source, codec and related match constraints."
         />
-        
-        <div className="mt-6 grid grid-cols-12 gap-6">
+
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="resolutions"
             options={RESOLUTION_OPTIONS}
@@ -648,7 +644,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="codecs"
             options={CODECS_OPTIONS}
@@ -677,7 +673,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="match_hdr"
             options={HDR_OPTIONS}
@@ -706,7 +702,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="match_other"
             options={OTHER_OPTIONS}
@@ -741,8 +737,8 @@ export function MoviesTv() {
 
 export function Music({ values }: AdvancedProps) {
   return (
-    <div>
-      <div className="mt-6 grid grid-cols-12 gap-6">
+    <div className="divide-y divide-gray-150 dark:divide-gray-775">
+      <div className="py-6 grid grid-cols-12 gap-3">
         <TextAreaAutoResize
           name="artists"
           label="Artists"
@@ -781,10 +777,10 @@ export function Music({ values }: AdvancedProps) {
         />
       </div>
 
-      <div className="mt-6 lg:pb-8">
+      <div className="py-6">
         <TitleSubtitle title="Quality" subtitle="Format, source, log etc." />
-        
-        <div className="mt-6 grid grid-cols-12 gap-6">
+
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="formats"
             options={FORMATS_OPTIONS}
@@ -813,7 +809,7 @@ export function Music({ values }: AdvancedProps) {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <MultiSelect
             name="media"
             options={SOURCES_MUSIC_OPTIONS}
@@ -841,7 +837,7 @@ export function Music({ values }: AdvancedProps) {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-6">
+        <div className="mt-6 grid grid-cols-12 gap-3">
           <NumberField
             name="log_score"
             label="Log score"
@@ -858,31 +854,46 @@ export function Music({ values }: AdvancedProps) {
           />
         </div>
       </div>
-      <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-baseline">
-        <div className="mt-4 sm:mt-0 sm:col-span-2">
-          <div className="max-w-lg space-y-4">
-            <CheckboxField
-              name="log"
-              label="Log"
-              sublabel="Must include Log."
-              disabled={values.perfect_flac}
-            />
-            <CheckboxField
-              name="cue"
-              label="Cue"
-              sublabel="Must include Cue."
-              disabled={values.perfect_flac}
-            />
-            <CheckboxField
+
+      <div className="py-6">
+        <div className="flex flex-col gap-5 sm:gap-0 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex basis-5/12">
+            <SwitchGroup
               name="perfect_flac"
               label="Perfect FLAC"
-              sublabel="Override all options about quality, source, format, and cue/log/log score."
+              description={
+                <>
+                  Override all options about quality, source, format, and cue/log/log score.
+                  <br /><br />
+                  <span className="underline underline-offset-2">This is what you want in 99% of cases.</span>
+                </>
+              }
               tooltip={
                 <div>
                   <p>Override all options about quality, source, format, and cue/log/log score.</p>
                   <DocsLink href="https://autobrr.com/filters#quality-1" />
                 </div>
               }
+            />
+
+          </div>
+          <div className="flex shrink basis-2/12 items-center justify-center">
+            <span className="text-lg font-bold uppercase tracking-wide text-gray-700 dark:text-gray-200">
+              OR
+            </span>
+          </div>
+          <div className="flex flex-col basis-5/12">
+            <SwitchGroup
+              name="log"
+              label="Log"
+              description="Must include LOG info"
+              disabled={values.perfect_flac}
+            />
+            <SwitchGroup
+              name="cue"
+              label="Cue"
+              description="Must include CUE info"
+              disabled={values.perfect_flac}
             />
           </div>
         </div>
@@ -898,14 +909,15 @@ interface AdvancedProps {
 export function Advanced({ values }: AdvancedProps) {
   return (
     <div>
-
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen
         title="Releases"
-        subtitle="Match only certain release names and/or ignore other release names."
       >
-        <div className="grid col-span-12 gap-6">
-          <WarningAlert text="autobrr has extensive filtering built-in - only use this if nothing else works. If you need help, please ask." />
+        <div className="grid col-span-12 gap-3">
+          <WarningAlert
+            className="mb-2"
+            text="autobrr has extensive filtering built-in - only use this if nothing else is possible. If you need help, please ask."
+          />
 
           <RegexTextAreaField
             name="match_releases"
@@ -967,12 +979,11 @@ export function Advanced({ values }: AdvancedProps) {
             />
           ) : null}
         </div>
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Groups"
-        subtitle="Match only certain groups and/or ignore other groups."
       >
         <TextAreaAutoResize
           name="match_release_groups"
@@ -998,12 +1009,11 @@ export function Advanced({ values }: AdvancedProps) {
             </div>
           }
         />
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Categories and tags"
-        subtitle="Match or ignore categories or tags."
       >
         <TextAreaAutoResize
           name="match_categories"
@@ -1080,12 +1090,11 @@ export function Advanced({ values }: AdvancedProps) {
             </div>
           }
         />
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Uploaders"
-        subtitle="Match or ignore uploaders."
       >
         <TextAreaAutoResize
           name="match_uploaders"
@@ -1112,12 +1121,11 @@ export function Advanced({ values }: AdvancedProps) {
             </div>
           }
         />
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Language"
-        subtitle="Match or ignore languages."
       >
         <MultiSelect
           name="match_language"
@@ -1133,12 +1141,12 @@ export function Advanced({ values }: AdvancedProps) {
           columns={6}
           creatable={true}
         />
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Origins"
-        subtitle="Match Internals, scene, p2p etc. if announced."
+        subtitle="Match Internals, Scene, P2P, ... (if announced!)"
       >
         <MultiSelect
           name="origins"
@@ -1154,14 +1162,16 @@ export function Advanced({ values }: AdvancedProps) {
           columns={6}
           creatable={true}
         />
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Release Tags"
-        subtitle="This is the non-parsed releaseTags string from the announce."
+        subtitle={
+          <>This is the <span className="italic">raw</span> releaseTags string from the announce.</>
+        }
       >
-        <div className="grid col-span-12 gap-6">
+        <div className="grid col-span-12 gap-3">
           <WarningAlert text="These might not be what you think they are. For advanced users who know how things are parsed." />
 
           <RegexField
@@ -1183,14 +1193,15 @@ export function Advanced({ values }: AdvancedProps) {
             <SwitchGroup name="use_regex_release_tags" label="Use Regex" />
           </div>
         </div>
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Feeds"
-        subtitle="These options are only for Feeds such as RSS, Torznab and Newznab"
+        subtitle={
+          <>These options are <span className="italic">only</span> for Feeds such as RSS, Torznab and Newznab</>
+        }
       >
-        {/*<div className="grid col-span-12 gap-6">*/}
         <RegexTextAreaField
           name="match_description"
           label="Match description"
@@ -1228,14 +1239,13 @@ export function Advanced({ values }: AdvancedProps) {
         <div className="col-span-6">
           <SwitchGroup name="use_regex_description" label="Use Regex" />
         </div>
-      </CollapsableSection>
+      </CollapsibleSection>
 
-      <CollapsableSection
+      <CollapsibleSection
         defaultOpen={true}
         title="Freeleech"
-        subtitle="Match only freeleech and freeleech percent."
       >
-        <div className="col-span-6">
+        <div className="col-span-6 flex flex-col gap-2">
           <SwitchGroup
             name="freeleech"
             label="Freeleech"
@@ -1277,36 +1287,38 @@ export function Advanced({ values }: AdvancedProps) {
           columns={6}
           placeholder="eg. 50,75-100"
         />
-      </CollapsableSection>
+      </CollapsibleSection>
     </div>
   );
 }
 
-interface CollapsableSectionProps {
+interface CollapsibleSectionProps {
   title: string;
-  subtitle: string;
-  children: ReactNode;
+  subtitle?: string | React.ReactNode;
+  children: React.ReactNode;
   defaultOpen?: boolean;
 }
 
-export function CollapsableSection({ title, subtitle, children, defaultOpen = false }: CollapsableSectionProps) {
+export function CollapsibleSection({ title, subtitle, children, defaultOpen = false }: CollapsibleSectionProps) {
   const [isOpen, toggleOpen] = useToggle(defaultOpen ?? false);
 
   return (
-    <div className="pt-3 pb-3 border-dashed border-b-2 border-gray-200 dark:border-gray-700">
+    <div className="pt-3 pb-3 border-dashed border-b-2 border-gray-200 dark:border-gray-775">
       <div className="flex select-none items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" onClick={toggleOpen}>
-        <div className="flex items-center">
+        <div className="flex flex-row items-center gap-2">
           <button
             type="button"
             className={classNames(
               isOpen ? "rotate-0" : "-rotate-90",
-              "mr-1 text-sm font-medium text-white transition-transform"
+              "text-sm font-medium text-white transition-transform"
             )}
           >
             <ChevronDownIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />
           </button>
-          <h3 className="text-lg leading-6 font-semibold text-gray-900 dark:text-gray-200 underline decoration-dotted underline-offset-4 decoration-blue-600 dark:decoration-sky-400">{title}</h3>
-          <p className="ml-2 text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
+          <div className="flex flex-col sm:gap-2 sm:flex-row sm:items-end">
+            <h3 className="text-xl leading-6 font-bold text-gray-900 dark:text-gray-200">{title}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
+          </div>
         </div>
       </div>
       {/*TODO: Animate this too*/}

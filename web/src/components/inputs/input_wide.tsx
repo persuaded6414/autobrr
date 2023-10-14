@@ -68,7 +68,7 @@ export const TextFieldWide = ({
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
                 : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             placeholder={placeholder}
             hidden={hidden}
@@ -140,7 +140,7 @@ export const PasswordFieldWide = ({
                   meta.touched && meta.error
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500"
                     : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-                  "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+                  "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                 )}
                 placeholder={placeholder}
                 required={required}
@@ -209,7 +209,7 @@ export const NumberFieldWide = ({
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
                 : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             onWheel={(event) => {
               if (event.currentTarget === document.activeElement) {

@@ -16,9 +16,9 @@ import { DeleteModal } from "@components/modals";
 function ReleaseSettings() {
   return (
     <div className="lg:col-span-9">
-      <div className="py-6 px-4 sm:p-6 lg:pb-8">
+      <div className="py-6 px-4 sm:p-6">
         <div>
-          <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
+          <h2 className="text-lg leading-4 font-bold text-gray-900 dark:text-white">
             Releases
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -29,16 +29,16 @@ function ReleaseSettings() {
 
       <div className="py-6 px-4">
         <div className="border border-red-500 rounded">
-          <div className="py-6 px-4 sm:p-6 lg:pb-8">
+          <div className="py-6 px-4 sm:p-6">
             <div>
-              <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Danger zone</h2>
+              <h2 className="text-lg leading-4 font-bold text-gray-900 dark:text-white">Danger zone</h2>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 This will clear release history in your database
               </p>
             </div>
           </div>
 
-          <div className="py-6 px-4 sm:p-6 lg:pb-8">
+          <div className="py-6 px-4 sm:p-6">
             <DeleteReleases />
           </div>
         </div>

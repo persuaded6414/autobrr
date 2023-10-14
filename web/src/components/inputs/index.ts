@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-export { ErrorField, CheckboxField } from "./common";
+export { ErrorField } from "./common";
 export { TextField, NumberField, PasswordField, RegexField } from "./input";
 export { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, SwitchGroupWideRed, TextFieldWide } from "./input_wide";
 export { RadioFieldsetWide } from "./radio";

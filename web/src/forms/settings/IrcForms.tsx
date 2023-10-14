@@ -476,7 +476,7 @@ const Control = (props: ControlProps) => {
   return (
     <components.Control
       {...props}
-      className="block w-full shadow-sm sm:text-sm rounded-md border p-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+      className="block w-full shadow-sm sm:text-sm rounded-md border p-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
       children={props.children}
     />
   );

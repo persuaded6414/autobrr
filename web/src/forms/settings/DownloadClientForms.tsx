@@ -748,7 +748,7 @@ export function DownloadClientAddForm({ isOpen, toggle }: formProps) {
                 >
                   {({ handleSubmit, values }) => (
                     <Form
-                      className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-scroll"
+                      className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-auto"
                       onSubmit={handleSubmit}
                     >
                       <div className="flex-1">
@@ -943,7 +943,7 @@ export function DownloadClientUpdateForm({ client, isOpen, toggle }: updateFormP
                   {({ handleSubmit, values }) => {
                     return (
                       <Form
-                        className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-scroll"
+                        className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-xl overflow-y-auto"
                         onSubmit={handleSubmit}
                       >
                         <div className="flex-1">

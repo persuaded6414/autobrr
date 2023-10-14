@@ -15,7 +15,7 @@ interface StatsItemProps {
 
 const StatsItem = ({ name, placeholder, value }: StatsItemProps) => (
   <div
-    className="relative px-4 py-3 overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700"
+    className="relative px-4 py-3 overflow-hidden rounded-lg shadow-lg bg-white dark:bg-gray-800 border border-gray-150 dark:border-gray-775"
     title="All time"
   >
     <dt>
