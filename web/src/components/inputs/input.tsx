@@ -66,8 +66,10 @@ export const TextField = ({
             className={classNames(
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "",
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+              disabled
+                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block border w-full dark:text-gray-100 rounded-md"
             )}
             disabled={disabled}
@@ -205,10 +207,10 @@ export const RegexField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
                 disabled
-                  ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
-                  : "",
+                  ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                  : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
                   : "",
@@ -349,10 +351,10 @@ export const RegexTextAreaField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
                 disabled
-                  ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
-                  : "",
+                  ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                  : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
                   : "",
@@ -435,8 +437,10 @@ export const TextArea = ({
             className={classNames(
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "",
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+              disabled
+                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block border w-full dark:text-gray-100 rounded-md"
             )}
             placeholder={placeholder}
@@ -506,8 +510,12 @@ export const TextAreaAutoResize = ({
             defaultValue={defaultValue}
             autoComplete={autoComplete}
             className={classNames(
-              meta.touched && meta.error ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : "",
+              meta.touched && meta.error
+                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+              disabled
+                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block w-full dark:text-gray-100 rounded-md"
             )}
             placeholder={placeholder}
@@ -575,8 +583,8 @@ export const PasswordField = ({
                   className={classNames(
                     meta.touched && meta.error
                       ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                      : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700",
-                    "mt-2 block w-full dark:bg-gray-800 dark:text-gray-100 rounded-md"
+                      : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                    "mt-2 block w-full rounded-md bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                   )}
                   placeholder={placeholder}
                 />
@@ -650,9 +658,11 @@ export const NumberField = ({
             className={classNames(
               meta.touched && meta.error
                 ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
               "mt-2 block w-full border rounded-md",
-              disabled ? "bg-gray-100 dark:bg-gray-700 cursor-not-allowed" : ""
+              disabled
+                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
             )}
             placeholder={placeholder}
             disabled={disabled}
