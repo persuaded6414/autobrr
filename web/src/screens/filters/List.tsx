@@ -6,7 +6,7 @@
 import { Dispatch, FC, Fragment, MouseEventHandler, useReducer, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { Listbox, Menu, Switch, Transition } from "@headlessui/react";
+import { Listbox, Menu, Transition } from "@headlessui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormikValues } from "formik";
 import { useCallback } from "react";
@@ -259,7 +259,7 @@ const StatusButton = ({ data, label, value, currentValue, dispatch }: StatusButt
         "py-4 pb-4 text-left text-xs tracking-wider transition border-b-2",
         currentValue === value
           ? "font-bold  border-blue-500 dark:text-gray-100 text-gray-950"
-          : "font-medium border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200",
+          : "font-medium border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
       )}
       onClick={setFilter}
       value={value}

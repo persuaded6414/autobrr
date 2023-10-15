@@ -10,7 +10,6 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import { MultiSelect as RMSC } from "react-multi-select-component";
 
 import { classNames, COL_WIDTHS } from "@utils";
-import { SettingsContext } from "@utils/Context";
 import { DocsTooltip } from "@components/tooltips/DocsTooltip";
 
 export interface MultiSelectOption {
@@ -39,8 +38,6 @@ export const MultiSelect = ({
   tooltip,
   disabled
 }: MultiSelectProps) => {
-  const settingsContext = SettingsContext.useValue();
-
   const handleNewField = (value: string) => ({
     value: value.toUpperCase(),
     label: value.toUpperCase(),

@@ -57,8 +57,8 @@ function ApplicationSettings() {
       title="Application"
       description="Application settings. Change in config.toml and restart to take effect."
     >
-      <div className="-mx-4 divide-y divide-gray-150 dark:divide-gray-775">
-        <form className="my-4" action="#" method="POST">
+      <div className="-mx-4 divide-y divide-gray-150 dark:divide-gray-750">
+        <form className="mt-6 mb-4" action="#" method="POST">
           {data && (
             <div className="grid grid-cols-12 gap-6 px-4">
               <div className="col-span-6 sm:col-span-4">
@@ -71,7 +71,7 @@ function ApplicationSettings() {
                   id="host"
                   value={data.host}
                   disabled={true}
-                  className="mt-2 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
+                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
 
@@ -85,7 +85,7 @@ function ApplicationSettings() {
                   id="port"
                   value={data.port}
                   disabled={true}
-                  className="mt-2 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
+                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
 
@@ -99,7 +99,7 @@ function ApplicationSettings() {
                   id="base_url"
                   value={data.base_url}
                   disabled={true}
-                  className="mt-2 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
+                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ function ApplicationSettings() {
         <Checkbox
           label="WebUI Debug mode"
           value={settings.debug}
-          className="sm:px-4"
+          className="px-4 sm:px-6"
           setValue={
             (newValue: boolean) => setSettings((prevState) => ({
               ...prevState,
@@ -140,7 +140,7 @@ function ApplicationSettings() {
           label="Check for updates"
           description="Get notified of new updates."
           value={data?.check_for_updates ?? true}
-          className="sm:px-4"
+          className="px-4 sm:px-6"
           setValue={(newValue: boolean) => {
             toggleCheckUpdateMutation.mutate(newValue);
           }}
@@ -149,7 +149,7 @@ function ApplicationSettings() {
           label="Dark theme"
           description="Switch between dark and light theme."
           value={settings.darkTheme}
-          className="sm:px-4"
+          className="px-4 sm:px-6"
           setValue={
             (newValue: boolean) => setSettings((prevState) => ({
               ...prevState,

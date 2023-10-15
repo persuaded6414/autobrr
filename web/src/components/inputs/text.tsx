@@ -122,7 +122,9 @@ export const TextInput = <TFormValues extends Record<string, unknown>>({
           aria-invalid={hasError}
           className={classNames(
             "block mt-1 w-full shadow-sm sm:text-sm rounded-md py-2.5 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
-            hasError ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "border-gray-400 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500"
+            hasError
+              ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+              : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
           )}
           {...props}
           {...(register && register(name, rules))}
@@ -174,7 +176,9 @@ export const PasswordInput = <TFormValues extends Record<string, unknown>>({
             type={isVisible ? "text" : "password"}
             className={classNames(
               "block mt-2 w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-900 dark:text-gray-100",
-              hasError ? "focus:ring-red-500 focus:border-red-500 border-red-500" : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-400 dark:border-gray-700"
+              hasError
+                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
+                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             {...props}
             {...(register && register(name, rules))}

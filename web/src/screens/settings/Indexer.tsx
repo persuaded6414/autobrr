@@ -6,19 +6,17 @@
 import { useState, useMemo } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Switch } from "@headlessui/react";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
-import { classNames } from "@utils";
 import { useToggle } from "@hooks/hooks";
 import { APIClient } from "@api/APIClient";
+import { Checkbox } from "@components/Checkbox";
 import Toast from "@components/notifications/Toast";
 import { EmptySimple } from "@components/emptystates";
-import { componentMapType } from "@forms/settings/DownloadClientForms";
 import { IndexerAddForm, IndexerUpdateForm } from "@forms";
+import { componentMapType } from "@forms/settings/DownloadClientForms";
 
-import { Section, RowItem } from "./_components";
-import { Checkbox } from "@components/Checkbox";
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { Section } from "./_components";
 
 export const indexerKeys = {
   all: ["indexers"] as const,
@@ -138,8 +136,6 @@ const ListItem = ({ indexer }: ListItemProps) => {
   if (!indexer) {
     return null;
   }
-
-  console.log(typeof(indexer), indexer.enabled);
 
   return (
     <li>

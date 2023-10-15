@@ -219,7 +219,7 @@ const externalFilterSchema = z.object({
   webhook_type: z.string().optional(),
   webhook_method: z.string().optional(),
   webhook_data: z.string().optional(),
-  webhook_expect_status: z.number().optional(),
+  webhook_expect_status: z.number().optional()
 });
 
 const indexerSchema = z.object({
@@ -232,7 +232,7 @@ const schema = z.object({
   name: z.string(),
   indexers: z.array(indexerSchema).min(1, { message: "Must select at least one indexer" }),
   actions: z.array(actionSchema),
-  external: z.array(externalFilterSchema),
+  external: z.array(externalFilterSchema)
 });
 
 export function FilterDetails() {
@@ -395,7 +395,7 @@ export function FilterDetails() {
                 except_origins: filter.except_origins || [],
                 indexers: filter.indexers || [],
                 actions: filter.actions || [],
-                external: filter.external || [],
+                external: filter.external || []
               } as Filter}
               onSubmit={handleSubmit}
               enableReinitialize={true}

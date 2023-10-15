@@ -4,25 +4,24 @@
  */
 
 import { Fragment, useEffect, useRef, useState } from "react";
-import format from "date-fns/format";
+import { useQuery } from "@tanstack/react-query";
+import { Menu, Transition } from "@headlessui/react";
 import { DebounceInput } from "react-debounce-input";
 import {
   Cog6ToothIcon,
   DocumentArrowDownIcon
 } from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
-import { Menu, Transition } from "@headlessui/react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
+import format from "date-fns/format";
+import { toast } from "react-hot-toast";
 
 import { APIClient } from "@api/APIClient";
 import { Checkbox } from "@components/Checkbox";
-import { classNames, simplifyDate } from "@utils";
+import { baseUrl, classNames, simplifyDate } from "@utils";
 import { SettingsContext } from "@utils/Context";
 import { EmptySimple } from "@components/emptystates";
-import { baseUrl } from "@utils";
 import { RingResizeSpinner } from "@components/Icons";
-import { toast } from "react-hot-toast";
 import Toast from "@components/notifications/Toast";
-import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 
 
 type LogEvent = {
@@ -40,7 +39,7 @@ const LogColors: Record<LogLevel, string> = {
   "ERR": "text-red-500",
   "WRN": "text-yellow-500",
   "FTL": "text-red-500",
-  "PNC": "text-red-600",
+  "PNC": "text-red-600"
 };
 
 export const Logs = () => {

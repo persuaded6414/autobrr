@@ -5,7 +5,7 @@
 
 import { Fragment, useRef, useState, useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Menu, Switch, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
 import {
   ArrowsRightLeftIcon,

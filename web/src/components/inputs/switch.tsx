@@ -59,13 +59,12 @@ const SwitchGroup = ({
       }: FieldProps) => (
         <Checkbox
           {...field}
-          value={!!field.value}
+          value={!!field.checked}
           setValue={(value) => {
             setFieldValue(field?.name ?? "", value);
           }}
           disabled={disabled}
         />
-
       )}
     </Field>
   </HeadlessSwitch.Group>

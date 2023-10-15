@@ -6,7 +6,7 @@
 import { Fragment, useRef, useState, useMemo, useEffect, MouseEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { LockClosedIcon, LockOpenIcon, PlusIcon } from "@heroicons/react/24/solid";
-import { Menu, Switch, Transition } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import { toast } from "react-hot-toast";
 import {
   ArrowsPointingInIcon,
@@ -189,10 +189,9 @@ const IrcSettings = () => {
                 Nick <span className="sort-indicator">{sortedNetworks.getSortIndicator("nick")}</span>
               </div>
             </li>
-            {data &&
-              sortedNetworks.items.map((network) => (
-                <ListItem key={network.id} expanded={expandNetworks} network={network} />
-              ))}
+            {sortedNetworks.items.map((network) => (
+              <ListItem key={network.id} expanded={expandNetworks} network={network} />
+            ))}
           </ol>
         </section>
       ) : (

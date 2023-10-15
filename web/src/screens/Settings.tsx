@@ -57,7 +57,7 @@ function SubNavLink({ item }: NavLinkProps) {
         "transition group border-l-4 px-3 py-2 flex items-center text-sm font-medium",
         isActive
           ? "font-bold bg-blue-100 dark:bg-gray-700 border-sky-500 dark:border-blue-500 text-sky-700 dark:text-gray-200 hover:bg-blue-200 dark:hover:bg-gray-600 hover:text-sky-900 dark:hover:text-white"
-          : "border-transparent text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-gray-300"
+          : "border-transparent text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-gray-300"
       )}
       aria-current={splitLocation[2] === item.href ? "page" : undefined}
     >
@@ -95,7 +95,7 @@ export function Settings() {
 
       <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-225 dark:border-gray-775">
-          <div className="divide-y divide-gray-150 dark:divide-gray-775 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+          <div className="divide-y divide-gray-150 dark:divide-gray-725 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
             <SidebarNav subNavigation={subNavigation}/>
             <Suspense
               fallback={

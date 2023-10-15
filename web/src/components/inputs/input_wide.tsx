@@ -3,16 +3,20 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import type { FieldProps, FieldValidator } from "formik";
 import { Field } from "formik";
+import Select from "react-select";
+import { Switch } from "@headlessui/react";
+import type { FieldProps, FieldValidator } from "formik";
+
 import { classNames } from "@utils";
 import { useToggle } from "@hooks/hooks";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Switch } from "@headlessui/react";
-import { ErrorField, RequiredField } from "./common";
-import Select, { components, ControlProps, InputProps, MenuProps, OptionProps } from "react-select";
+
 import { SelectFieldProps } from "./select";
+import * as common from "./common";
+
 import { DocsTooltip } from "@components/tooltips/DocsTooltip";
+import { Checkbox } from "@components/Checkbox";
 
 interface TextFieldWideProps {
   name: string;
@@ -46,7 +50,7 @@ export const TextFieldWide = ({
           {tooltip ? (
             <DocsTooltip label={label}>{tooltip}</DocsTooltip>
           ) : label}
-          <RequiredField required={required} />
+          <common.RequiredField required={required} />
         </div>
       </label>
     </div>
@@ -80,21 +84,21 @@ export const TextFieldWide = ({
       {help && (
         <p className="mt-2 text-sm text-gray-500" id={`${name}-description`}>{help}</p>
       )}
-      <ErrorField name={name} classNames="block text-red-500 mt-2" />
+      <common.ErrorField name={name} classNames="block text-red-500 mt-2" />
     </div>
   </div>
 );
 
 interface PasswordFieldWideProps {
-    name: string;
-    label?: string;
-    placeholder?: string;
-    defaultValue?: string;
-    help?: string;
-    required?: boolean;
-    defaultVisible?: boolean;
-    tooltip?: JSX.Element;
-    validate?: FieldValidator;
+  name: string;
+  label?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  help?: string;
+  required?: boolean;
+  defaultVisible?: boolean;
+  tooltip?: JSX.Element;
+  validate?: FieldValidator;
 }
 
 export const PasswordFieldWide = ({
@@ -118,7 +122,7 @@ export const PasswordFieldWide = ({
             {tooltip ? (
               <DocsTooltip label={label}>{tooltip}</DocsTooltip>
             ) : label}
-            <RequiredField required={required} />
+            <common.RequiredField required={required} />
           </div>
         </label>
       </div>
@@ -154,20 +158,20 @@ export const PasswordFieldWide = ({
         {help && (
           <p className="mt-2 text-sm text-gray-500" id={`${name}-description`}>{help}</p>
         )}
-        <ErrorField name={name} classNames="block text-red-500 mt-2" />
+        <common.ErrorField name={name} classNames="block text-red-500 mt-2" />
       </div>
     </div>
   );
 };
 
 interface NumberFieldWideProps {
-    name: string;
-    label?: string;
-    help?: string;
-    placeholder?: string;
-    defaultValue?: number;
-    required?: boolean;
-    tooltip?: JSX.Element;
+  name: string;
+  label?: string;
+  help?: string;
+  placeholder?: string;
+  defaultValue?: number;
+  required?: boolean;
+  tooltip?: JSX.Element;
 }
 
 export const NumberFieldWide = ({
@@ -189,7 +193,7 @@ export const NumberFieldWide = ({
           {tooltip ? (
             <DocsTooltip label={label}>{tooltip}</DocsTooltip>
           ) : label}
-          <RequiredField required={required} />
+          <common.RequiredField required={required} />
         </div>
       </label>
     </div>
@@ -224,18 +228,18 @@ export const NumberFieldWide = ({
       {help && (
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-500" id={`${name}-description`}>{help}</p>
       )}
-      <ErrorField name={name} classNames="block text-red-500 mt-2" />
+      <common.ErrorField name={name} classNames="block text-red-500 mt-2" />
     </div>
   </div>
 );
 
 interface SwitchGroupWideProps {
-    name: string;
-    label: string;
-    description?: string;
-    defaultValue?: boolean;
-    className?: string;
-    tooltip?: JSX.Element;
+  name: string;
+  label: string;
+  description?: string;
+  defaultValue?: boolean;
+  className?: string;
+  tooltip?: JSX.Element;
 }
 
 export const SwitchGroupWide = ({
@@ -267,29 +271,17 @@ export const SwitchGroupWide = ({
         defaultValue={defaultValue as boolean}
         type="checkbox"
       >
-        {({ field, form }: FieldProps) => (
-          <Switch
+        {({
+          field,
+          form: { setFieldValue }
+        }: FieldProps) => (
+          <Checkbox
             {...field}
-            type="button"
-            value={field.value}
-            checked={field.checked ?? false}
-            onChange={(value: unknown) => {
-              form.setFieldValue(field?.name ?? "", value);
+            value={!!field.checked}
+            setValue={(value) => {
+              setFieldValue(field?.name ?? "", value);
             }}
-            className={classNames(
-              field.value ? "bg-blue-500 dark:bg-blue-500" : "bg-gray-200 dark:bg-gray-500",
-              "ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            )}
-          >
-            <span className="sr-only">Use setting</span>
-            <span
-              aria-hidden="true"
-              className={classNames(
-                field.value ? "translate-x-5" : "translate-x-0",
-                "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-              )}
-            />
-          </Switch>
+          />
         )}
       </Field>
     </Switch.Group>
@@ -358,47 +350,6 @@ export const SwitchGroupWideRed = ({
   </ul>
 );
 
-const Input = (props: InputProps) => {
-  return (
-    <components.Input
-      {...props}
-      inputClassName="outline-none border-none shadow-none focus:ring-transparent"
-      className="text-gray-400 dark:text-gray-100"
-      children={props.children}
-    />
-  );
-};
-
-const Control = (props: ControlProps) => {
-  return (
-    <components.Control
-      {...props}
-      className="p-1 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
-      children={props.children}
-    />
-  );
-};
-
-const Menu = (props: MenuProps) => {
-  return (
-    <components.Menu
-      {...props}
-      className="dark:bg-gray-800 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm"
-      children={props.children}
-    />
-  );
-};
-
-const Option = (props: OptionProps) => {
-  return (
-    <components.Option
-      {...props}
-      className="dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:bg-gray-900"
-      children={props.children}
-    />
-  );
-};
-
 export const SelectFieldWide = ({
   name,
   label,
@@ -431,10 +382,10 @@ export const SelectFieldWide = ({
             isClearable={true}
             isSearchable={true}
             components={{
-              Input,
-              Control,
-              Menu,
-              Option
+              Input: common.SelectInput,
+              Control: common.SelectControl,
+              Menu: common.SelectMenu,
+              Option: common.SelectOption
             }}
             placeholder={optionDefaultText}
             styles={{

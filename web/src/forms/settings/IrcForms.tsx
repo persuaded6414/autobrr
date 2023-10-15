@@ -10,7 +10,7 @@ import type { FieldProps } from "formik";
 import type { FieldArrayRenderProps } from "formik";
 import { Field, FieldArray, FormikErrors, FormikValues } from "formik";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import Select, { components, ControlProps, InputProps, MenuProps, OptionProps } from "react-select";
+import Select from "react-select";
 import { Dialog } from "@headlessui/react";
 
 import { IrcAuthMechanismTypeOptions, OptionBasicTyped } from "@domain/constants";
@@ -19,6 +19,7 @@ import { APIClient } from "@api/APIClient";
 import { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, SwitchGroupWideRed, TextFieldWide } from "@components/inputs";
 import { SlideOver } from "@components/panels";
 import Toast from "@components/notifications/Toast";
+import * as common from "@components/inputs/common";
 
 interface ChannelsFieldArrayProps {
   channels: IrcChannel[];
@@ -421,10 +422,10 @@ function SelectField<T>({ name, label, options }: SelectFieldProps<T>) {
               isClearable={true}
               isSearchable={true}
               components={{
-                Input,
-                Control,
-                Menu,
-                Option
+                Input: common.SelectInput,
+                Control: common.SelectControl,
+                Menu: common.SelectMenu,
+                Option: common.SelectOption
               }}
               placeholder="Choose a type"
               styles={{
@@ -460,44 +461,3 @@ function SelectField<T>({ name, label, options }: SelectFieldProps<T>) {
     </div>
   );
 }
-
-const Input = (props: InputProps) => {
-  return (
-    <components.Input
-      {...props}
-      inputClassName="outline-none border-none shadow-none focus:ring-transparent"
-      className="text-gray-400 dark:text-gray-100"
-      children={props.children}
-    />
-  );
-};
-
-const Control = (props: ControlProps) => {
-  return (
-    <components.Control
-      {...props}
-      className="block w-full shadow-sm sm:text-sm rounded-md border p-1 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
-      children={props.children}
-    />
-  );
-};
-
-const Menu = (props: MenuProps) => {
-  return (
-    <components.Menu
-      {...props}
-      className="dark:bg-gray-900 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm"
-      children={props.children}
-    />
-  );
-};
-
-const Option = (props: OptionProps) => {
-  return (
-    <components.Option
-      {...props}
-      className="dark:text-gray-400 dark:bg-gray-900 dark:hover:bg-gray-950 dark:hover:text-gray-100 dark:focus:bg-gray-950"
-      children={props.children}
-    />
-  );
-};

@@ -104,4 +104,4 @@ export const RightNav = (props: RightNavProps) => {
       </div>
     </div>
   );
-}
+};

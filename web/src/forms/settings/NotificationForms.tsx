@@ -8,60 +8,21 @@ import { Fragment } from "react";
 import type { FieldProps } from "formik";
 import { Field, Form, Formik, FormikErrors, FormikValues } from "formik";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import Select, { components, ControlProps, InputProps, MenuProps, OptionProps } from "react-select";
+import Select from "react-select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, TextFieldWide } from "@components/inputs";
-import DEBUG from "@components/debug";
-import { EventOptions, NotificationTypeOptions, SelectOption } from "@domain/constants";
 import { APIClient } from "@api/APIClient";
-import Toast from "@components/notifications/Toast";
-import { SlideOver } from "@components/panels";
-import { componentMapType } from "./DownloadClientForms";
 import { notificationKeys } from "@screens/settings/Notifications";
+import { EventOptions, NotificationTypeOptions, SelectOption } from "@domain/constants";
+import DEBUG from "@components/debug";
+import { SlideOver } from "@components/panels";
 import { ExternalLink } from "@components/ExternalLink";
+import Toast from "@components/notifications/Toast";
+import * as common from "@components/inputs/common";
+import { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, TextFieldWide } from "@components/inputs";
 
-const Input = (props: InputProps) => {
-  return (
-    <components.Input
-      {...props}
-      inputClassName="outline-none border-none shadow-none focus:ring-transparent"
-      className="text-gray-400 dark:text-gray-100"
-      children={props.children}
-    />
-  );
-};
-
-const Control = (props: ControlProps) => {
-  return (
-    <components.Control
-      {...props}
-      className="p-1 block w-full dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
-      children={props.children}
-    />
-  );
-};
-
-const Menu = (props: MenuProps) => {
-  return (
-    <components.Menu
-      {...props}
-      className="dark:bg-gray-800 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm"
-      children={props.children}
-    />
-  );
-};
-
-const Option = (props: OptionProps) => {
-  return (
-    <components.Option
-      {...props}
-      className="dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:bg-gray-900"
-      children={props.children}
-    />
-  );
-};
+import { componentMapType } from "./DownloadClientForms";
 
 function FormFieldsDiscord() {
   return (
@@ -347,10 +308,10 @@ export function NotificationAddForm({ isOpen, toggle }: AddProps) {
                                     isClearable={true}
                                     isSearchable={true}
                                     components={{
-                                      Input,
-                                      Control,
-                                      Menu,
-                                      Option
+                                      Input: common.SelectInput,
+                                      Control: common.SelectControl,
+                                      Menu: common.SelectMenu,
+                                      Option: common.SelectOption
                                     }}
                                     placeholder="Choose a type"
                                     styles={{
@@ -574,8 +535,12 @@ export function NotificationUpdateForm({ isOpen, toggle, notification }: UpdateP
                     <Select {...field}
                       isClearable={true}
                       isSearchable={true}
-                      components={{ Input, Control, Menu, Option }}
-
+                      components={{
+                        Input: common.SelectInput,
+                        Control: common.SelectControl,
+                        Menu: common.SelectMenu,
+                        Option: common.SelectOption
+                      }}
                       placeholder="Choose a type"
                       styles={{
                         singleValue: (base) => ({

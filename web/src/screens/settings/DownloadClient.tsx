@@ -4,20 +4,19 @@
  */
 
 import { useState, useMemo } from "react";
-import { Switch } from "@headlessui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
 
 import { useToggle } from "@hooks/hooks";
-import { classNames } from "@utils";
 import { DownloadClientAddForm, DownloadClientUpdateForm } from "@forms";
 import { EmptySimple } from "@components/emptystates";
 import { APIClient } from "@api/APIClient";
 import { DownloadClientTypeNameMap } from "@domain/constants";
 import Toast from "@components/notifications/Toast";
-import { Section } from "./_components";
 import { Checkbox } from "@components/Checkbox";
-import { PlusIcon } from "@heroicons/react/24/solid";
+
+import { Section } from "./_components";
 
 export const clientKeys = {
   all: ["download_clients"] as const,

@@ -56,7 +56,7 @@ export const Checkbox = ({
           : (
             value
               ? "cursor-pointer bg-blue-600 border-blue-525"
-              : "cursor-pointer bg-gray-350 dark:bg-gray-700 border-gray-375 dark:border-gray-600"
+              : "cursor-pointer bg-gray-300 dark:bg-gray-700 border-gray-375 dark:border-gray-600"
           ),
         "border relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
       )}

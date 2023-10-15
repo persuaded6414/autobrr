@@ -4,15 +4,22 @@
  */
 
 import { Field, FieldProps } from "formik";
+import { components } from "react-select";
+import type {
+  InputProps,
+  ControlProps,
+  MenuProps,
+  OptionProps
+} from "react-select";
+
 import { classNames } from "@utils";
-import { DocsTooltip } from "@components/tooltips/DocsTooltip";
 
 interface ErrorFieldProps {
     name: string;
     classNames?: string;
 }
 
-const ErrorField = ({ name, classNames }: ErrorFieldProps) => (
+export const ErrorField = ({ name, classNames }: ErrorFieldProps) => (
   <div>
     <Field name={name} subscribe={{ touched: true, error: true }}>
       {({ meta: { touched, error } }: FieldProps) =>
@@ -26,10 +33,44 @@ interface RequiredFieldProps {
   required?: boolean
 }
 
-const RequiredField = ({ required }: RequiredFieldProps) => (
+export const RequiredField = ({ required }: RequiredFieldProps) => (
   <>
     {required && <span className="ml-1 text-red-500">*</span>}
   </>
 );
 
-export { ErrorField, RequiredField };
+export const SelectInput = (props: InputProps) => (
+  <components.Input
+    {...props}
+    inputClassName="outline-none border-none shadow-none focus:ring-transparent"
+    className="text-gray-400 dark:text-gray-100"
+    children={props.children}
+  />
+);
+
+export const SelectControl = (props: ControlProps) => (
+  <components.Control
+    {...props}
+    className="p-1 block w-full !bg-gray-100 dark:!bg-gray-825 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100 sm:text-sm"
+    children={props.children}
+  />
+);
+
+export const SelectMenu = (props: MenuProps) => (
+  <components.Menu
+    {...props}
+    className="dark:bg-gray-800 border border-gray-300 dark:border-gray-700 dark:text-gray-400 rounded-md shadow-sm cursor-pointer"
+    children={props.children}
+  />
+);
+
+export const SelectOption = (props: OptionProps) => (
+  <components.Option
+    {...props}
+    className={classNames(
+      "transition dark:hover:bg-gray-900 dark:focus:bg-gray-900",
+      props.isSelected ? "dark:bg-gray-875 dark:text-gray-200" : "dark:bg-gray-800 dark:text-gray-400"
+    )}
+    children={props.children}
+  />
+);

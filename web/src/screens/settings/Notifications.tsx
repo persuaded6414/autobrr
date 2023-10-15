@@ -16,6 +16,7 @@ import Toast from "@components/notifications/Toast";
 import toast from "react-hot-toast";
 import { Section } from "./_components";
 import { PlusIcon } from "@heroicons/react/24/solid";
+import { Checkbox } from "@components/Checkbox";
 
 export const notificationKeys = {
   all: ["notifications"] as const,
@@ -61,7 +62,7 @@ function NotificationSettings() {
               <div className="hidden md:flex col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Events</div>
             </li>
 
-            {data && data.map((n: ServiceNotification) => (
+            {data.map((n: ServiceNotification) => (
               <ListItem key={n.id} notification={n} />
             ))}
           </ol>
@@ -140,24 +141,11 @@ function ListItem({ notification }: ListItemProps) {
       <NotificationUpdateForm isOpen={updateFormIsOpen} toggle={toggleUpdateForm} notification={notification} />
 
       <div className="grid grid-cols-12 items-center py-4">
-        <div className="col-span-2 sm:col-span-1 px-6 flex items-center ">
-          <Switch
-            checked={notification.enabled}
-            onChange={onToggleMutation}
-            className={classNames(
-              notification.enabled ? "bg-blue-500" : "bg-gray-200 dark:bg-gray-600",
-              "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            )}
-          >
-            <span className="sr-only">Use setting</span>
-            <span
-              aria-hidden="true"
-              className={classNames(
-                notification.enabled ? "translate-x-5" : "translate-x-0",
-                "inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
-              )}
-            />
-          </Switch>
+        <div className="col-span-2 sm:col-span-1 px-6 flex items-center">
+          <Checkbox
+            value={notification.enabled}
+            setValue={onToggleMutation}
+          />
         </div>
         <div className="col-span-8 md:col-span-6 pl-10 md:pl-12 pr-2 sm:pr-6 truncate block items-center text-sm font-medium text-gray-900 dark:text-white" title={notification.name}>
           {notification.name}

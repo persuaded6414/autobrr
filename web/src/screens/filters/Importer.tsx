@@ -105,7 +105,7 @@ const ImportJSON = async (inputFilterText: string) => {
       />
     );
   }
-}
+};
 
 const ImportAutodlIrssi = async (inputText: string) => {
   const parser = new AutodlIrssiConfigParser();
@@ -162,7 +162,7 @@ const ImportAutodlIrssi = async (inputText: string) => {
       />
     );
   }
-}
+};
 
 export const Importer = ({
   isOpen,
@@ -288,4 +288,4 @@ export const Importer = ({
       </Dialog>
     </Transition.Root>
   );
-}
+};
