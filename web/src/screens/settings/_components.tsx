@@ -18,7 +18,7 @@ export const Section = ({
   rightSide,
   children
 }: SectionProps) => (
-  <div className="mb-6 px-4 lg:col-span-9">
+  <div className="pb-6 px-4 lg:col-span-9">
     <div
       className={classNames(
         "mt-6 mb-4",
