@@ -16,7 +16,7 @@ import { Dialog } from "@headlessui/react";
 import { IrcAuthMechanismTypeOptions, OptionBasicTyped } from "@domain/constants";
 import { ircKeys } from "@screens/settings/Irc";
 import { APIClient } from "@api/APIClient";
-import { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, SwitchGroupWideRed, TextFieldWide } from "@components/inputs";
+import { NumberFieldWide, PasswordFieldWide, SwitchGroupWide, TextFieldWide } from "@components/inputs";
 import { SlideOver } from "@components/panels";
 import Toast from "@components/notifications/Toast";
 import * as common from "@components/inputs/common";
@@ -317,7 +317,7 @@ export function IrcNetworkUpdateForm({
             required={true}
           />
 
-          <SwitchGroupWideRed name="enabled" label="Enabled" />
+          <SwitchGroupWide name="enabled" label="Enabled" />
           <TextFieldWide
             name="server"
             label="Server"
