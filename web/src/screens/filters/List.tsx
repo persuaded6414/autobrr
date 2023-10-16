@@ -671,8 +671,7 @@ interface IndexerTagProps {
 
 const IndexerTag: FC<IndexerTagProps> = ({ indexer }) => (
   <span
-    key={indexer.id}
-    className="hidden sm:inline-flex mr-2 items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-400"
+    className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-400"
   >
     {indexer.name}
   </span>
@@ -683,32 +682,31 @@ interface FilterIndexersProps {
 }
 
 function FilterIndexers({ indexers }: FilterIndexersProps) {
-  if (indexers.length <= 2) {
+  if (!indexers.length) {
     return (
-      <>
-        {indexers.length > 0
-          ? indexers.map((indexer, idx) => (
-            <IndexerTag key={idx} indexer={indexer} />
-          ))
-          : <span className="hidden uppercase sm:flex text-white p-1 text-xs tracking-wide rounded bg-red-600">NO INDEXER</span>
-        }
-      </>
+      <span className="hidden uppercase sm:flex text-white p-1 text-xs tracking-wide rounded bg-red-600">
+        NO INDEXER
+      </span>
     );
   }
 
   const res = indexers.slice(2);
 
   return (
-    <>
+    <div className="flex flex-row gap-1">
       <IndexerTag indexer={indexers[0]} />
-      <IndexerTag indexer={indexers[1]} />
-      <span
-        className="mr-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-400"
-        title={res.map(v => v.name).toString()}
-      >
-        +{indexers.length - 2}
-      </span>
-    </>
+      {indexers.length > 1 ? (
+        <IndexerTag indexer={indexers[1]} />
+      ) : null}
+      {indexers.length > 2 ? (
+        <span
+          className="mr-2 inline-flex items-center px-2 py-0.5 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-400"
+          title={res.map(v => v.name).toString()}
+        >
+          +{indexers.length - 2}
+        </span>
+      ) : null}
+    </div>
   );
 }
 
