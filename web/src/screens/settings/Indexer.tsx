@@ -139,13 +139,13 @@ const ListItem = ({ indexer }: ListItemProps) => {
 
   return (
     <li>
-      <div className="grid grid-cols-12 items-center mt-1">
+      <div className="grid grid-cols-12 items-center py-1.5">
         <IndexerUpdateForm
           isOpen={updateIsOpen}
           toggle={toggleUpdate}
           indexer={indexer}
         />
-        <div className="col-span-2 sm:col-span-1 flex px-6 items-center sm:px-6">
+        <div className="col-span-2 sm:col-span-1 flex pl-1 sm:pl-5 items-center">
           <Checkbox value={indexer.enabled ?? false} setValue={onToggleMutation} />
         </div>
         <div className="col-span-7 sm:col-span-8 pl-12 sm:pr-6 py-3 block flex-col text-sm font-medium text-gray-900 dark:text-white truncate">
@@ -185,7 +185,12 @@ function IndexerSettings() {
   return (
     <Section
       title="Indexers"
-      description="Indexer settings for IRC, RSS, Newznab, and Torznab based indexers.\nGeneric feeds can be added here by selecting the Generic indexer."
+      description={
+        <>
+          Indexer settings for IRC, RSS, Newznab, and Torznab based indexers.<br />
+          Generic RSS/Newznab/Torznab feeds can be added here by selecting one of the <span className="font-bold">Generic</span> indexers.
+        </>
+      }
       rightSide={
         <button
           type="button"
@@ -201,10 +206,10 @@ function IndexerSettings() {
 
       <div className="flex flex-col">
         {sortedIndexers.items.length ? (
-          <ol className="min-w-full relative">
+          <ul className="min-w-full relative">
             <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
               <div
-                className="flex col-span-2 sm:col-span-1 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 hover:dark:text-gray-250 transition-colors uppercase tracking-wider cursor-pointer"
+                className="flex col-span-2 sm:col-span-1 pl-0 sm:pl-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 hover:dark:text-gray-250 transition-colors uppercase tracking-wider cursor-pointer"
                 onClick={() => sortedIndexers.requestSort("enabled")}
               >
                 Enabled <span className="sort-indicator">{sortedIndexers.getSortIndicator("enabled")}</span>
@@ -225,7 +230,7 @@ function IndexerSettings() {
             {sortedIndexers.items.map((indexer) => (
               <ListItem indexer={indexer} key={indexer.id} />
             ))}
-          </ol>
+          </ul>
         ) : (
           <EmptySimple
             title="No indexers"

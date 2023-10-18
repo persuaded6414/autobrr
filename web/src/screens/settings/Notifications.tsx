@@ -4,13 +4,11 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Switch } from "@headlessui/react";
 
 import { APIClient } from "@api/APIClient";
 import { EmptySimple } from "@components/emptystates";
 import { useToggle } from "@hooks/hooks";
 import { NotificationAddForm, NotificationUpdateForm } from "@forms/settings/NotificationForms";
-import { classNames } from "@utils";
 import { componentMapType } from "@forms/settings/DownloadClientForms";
 import Toast from "@components/notifications/Toast";
 import toast from "react-hot-toast";
@@ -52,22 +50,20 @@ function NotificationSettings() {
     >
       <NotificationAddForm isOpen={addNotificationsIsOpen} toggle={toggleAddNotifications} />
 
-      {data && data.length > 0 ?
-        <section className="mt-6 light:bg-white dark:bg-gray-800 light:shadow sm:rounded-md">
-          <ol className="min-w-full">
-            <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
-              <div className="col-span-2 sm:col-span-1 pl-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Enabled</div>
-              <div className="col-span-6 pl-10 md:pl-12 pr-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</div>
-              <div className="hidden md:flex col-span-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</div>
-              <div className="hidden md:flex col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Events</div>
-            </li>
+      {data && data.length > 0 ? (
+        <ul className="min-w-full">
+          <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
+            <div className="col-span-2 sm:col-span-1 pl-1 sm:pl-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Enabled</div>
+            <div className="col-span-6 pl-10 sm:pl-12 pr-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</div>
+            <div className="hidden md:flex col-span-2 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</div>
+            <div className="hidden md:flex col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Events</div>
+          </li>
 
-            {data.map((n: ServiceNotification) => (
-              <ListItem key={n.id} notification={n} />
-            ))}
-          </ol>
-        </section>
-        : <EmptySimple title="No notifications" subtitle="" buttonText="Create new notification" buttonAction={toggleAddNotifications} />}
+          {data.map((n) => <ListItem key={n.id} notification={n} />)}
+        </ul>
+      ) : (
+        <EmptySimple title="No notifications" subtitle="" buttonText="Create new notification" buttonAction={toggleAddNotifications} />
+      )}
     </Section>
   );
 }
@@ -99,7 +95,7 @@ const PushoverIcon = () => (
 const GotifyIcon = () => (
   <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4">
     <path d="m 114.5,21.4 c -11.7,0 -47.3,5.9 -54.3,7.1 -47.3,8.0 -48.4,9.9 -50.1,12.8 -1.2,2.1 -2.4,4.0 2.6,29.4 2.3,11.5 5.8,26.9 8.8,35.8 1.8,5.4 3.6,8.8 6.9,10.1 0.8,0.3 1.7,0.5 2.7,0.6 0.2,0.0 0.3,0.0 0.5,0.0 12.8,0 89.1,-19.5 89.9,-19.7 1.4,-0.4 4.0,-1.5 5.3,-5.1 1.8,-4.7 1.9,-16.7 0.5,-35.7 -2.1,-28.0 -4.1,-31.0 -4.8,-32.0 -2.0,-3.1 -5.6,-3.3 -6.7,-3.3 -0.4,-0.0 -0.9,-0.0 -1.4,-0.0 z m -1.9,6.6 c -9.3,12.0 -18.9,24.0 -25.9,32.4 -2.3,2.8 -4.3,5.1 -6.0,7.0 -1.7,1.9 -2.9,3.2 -3.8,4.0 l -0.3,0.3 -0.4,-0.1 c -1.0,-0.3 -2.5,-0.9 -4.4,-1.7 -2.3,-1.0 -5.2,-2.3 -8.8,-3.9 C 51.6,60.7 34.4,52.2 18.0,43.6 30.3,39.7 95.0,28.7 112.6,27.9 Z m 5.7,5.0 c 2.0,11.8 4.5,42.6 3.1,54.0 -1.8,-1.4 -10.1,-8.0 -19.8,-15.2 -3.0,-2.3 -5.9,-4.3 -8.4,-6.1 l -0.7,-0.5 0.5,-0.6 C 99.5,56.9 108.0,46.2 118.3,32.9 Z M 16.1,51.1 c 3.0,1.5 14.3,7.4 27.4,13.8 5.3,2.6 9.9,4.8 13.9,6.7 l 0.9,0.4 -0.7,0.8 C 50.3,81.2 40.6,92.8 28.8,107.2 24.5,96.7 17.9,65.0 16.1,51.1 Z m 71.5,19.7 0.6,0.4 c 7.8,5.5 18.1,13.2 27.9,21.0 C 104.9,95.1 53.2,107.9 36.0,110.3 46.6,97.4 57.3,84.7 65.1,75.8 l 0.4,-0.4 0.5,0.2 c 5.7,2.5 9.3,3.7 11.1,3.8 0.1,0.0 0.2,0.0 0.3,0.0 0.6,0 1.0,-0.1 1.4,-0.3 0.6,-0.2 2.0,-0.7 8.3,-7.7 z"
-       clipRule="evenodd" fill="currentColor" fillRule="evenodd"/>
+      clipRule="evenodd" fill="currentColor" fillRule="evenodd" />
   </svg>
 );
 
@@ -140,14 +136,14 @@ function ListItem({ notification }: ListItemProps) {
     <li key={notification.id} className="text-gray-500 dark:text-gray-400">
       <NotificationUpdateForm isOpen={updateFormIsOpen} toggle={toggleUpdateForm} notification={notification} />
 
-      <div className="grid grid-cols-12 items-center py-4">
-        <div className="col-span-2 sm:col-span-1 px-6 flex items-center">
+      <div className="grid grid-cols-12 items-center py-2">
+        <div className="col-span-2 sm:col-span-1 pl-1 py-0.5 sm:pl-5 flex items-center">
           <Checkbox
             value={notification.enabled}
             setValue={onToggleMutation}
           />
         </div>
-        <div className="col-span-8 md:col-span-6 pl-10 md:pl-12 pr-2 sm:pr-6 truncate block items-center text-sm font-medium text-gray-900 dark:text-white" title={notification.name}>
+        <div className="col-span-8 md:col-span-6 pl-10 sm:pl-12 pr-2 sm:pr-6 truncate block items-center text-sm font-medium text-gray-900 dark:text-white" title={notification.name}>
           {notification.name}
         </div>
         <div className="hidden md:flex col-span-2 items-center">
@@ -163,13 +159,12 @@ function ListItem({ notification }: ListItemProps) {
         </div>
         <div className="col-span-1 flex first-letter:px-6 whitespace-nowrap text-right text-sm font-medium">
           <span
-            className="col-span-1 px-6 text-blue-600 dark:text-gray-300 hover:text-blue-900 dark:hover:text-blue-500 cursor-pointer"
+            className="col-span-1 px-0 sm:px-6 text-blue-600 dark:text-gray-300 hover:text-blue-900 dark:hover:text-blue-500 cursor-pointer"
             onClick={toggleUpdateForm}
           >
             Edit
           </span>
         </div>
-
       </div>
     </li>
   );

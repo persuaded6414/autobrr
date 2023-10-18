@@ -1,4 +1,5 @@
 import { lerpColors } from "tailwind-lerp-colors";
+import plugin from "tailwindcss/plugin";
 
 const extendedColors = lerpColors();
 
@@ -31,6 +32,9 @@ module.exports = {
       margin: { // for the checkmarks used for regex validation in Filters/Advanced
         "2.5": "0.625rem", // 10px, between mb-2 (8px) and mb-3 (12px)
       },
+      textShadow: {
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)"
+      }
     },
   },
   variants: {
@@ -38,5 +42,14 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
+    // Pipe --tw-shadow-color (i.e. shadow-cyan-500/50) to our new text-shadow
+    // Credits: https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
+    // Use it like: text-shadow shadow-cyan-500/50
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        { "text-shadow": (value) => ({ textShadow: value }) },
+        { values: theme("textShadow") }
+      )
+    }),
   ],
 }

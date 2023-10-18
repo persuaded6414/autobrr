@@ -153,7 +153,7 @@ export function DownloadClientSelect({
   clients
 }: DownloadClientSelectProps) {
   return (
-    <div className="col-span-6 sm:col-span-6">
+    <div className="col-span-12 sm:col-span-6">
       <Field name={name} type="select">
         {({
           field,

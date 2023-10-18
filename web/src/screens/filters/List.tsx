@@ -202,7 +202,7 @@ function FilterList({ toggleCreateFilter }: any) {
   const filtered = filteredData(data ?? [], status);
 
   return (
-    <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8 relative">
+    <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-6 lg:px-8 relative">
       <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800 border border-gray-225 dark:border-gray-775">
         <div className="rounded-t-lg flex justify-between px-4 bg-gray-100 dark:bg-gray-850 border-b border-gray-200 dark:border-gray-750">
           <div className="flex gap-4">
@@ -218,15 +218,15 @@ function FilterList({ toggleCreateFilter }: any) {
         </div>
 
         {data && data.length > 0 ? (
-          <ol className="min-w-full divide-y divide-gray-150 dark:divide-gray-775">
-            {filtered.filtered.length > 0
-              ? filtered.filtered.map((filter: Filter, idx) => (
+          <ul className="min-w-full divide-y divide-gray-150 dark:divide-gray-775">
+            {filtered.filtered.length > 0 ? (
+              filtered.filtered.map((filter: Filter, idx) => (
                 <FilterListItem filter={filter} values={filter} key={filter.id} idx={idx} />
               ))
-
-              : <EmptyListState text={`No ${status} filters`} />
-            }
-          </ol>
+            ) : (
+              <EmptyListState text={`No ${status} filters`} />
+            )}
+          </ul>
         ) : (
           <EmptyListState text="No filters here.." buttonText="Add new" buttonOnClick={toggleCreateFilter} />
         )}
@@ -684,7 +684,7 @@ interface FilterIndexersProps {
 function FilterIndexers({ indexers }: FilterIndexersProps) {
   if (!indexers.length) {
     return (
-      <span className="hidden uppercase sm:flex text-white p-1 text-xs tracking-wide rounded bg-red-600">
+      <span className="hidden sm:inline-flex items-center px-2 py-1 rounded-md text-xs font-medium uppercase text-white bg-red-750">
         NO INDEXER
       </span>
     );

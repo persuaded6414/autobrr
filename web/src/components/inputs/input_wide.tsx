@@ -70,9 +70,9 @@ export const TextFieldWide = ({
             onChange={field.onChange}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             placeholder={placeholder}
             hidden={hidden}
@@ -142,9 +142,9 @@ export const PasswordFieldWide = ({
                 type={isVisible ? "text" : "password"}
                 className={classNames(
                   meta.touched && meta.error
-                    ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                    : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-                  "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                    ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                    : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                  "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                 )}
                 placeholder={placeholder}
                 required={required}
@@ -211,9 +211,9 @@ export const NumberFieldWide = ({
             onChange={(e) => { form.setFieldValue(field.name, parseInt(e.target.value)); }}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+              "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             onWheel={(event) => {
               if (event.currentTarget === document.activeElement) {

@@ -125,7 +125,7 @@ const IrcSettings = () => {
       <IrcNetworkAddForm isOpen={addNetworkIsOpen} toggle={toggleAddNetwork} />
 
       <div className="flex justify-between flex-col md:flex-row px-1">
-        <ol className="flex flex-col md:flex-row md:gap-2 pb-4 md:pb-0 md:divide-x md:divide-gray-200 md:dark:divide-gray-700">
+        <ul className="flex flex-col md:flex-row md:gap-2 pb-4 md:pb-0 md:divide-x md:divide-gray-200 md:dark:divide-gray-700">
           <li className="flex items-center">
             <span
               className="mr-2 flex h-4 w-4 relative"
@@ -153,7 +153,7 @@ const IrcSettings = () => {
             </span>
             <span className="text-gray-800 dark:text-gray-500">Network disabled</span>
           </li>
-        </ol>
+        </ul>
         <div className="flex gap-x-2">
           <button
             className="flex items-center text-gray-800 dark:text-gray-400 p-1 px-2 rounded shadow bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
@@ -169,31 +169,29 @@ const IrcSettings = () => {
       </div>
 
       {data && data.length > 0 ? (
-        <section className="mt-6 light:bg-white dark:bg-gray-800 light:shadow md:rounded-md">
-          <ol className="min-w-full relative">
-            <li className="grid grid-cols-12 gap-4 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex col-span-2 md:col-span-1 px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedNetworks.requestSort("enabled")}>
-                Enabled <span className="sort-indicator">{sortedNetworks.getSortIndicator("enabled")}</span>
-              </div>
-              <div className="col-span-10 md:col-span-3 px-8 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedNetworks.requestSort("name")}>
-                Network <span className="sort-indicator">{sortedNetworks.getSortIndicator("name")}</span>
-              </div>
-              <div className="hidden md:flex col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedNetworks.requestSort("server")}>
-                Server <span className="sort-indicator">{sortedNetworks.getSortIndicator("server")}</span>
-              </div>
-              <div className="hidden md:flex col-span-3 px-5 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedNetworks.requestSort("nick")}>
-                Nick <span className="sort-indicator">{sortedNetworks.getSortIndicator("nick")}</span>
-              </div>
-            </li>
-            {sortedNetworks.items.map((network) => (
-              <ListItem key={network.id} expanded={expandNetworks} network={network} />
-            ))}
-          </ol>
-        </section>
+        <ul className="mt-6 min-w-full relative">
+          <li className="grid grid-cols-12 gap-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex col-span-2 md:col-span-1 pl-0 sm:px-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedNetworks.requestSort("enabled")}>
+              Enabled <span className="sort-indicator">{sortedNetworks.getSortIndicator("enabled")}</span>
+            </div>
+            <div className="col-span-10 md:col-span-3 px-8 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedNetworks.requestSort("name")}>
+              Network <span className="sort-indicator">{sortedNetworks.getSortIndicator("name")}</span>
+            </div>
+            <div className="hidden md:flex col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedNetworks.requestSort("server")}>
+              Server <span className="sort-indicator">{sortedNetworks.getSortIndicator("server")}</span>
+            </div>
+            <div className="hidden md:flex col-span-3 px-5 lg:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedNetworks.requestSort("nick")}>
+              Nick <span className="sort-indicator">{sortedNetworks.getSortIndicator("nick")}</span>
+            </div>
+          </li>
+          {sortedNetworks.items.map((network) => (
+            <ListItem key={network.id} expanded={expandNetworks} network={network} />
+          ))}
+        </ul>
       ) : (
         <EmptySimple
           title="No networks"
@@ -236,7 +234,7 @@ const ListItem = ({ network, expanded }: ListItemProps) => {
     <li>
       <div
         className={classNames(
-          "grid grid-cols-12 gap-2 lg:gap-4 items-center mt-0.5 py-2 cursor-pointer first:rounded-t-md last:rounded-b-md transition",
+          "grid grid-cols-12 gap-2 lg:gap-4 items-center mt-0.5 py-2.5 cursor-pointer first:rounded-t-md last:rounded-b-md transition",
           network.enabled && !network.healthy ? "bg-red-50 dark:bg-red-900 hover:bg-red-100 dark:hover:bg-red-800" : "hover:bg-gray-50 dark:hover:bg-gray-700"
         )}
         onClick={(e) => {
@@ -252,7 +250,7 @@ const ListItem = ({ network, expanded }: ListItemProps) => {
           toggle={toggleUpdate}
           network={network}
         />
-        <div className="col-span-2 md:col-span-1 flex pl-5 text-gray-500 dark:text-gray-400">
+        <div className="col-span-2 md:col-span-1 flex pl-1 sm:pl-5 text-gray-500 dark:text-gray-400">
           <Checkbox
             value={network.enabled}
             setValue={onToggleMutation}
@@ -325,22 +323,22 @@ const ListItem = ({ network, expanded }: ListItemProps) => {
         <div className="px-4 py-4 flex border-b border-x-0 dark:border-gray-600 dark:bg-gray-775">
           <div className="min-w-full">
             {network.channels.length > 0 ? (
-              <ol>
+              <ul>
                 <li className="grid grid-cols-12 gap-4 border-b border-gray-200 dark:border-gray-700">
-                  <div className="col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <div className="col-span-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     Channel
                   </div>
-                  <div className="col-span-4 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <div className="col-span-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     Monitoring since
                   </div>
-                  <div className="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <div className="col-span-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     Last announce
                   </div>
                 </li>
                 {network.channels.map((c) => (
                   <ChannelItem key={`${network.id}.${c.id}`} network={network} channel={c} />
                 ))}
-              </ol>
+              </ul>
             ) : (
               <div className="flex text-center justify-center py-4 dark:text-gray-500">
                 <p>No channels!</p>

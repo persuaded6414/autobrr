@@ -56,20 +56,18 @@ function APISettings() {
       <APIKeyAddForm isOpen={addFormIsOpen} toggle={toggleAddForm} />
 
       {data && data.length > 0 ? (
-        <section className="mt-6 light:bg-white dark:bg-gray-800 light:shadow sm:rounded-md">
-          <ol className="min-w-full relative">
-            <li className="hidden sm:grid grid-cols-12 gap-4 mb-2 border-b border-gray-200 dark:border-gray-700">
-              <div className="col-span-5 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Name
-              </div>
-              <div className="col-span-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                Key
-              </div>
-            </li>
+        <ul className="min-w-full relative">
+          <li className="hidden sm:grid grid-cols-12 gap-4 mb-2 border-b border-gray-200 dark:border-gray-700">
+            <div className="col-span-3 px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Name
+            </div>
+            <div className="col-span-8 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Key
+            </div>
+          </li>
 
-            {data.map((k, idx) => <APIListItem key={idx} apikey={k} />)}
-          </ol>
-        </section>
+          {data.map((k, idx) => <APIListItem key={idx} apikey={k} />)}
+        </ul>
       ) : (
         <EmptySimple
           title="No API keys"
@@ -124,7 +122,7 @@ function APIListItem({ apikey }: ApiKeyItemProps) {
       />
 
       <div className="sm:grid grid-cols-12 gap-4 items-center py-2">
-        <div className="col-span-5 px-2 sm:px-6 py-2 sm:py-0 truncate block sm:text-sm text-md font-medium text-gray-900 dark:text-white">
+        <div className="col-span-3 px-2 sm:px-6 py-2 sm:py-0 truncate block sm:text-sm text-md font-medium text-gray-900 dark:text-white">
           <div className="flex justify-between">
             <div className="pl-1 py-2">{apikey.name}</div>
             <div>
@@ -144,7 +142,7 @@ function APIListItem({ apikey }: ApiKeyItemProps) {
             </div>
           </div>
         </div>
-        <div className="col-span-6 flex items-center text-sm font-medium text-gray-900 dark:text-white">
+        <div className="col-span-8 flex items-center text-sm font-medium text-gray-900 dark:text-white">
           <KeyField value={apikey.key} />
         </div>
 

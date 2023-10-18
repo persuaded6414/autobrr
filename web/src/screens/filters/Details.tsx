@@ -119,7 +119,7 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
         text="Are you sure you want to remove this filter? This action cannot be undone."
       />
 
-      <div className="mt-4 pt-4 flex flex-col-reverse sm:flex-row flex-wrap-reverse justify-between">
+      <div className="mt-4 flex flex-col-reverse sm:flex-row flex-wrap-reverse justify-between">
         <button
           type="button"
           className="flex items-center justify-center px-4 py-2 rounded-md sm:text-sm transition bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
@@ -321,10 +321,10 @@ export function FilterDetails() {
             Filters
           </NavLink>
         </h1>
-        <ChevronRightIcon className="h-6 w-6 mx-1" aria-hidden="true" />
+        <ChevronRightIcon className="h-6 w-4 shrink-0 sm:shrink sm:h-6 sm:w-6 mx-1" aria-hidden="true" />
         <h1 className="text-3xl font-bold truncate" title={filter.name}>{filter.name}</h1>
       </div>
-      <div className="max-w-screen-xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-225 dark:border-gray-775">
           <div className="rounded-t-lg bg-gray-100 dark:bg-gray-825 border-b border-gray-200 dark:border-gray-750">
             <nav className="px-4 -mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
@@ -447,7 +447,7 @@ export function General() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <TextField name="name" label="Filter name" columns={6} placeholder="eg. Filter 1" />
 
           <div className="col-span-12 sm:col-span-6">
@@ -458,7 +458,7 @@ export function General() {
 
       <div>
         <TitleSubtitle title="Rules" subtitle="Specify rules on how torrents should be handled/selected." />
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <TextField
             name="min_size"
             label="Min size"
@@ -531,9 +531,7 @@ export function General() {
         </div>
       </div>
 
-      <div>
-        <SwitchGroup name="enabled" label="Enabled" description="Enable or disable this filter." />
-      </div>
+      <SwitchGroup name="enabled" label="Enabled" description="Enable or disable this filter." />
     </div>
   );
 }
@@ -541,7 +539,7 @@ export function General() {
 export function MoviesTv() {
   return (
     <div className="divide-y divide-gray-150 dark:divide-gray-775">
-      <div className="py-6 grid grid-cols-12 gap-3">
+      <div className="py-4 grid grid-cols-12 gap-3">
         <TextAreaAutoResize
           name="shows"
           label="Movies / Shows"
@@ -573,7 +571,7 @@ export function MoviesTv() {
           subtitle="Set season and episode match constraints."
         />
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <TextField
             name="seasons"
             label="Seasons"
@@ -615,7 +613,7 @@ export function MoviesTv() {
           subtitle="Set resolution, source, codec and related match constraints."
         />
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="resolutions"
             options={RESOLUTION_OPTIONS}
@@ -644,7 +642,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="codecs"
             options={CODECS_OPTIONS}
@@ -673,7 +671,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="match_hdr"
             options={HDR_OPTIONS}
@@ -702,7 +700,7 @@ export function MoviesTv() {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="match_other"
             options={OTHER_OPTIONS}
@@ -738,7 +736,7 @@ export function MoviesTv() {
 export function Music({ values }: AdvancedProps) {
   return (
     <div className="divide-y divide-gray-150 dark:divide-gray-775">
-      <div className="py-6 grid grid-cols-12 gap-3">
+      <div className="py-4 grid grid-cols-12 gap-3">
         <TextAreaAutoResize
           name="artists"
           label="Artists"
@@ -780,7 +778,7 @@ export function Music({ values }: AdvancedProps) {
       <div className="py-6">
         <TitleSubtitle title="Quality" subtitle="Format, source, log etc." />
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="formats"
             options={FORMATS_OPTIONS}
@@ -809,7 +807,7 @@ export function Music({ values }: AdvancedProps) {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
+        <div className="mt-4 grid grid-cols-12 gap-3">
           <MultiSelect
             name="media"
             options={SOURCES_MUSIC_OPTIONS}
@@ -837,52 +835,36 @@ export function Music({ values }: AdvancedProps) {
           />
         </div>
 
-        <div className="mt-6 grid grid-cols-12 gap-3">
-          <NumberField
-            name="log_score"
-            label="Log score"
-            placeholder="eg. 100"
-            min={0}
-            max={100}
-            disabled={values.perfect_flac}
-            tooltip={
-              <div>
-                <p>Log scores go from 0 to 100. This is overridden by Perfect FLAC.</p>
-                <DocsLink href="https://autobrr.com/filters#quality-1" />
-              </div>
-            }
-          />
-        </div>
-      </div>
-
-      <div className="py-6">
-        <div className="flex flex-col gap-5 sm:gap-0 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex basis-5/12">
+        <div className="mt-4 grid grid-cols-12 gap-3">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name="perfect_flac"
               label="Perfect FLAC"
               description={
-                <>
-                  Override all options about quality, source, format, and cue/log/log score.
-                  <br /><br />
-                  <span className="underline underline-offset-2">This is what you want in 99% of cases.</span>
-                </>
+                <p className="mr-3">Override all options about quality, source, format, and cue/log/log score.</p>
               }
               tooltip={
                 <div>
-                  <p>Override all options about quality, source, format, and cue/log/log score.</p>
+                  <p>Override all options about quality, source, format, and CUE/LOG/LOG score.</p>
                   <DocsLink href="https://autobrr.com/filters#quality-1" />
                 </div>
               }
             />
-
           </div>
-          <div className="flex shrink basis-2/12 items-center justify-center">
-            <span className="text-lg font-bold uppercase tracking-wide text-gray-700 dark:text-gray-200">
+
+          <span className="col-span-12 sm:col-span-6 self-center ml-0 text-center sm:ml-4 sm:text-left text-sm text-gray-500 dark:text-gray-425 underline underline-offset-2">
+            This is what you want in 99% of cases (instead of options below).
+          </span>
+
+          <div className="col-span-12 flex items-center justify-center">
+            <span className="border-b border-gray-150 dark:border-gray-725 w-full" />
+            <span className="flex mx-2 shrink-0 text-lg font-bold uppercase tracking-wide text-gray-700 dark:text-gray-200">
               OR
             </span>
+            <span className="border-b border-gray-150 dark:border-gray-725 w-full" />
           </div>
-          <div className="flex flex-col basis-5/12">
+
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name="log"
               label="Log"
@@ -896,8 +878,26 @@ export function Music({ values }: AdvancedProps) {
               disabled={values.perfect_flac}
             />
           </div>
+
+          <div className="col-span-12 sm:col-span-6">
+            <NumberField
+              name="log_score"
+              label="Log score"
+              placeholder="eg. 100"
+              min={0}
+              max={100}
+              disabled={values.perfect_flac}
+              tooltip={
+                <div>
+                  <p>Log scores go from 0 to 100. This is overridden by Perfect FLAC.</p>
+                  <DocsLink href="https://autobrr.com/filters#quality-1" />
+                </div>
+              }
+            />
+          </div>
         </div>
       </div>
+
     </div>
   );
 }
@@ -913,72 +913,65 @@ export function Advanced({ values }: AdvancedProps) {
         defaultOpen
         title="Releases"
       >
-        <div className="grid col-span-12 gap-3">
-          <WarningAlert
-            className="mb-2"
-            text="autobrr has extensive filtering built-in - only use this if nothing else is possible. If you need help, please ask."
-          />
+        <RegexTextAreaField
+          name="match_releases"
+          label="Match releases"
+          useRegex={values.use_regex}
+          columns={6}
+          placeholder="eg. *some?movie*,*some?show*s01*"
+          tooltip={
+            <div>
+              <p>This field has full regex support (Golang flavour).</p>
+              <DocsLink href="https://autobrr.com/filters#advanced" />
+              <br />
+              <br />
+              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
+            </div>
+          }
+        />
+        <RegexTextAreaField
+          name="except_releases"
+          label="Except releases"
+          useRegex={values.use_regex}
+          columns={6}
+          placeholder="eg. *bad?movie*,*bad?show*s03*"
+          tooltip={
+            <div>
+              <p>This field has full regex support (Golang flavour).</p>
+              <DocsLink href="https://autobrr.com/filters#advanced" />
+              <br />
+              <br />
+              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
+            </div>
+          }
+        />
 
-          <RegexTextAreaField
-            name="match_releases"
-            label="Match releases"
-            useRegex={values.use_regex}
-            columns={6}
-            placeholder="eg. *some?movie*,*some?show*s01*"
-            tooltip={
-              <div>
-                <p>This field has full regex support (Golang flavour).</p>
-                <DocsLink href="https://autobrr.com/filters#advanced" />
-                <br />
-                <br />
-                <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-              </div>
-            }
-          />
-          <RegexTextAreaField
-            name="except_releases"
-            label="Except releases"
-            useRegex={values.use_regex}
-            columns={6}
-            placeholder="eg. *bad?movie*,*bad?show*s03*"
-            tooltip={
-              <div>
-                <p>This field has full regex support (Golang flavour).</p>
-                <DocsLink href="https://autobrr.com/filters#advanced" />
-                <br />
-                <br />
-                <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-              </div>
-            }
-          />
-
-          <div className="col-span-6">
-            <SwitchGroup name="use_regex" label="Use Regex" />
-          </div>
-
-          {values.match_releases ? (
-            <WarningAlert
-              alert="Ask yourself:"
-              text={
-                <>
-                  Do you have a good reason to use <strong>Match releases</strong> instead of one of the other tabs?
-                </>
-              }
-              colors="text-cyan-700 bg-cyan-100 dark:bg-cyan-200 dark:text-cyan-800"
-            />
-          ) : null}
-          {values.except_releases ? (
-            <WarningAlert
-              alert="Ask yourself:"
-              text={
-                <>
-                  Do you have a good reason to use <strong>Except releases</strong> instead of one of the other tabs?
-                </>
-              }
-              colors="text-fuchsia-700 bg-fuchsia-100 dark:bg-fuchsia-200 dark:text-fuchsia-800"
-            />
-          ) : null}
+        <div className="col-span-12 lg:col-span-6">
+          <SwitchGroup name="use_regex" label="Use Regex" />
         </div>
+
+        {values.match_releases ? (
+          <WarningAlert
+            alert="Ask yourself:"
+            text={
+              <>
+                Do you have a good reason to use <strong>Match releases</strong> instead of one of the other tabs?
+              </>
+            }
+            colors="text-cyan-700 bg-cyan-100 dark:bg-cyan-200 dark:text-cyan-800"
+          />
+        ) : null}
+        {values.except_releases ? (
+          <WarningAlert
+            alert="Ask yourself:"
+            text={
+              <>
+                Do you have a good reason to use <strong>Except releases</strong> instead of one of the other tabs?
+              </>
+            }
+            colors="text-fuchsia-700 bg-fuchsia-100 dark:bg-fuchsia-200 dark:text-fuchsia-800"
+          />
+        ) : null}
       </CollapsibleSection>
 
       <CollapsibleSection
@@ -1013,7 +1006,7 @@ export function Advanced({ values }: AdvancedProps) {
 
       <CollapsibleSection
         defaultOpen={true}
-        title="Categories and tags"
+        title="Categories"
       >
         <TextAreaAutoResize
           name="match_categories"
@@ -1039,7 +1032,12 @@ export function Advanced({ values }: AdvancedProps) {
             </div>
           }
         />
+      </CollapsibleSection>
 
+      <CollapsibleSection
+        defaultOpen
+        title="Tags"
+      >
         <TextAreaAutoResize
           name="tags"
           label="Match tags"
@@ -1166,37 +1164,6 @@ export function Advanced({ values }: AdvancedProps) {
 
       <CollapsibleSection
         defaultOpen={true}
-        title="Release Tags"
-        subtitle={
-          <>This is the <span className="italic">raw</span> releaseTags string from the announce.</>
-        }
-      >
-        <div className="grid col-span-12 gap-3">
-          <WarningAlert text="These might not be what you think they are. For advanced users who know how things are parsed." />
-
-          <RegexField
-            name="match_release_tags"
-            label="Match release tags"
-            useRegex={values.use_regex_release_tags}
-            columns={6}
-            placeholder="eg. *mkv*,*foreign*"
-          />
-          <RegexField
-            name="except_release_tags"
-            label="Except release tags"
-            useRegex={values.use_regex_release_tags}
-            columns={6}
-            placeholder="eg. *mkv*,*foreign*"
-          />
-
-          <div className="col-span-6">
-            <SwitchGroup name="use_regex_release_tags" label="Use Regex" />
-          </div>
-        </div>
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
         title="Feeds"
         subtitle={
           <>These options are <span className="italic">only</span> for Feeds such as RSS, Torznab and Newznab</>
@@ -1236,7 +1203,7 @@ export function Advanced({ values }: AdvancedProps) {
         />
         {/*</div>*/}
 
-        <div className="col-span-6">
+        <div className="col-span-12 lg:col-span-6">
           <SwitchGroup name="use_regex_description" label="Use Regex" />
         </div>
       </CollapsibleSection>
@@ -1245,7 +1212,7 @@ export function Advanced({ values }: AdvancedProps) {
         defaultOpen={true}
         title="Freeleech"
       >
-        <div className="col-span-6 flex flex-col gap-2">
+        <div className="col-span-12 sm:col-span-6">
           <SwitchGroup
             name="freeleech"
             label="Freeleech"
@@ -1288,6 +1255,40 @@ export function Advanced({ values }: AdvancedProps) {
           placeholder="eg. 50,75-100"
         />
       </CollapsibleSection>
+
+      <CollapsibleSection
+        defaultOpen={false}
+        title="Release Tags"
+        subtitle={
+          <>This is the <span className="italic">raw</span> releaseTags string from the announce.</>
+        }
+      >
+        <WarningAlert
+          text={
+            <>These might not be what you think they are. For <span className="underline font-bold">very advanced</span> users who know how things are parsed.</>
+          }
+        />
+
+        <RegexField
+          name="match_release_tags"
+          label="Match release tags"
+          useRegex={values.use_regex_release_tags}
+          columns={6}
+          placeholder="eg. *mkv*,*foreign*"
+        />
+        <RegexField
+          name="except_release_tags"
+          label="Except release tags"
+          useRegex={values.use_regex_release_tags}
+          columns={6}
+          placeholder="eg. *mkv*,*foreign*"
+        />
+
+        <div className="col-span-12 lg:col-span-6">
+          <SwitchGroup name="use_regex_release_tags" label="Use Regex" />
+        </div>
+      </CollapsibleSection>
+
     </div>
   );
 }
@@ -1303,8 +1304,11 @@ export function CollapsibleSection({ title, subtitle, children, defaultOpen = fa
   const [isOpen, toggleOpen] = useToggle(defaultOpen ?? false);
 
   return (
-    <div className="pt-3 pb-3 border-dashed border-b-2 border-gray-200 dark:border-gray-775">
-      <div className="flex select-none items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700" onClick={toggleOpen}>
+    <div className="pt-3 pb-3 rounded-t-lg border-dashed border-b-2 border-gray-200 dark:border-gray-775">
+      <div
+        className="flex select-none items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+        onClick={toggleOpen}
+      >
         <div className="flex flex-row items-center gap-2">
           <button
             type="button"
@@ -1316,14 +1320,21 @@ export function CollapsibleSection({ title, subtitle, children, defaultOpen = fa
             <ChevronDownIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />
           </button>
           <div className="flex flex-col sm:gap-2 sm:flex-row sm:items-end">
-            <h3 className="text-xl leading-6 font-bold text-gray-900 dark:text-gray-200">{title}</h3>
+            {/*
+            NOTE(stacksmash76): added text-shadow only for the dark theme - light theme is fine contrast-wise when it comes to headings
+            ideally, this would need a redesign
+            */}
+
+            <h3 className="text-xl leading-6 font-bold dark:text-shadow dark:shadow-gray-900 text-gray-900 dark:text-gray-200">
+              {title}
+            </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
           </div>
         </div>
       </div>
       {/*TODO: Animate this too*/}
       {isOpen && (
-        <div className="px-2 mt-3 mb-2 grid grid-cols-12 gap-3">
+        <div className="sm:px-2 mt-2 grid grid-cols-12 gap-2 sm:gap-3">
           {children}
         </div>
       )}

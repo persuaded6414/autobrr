@@ -18,6 +18,7 @@ interface TextFieldProps {
   name: string;
   defaultValue?: string;
   label?: string;
+  required?: boolean;
   placeholder?: string;
   columns?: COL_WIDTHS;
   autoComplete?: string;
@@ -30,6 +31,7 @@ export const TextField = ({
   name,
   defaultValue,
   label,
+  required,
   placeholder,
   columns,
   autoComplete,
@@ -49,6 +51,9 @@ export const TextField = ({
         {tooltip ? (
           <DocsTooltip label={label}>{tooltip}</DocsTooltip>
         ) : label}
+        {required ? (
+          <span className="ml-1 text-red-500">*</span>
+        ) : null}
       </label>
     )}
     <Field name={name} defaultValue={defaultValue}>
@@ -65,10 +70,10 @@ export const TextField = ({
             autoComplete={autoComplete}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
-                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                 : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block border w-full dark:text-gray-100 rounded-md"
             )}
@@ -206,10 +211,10 @@ export const RegexField = ({
               autoComplete={autoComplete}
               className={classNames(
                 useRegex && meta.error
-                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                  : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                 disabled
-                  ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                  ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                   : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
@@ -350,10 +355,10 @@ export const RegexTextAreaField = ({
               autoComplete={autoComplete}
               className={classNames(
                 useRegex && meta.error
-                  ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                  : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                  : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                 disabled
-                  ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                  ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                   : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
@@ -436,10 +441,10 @@ export const TextArea = ({
             autoComplete={autoComplete}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
-                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                 : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block border w-full dark:text-gray-100 rounded-md"
             )}
@@ -511,10 +516,10 @@ export const TextAreaAutoResize = ({
             autoComplete={autoComplete}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
-                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
+                ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                 : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
               "mt-2 block w-full dark:text-gray-100 rounded-md"
             )}
@@ -582,8 +587,8 @@ export const PasswordField = ({
                   autoComplete={autoComplete}
                   className={classNames(
                     meta.touched && meta.error
-                      ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                      : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                      ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                      : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                     "mt-2 block w-full rounded-md bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                   )}
                   placeholder={placeholder}
@@ -657,12 +662,12 @@ export const NumberField = ({
             required={required}
             className={classNames(
               meta.touched && meta.error
-                ? "focus:ring-red-500 focus:border-red-500 border-red-500"
-                : "focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775",
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               "mt-2 block w-full border rounded-md",
               disabled
-                ? "bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
-                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             placeholder={placeholder}
             disabled={disabled}

@@ -88,7 +88,7 @@ export const Releases = () => {
           </div>
         ) : null}
       </div>
-      <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
+      <div className="max-w-screen-xl mx-auto pb-6 px-2 sm:px-6 lg:pb-16 lg:px-8">
         <ReleaseTable />
       </div>
     </main>

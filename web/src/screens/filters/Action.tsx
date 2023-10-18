@@ -38,6 +38,7 @@ import { DocsLink } from "@components/ExternalLink";
 
 import { CollapsibleSection } from "./Details";
 import { Checkbox } from "@components/Checkbox";
+import { TitleSubtitle } from "@components/headings";
 
 interface FilterActionsProps {
   filter: Filter;
@@ -91,12 +92,11 @@ export function FilterActions({ filter, values }: FilterActionsProps) {
         {({ remove, push }: FieldArrayRenderProps) => (
           <>
             <div className="-ml-4 -mt-4 mb-6 flex justify-between items-center flex-wrap sm:flex-nowrap">
-              <div className="ml-4 mt-4">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">Actions</h3>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Add to download clients or run custom commands.
-                </p>
-              </div>
+              <TitleSubtitle
+                className="ml-4 mt-4"
+                title="Actions"
+                subtitle="Add to download clients or run custom commands."
+              />
               <div className="ml-4 mt-4 flex-shrink-0">
                 <button
                   type="button"
@@ -175,7 +175,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "EXEC":
     return (
       <div>
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <TextField
             name={`actions.${idx}.exec_cmd`}
             label="Command"
@@ -193,7 +193,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "WATCH_FOLDER":
     return (
-      <div className="grid grid-cols-12 gap-6 pt-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
         <TextField
           name={`actions.${idx}.watch_folder`}
           label="Watch folder"
@@ -204,7 +204,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "WEBHOOK":
     return (
-      <div className="grid grid-cols-12 gap-6 pt-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
         <TextField
           name={`actions.${idx}.webhook_host`}
           label="Host"
@@ -223,14 +223,14 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "QBITTORRENT":
     return (
       <div className="w-full">
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
 
-          <div className="col-span-6 sm:col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <TextField
               name={`actions.${idx}.save_path`}
               label="Save path"
@@ -248,7 +248,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <TextField
             name={`actions.${idx}.category`}
             label="Category"
@@ -277,7 +277,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
           <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <NumberField
                 name={`actions.${idx}.limit_download_speed`}
                 label="Limit download speed (KiB/s)"
@@ -290,7 +290,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
 
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <NumberField
                 name={`actions.${idx}.limit_ratio`}
                 label="Ratio limit"
@@ -305,7 +305,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
               label="Add paused"
@@ -321,7 +321,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               }
             />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <Select
               name={`actions.${idx}.content_layout`}
               label="Content Layout"
@@ -341,7 +341,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsibleSection title="Advanced">
           <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <NumberField
                 name={`actions.${idx}.reannounce_interval`}
                 label="Reannounce interval. Run every X seconds"
@@ -353,7 +353,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_skip`}
               label="Skip reannounce"
@@ -372,7 +372,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "DELUGE_V2":
     return (
       <div>
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -398,7 +398,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <NumberField
             name={`actions.${idx}.limit_download_speed`}
             label="Limit download speed (KB/s)"
@@ -409,8 +409,8 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pt-2">
-          <div className="col-span-6">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
               label="Add paused"
@@ -422,7 +422,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "RTORRENT":
     return (
       <div>
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -447,7 +447,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             />
           </div>
           <div className="col-span-12 sm:col-span-6">
-            <div className="col-span-6">
+            <div className="col-span-12 sm:col-span-6">
               <Select
                 name={`actions.${idx}.content_layout`}
                 label="Don't add torrent's name to path"
@@ -457,7 +457,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             </div>
           </div>
           <div className="col-span-12 sm:col-span-6">
-            <div className="col-span-6">
+            <div className="col-span-12 sm:col-span-6">
               <SwitchGroup
                 name={`actions.${idx}.paused`}
                 label="Don't start download automatically"
@@ -470,7 +470,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "TRANSMISSION":
     return (
       <div>
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -487,8 +487,8 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pt-2">
-          <div className="col-span-6">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
               label="Add paused"
@@ -498,7 +498,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsibleSection title="Re-announce" subtitle="Re-announce options">
           <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <NumberField
                 name={`actions.${idx}.reannounce_interval`}
                 label="Reannounce interval. Run every X seconds"
@@ -510,7 +510,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               />
             </div>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_skip`}
               label="Disable reannounce"
@@ -528,14 +528,14 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "PORLA":
     return (
       <div className="w-full">
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
 
-          <div className="col-span-6 sm:col-span-6">
+          <div className="col-span-12 sm:col-span-6">
             <TextField
               name={`actions.${idx}.save_path`}
               label="Save path"
@@ -545,7 +545,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <TextField
             name={`actions.${idx}.label`}
             label="Preset"
@@ -556,7 +556,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
 
         <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
           <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <NumberField
                 name={`actions.${idx}.limit_download_speed`}
                 label="Limit download speed (KiB/s)"
@@ -576,7 +576,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "WHISPARR":
   case "READARR":
     return (
-      <div className="grid grid-cols-12 gap-6 pt-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
         <DownloadClientSelect
           name={`actions.${idx}.client_id`}
           action={action}
@@ -592,7 +592,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "SABNZBD":
     return (
       <div>
-        <div className="grid grid-cols-12 gap-6 pt-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -705,7 +705,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
           />
 
           <div className="w-full">
-            <div className="grid grid-cols-12 gap-6 pt-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
               <Select
                 name={`actions.${idx}.type`}
                 label="Type"

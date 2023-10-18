@@ -60,8 +60,8 @@ function ApplicationSettings() {
       <div className="-mx-4 divide-y divide-gray-150 dark:divide-gray-750">
         <form className="mt-6 mb-4" action="#" method="POST">
           {data && (
-            <div className="grid grid-cols-12 gap-6 px-4">
-              <div className="col-span-6 sm:col-span-4">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 px-4">
+              <div className="col-span-12 sm:col-span-4">
                 <label htmlFor="host" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
                   Host
                 </label>
@@ -75,7 +75,7 @@ function ApplicationSettings() {
                 />
               </div>
 
-              <div className="col-span-6 sm:col-span-4">
+              <div className="col-span-12 sm:col-span-4">
                 <label htmlFor="port" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
                   Port
                 </label>
@@ -89,7 +89,7 @@ function ApplicationSettings() {
                 />
               </div>
 
-              <div className="col-span-6 sm:col-span-4">
+              <div className="col-span-12 sm:col-span-4">
                 <label htmlFor="base_url" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
                   Base url
                 </label>
@@ -125,22 +125,24 @@ function ApplicationSettings() {
         <RowItem label="Application" value={data?.application} />
         <RowItem label="Config path" value={data?.config_dir} />
         <RowItem label="Database" value={data?.database} />
-        <Checkbox
-          label="WebUI Debug mode"
-          value={settings.debug}
-          className="px-4 sm:px-6"
-          setValue={
-            (newValue: boolean) => setSettings((prevState) => ({
-              ...prevState,
-              debug: newValue
-            }))
-          }
-        />
+        <div className="py-0.5">
+          <Checkbox
+            label="WebUI Debug mode"
+            value={settings.debug}
+            className="p-4 sm:px-6"
+            setValue={
+              (newValue: boolean) => setSettings((prevState) => ({
+                ...prevState,
+                debug: newValue
+              }))
+            }
+          />
+        </div>
         <Checkbox
           label="Check for updates"
           description="Get notified of new updates."
           value={data?.check_for_updates ?? true}
-          className="px-4 sm:px-6"
+          className="p-4 sm:px-6"
           setValue={(newValue: boolean) => {
             toggleCheckUpdateMutation.mutate(newValue);
           }}
@@ -149,7 +151,7 @@ function ApplicationSettings() {
           label="Dark theme"
           description="Switch between dark and light theme."
           value={settings.darkTheme}
-          className="px-4 sm:px-6"
+          className="p-4 sm:px-6"
           setValue={
             (newValue: boolean) => setSettings((prevState) => ({
               ...prevState,

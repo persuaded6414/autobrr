@@ -28,7 +28,7 @@ const SwitchGroup = ({
   heading,
   disabled
 }: SwitchGroupProps) => (
-  <HeadlessSwitch.Group as="ol" className="flex items-center justify-between">
+  <HeadlessSwitch.Group as="div" className="flex items-center justify-between py-2">
     {label && <div className="flex flex-col">
       <HeadlessSwitch.Label
         passive
@@ -59,6 +59,7 @@ const SwitchGroup = ({
       }: FieldProps) => (
         <Checkbox
           {...field}
+          className=""
           value={!!field.checked}
           setValue={(value) => {
             setFieldValue(field?.name ?? "", value);

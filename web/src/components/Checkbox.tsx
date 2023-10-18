@@ -25,7 +25,7 @@ export const Checkbox = ({
 }: CheckboxProps) => (
   <Switch.Group
     as="div"
-    className={classNames(className ?? "", "py-4 flex items-center justify-between")}
+    className={classNames(className ?? "py-2", "flex items-center justify-between")}
     onClick={(e) => {
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
@@ -58,12 +58,12 @@ export const Checkbox = ({
               ? "cursor-pointer bg-blue-600 border-blue-525"
               : "cursor-pointer bg-gray-300 dark:bg-gray-700 border-gray-375 dark:border-gray-600"
           ),
-        "border relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+        "border relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-colors"
       )}
     >
       <span
         className={classNames(
-          value ? "translate-x-6" : "translate-x-1",
+          value ? "translate-x-6" : "translate-x-[0.15rem]",
           disabled ? "bg-gray-650 dark:bg-gray-800" : "bg-white",
           "inline-flex items-center align-center h-4 w-4 transform rounded-full transition ring-0 shadow"
         )}

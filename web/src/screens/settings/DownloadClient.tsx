@@ -116,15 +116,15 @@ function ListItem({ client }: DLSettingsItemProps) {
           isOpen={updateClientIsOpen}
           toggle={toggleUpdateClient}
         />
-        <div className="col-span-2 sm:col-span-1 px-6 flex items-center sm:px-6">
+        <div className="col-span-2 sm:col-span-1 pl-1 sm:pl-5 flex items-center">
           <Checkbox
             value={client.enabled}
             setValue={onToggleMutation}
           />
         </div>
-        <div className="col-span-8 sm:col-span-4 lg:col-span-4 pl-12 pr-6 py-3 block flex-col text-sm font-medium text-gray-900 dark:text-white truncate" title={client.name}>{client.name}</div>
-        <div className="hidden sm:block col-span-4 pr-6 py-3 text-left items-center whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 truncate" title={client.host}>{client.host}</div>
-        <div className="hidden sm:block col-span-2 py-3 text-left items-center text-sm text-gray-500 dark:text-gray-400">{DownloadClientTypeNameMap[client.type]}</div>
+        <div className="col-span-8 sm:col-span-4 lg:col-span-4 pl-10 sm:pl-12 pr-6 py-3 block flex-col text-sm font-medium text-gray-900 dark:text-white truncate" title={client.name}>{client.name}</div>
+        <div className="hidden sm:block col-span-4 pr-6 py-3 text-left items-center whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 truncate" title={client.host}>{client.host}</div>
+        <div className="hidden sm:block col-span-2 py-3 text-left items-center text-sm text-gray-600 dark:text-gray-400">{DownloadClientTypeNameMap[client.type]}</div>
         <div className="col-span-1 pl-0.5 whitespace-nowrap text-center text-sm font-medium">
           <span className="text-blue-600 dark:text-gray-300 hover:text-blue-900 cursor-pointer" onClick={toggleUpdateClient}>
             Edit
@@ -168,39 +168,38 @@ function DownloadClientSettings() {
       <DownloadClientAddForm isOpen={addClientIsOpen} toggle={toggleAddClient} />
 
       <div className="flex flex-col">
-        {sortedClients.items.length > 0
-          ? <section className="light:bg-white dark:bg-gray-800 light:shadow sm:rounded-sm">
-            <ol className="min-w-full relative">
-              <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex col-span-2 sm:col-span-1 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                  onClick={() => sortedClients.requestSort("enabled")}>
-                  Enabled <span className="sort-indicator">{sortedClients.getSortIndicator("enabled")}</span>
-                </div>
-                <div
-                  className="col-span-6 sm:col-span-4 lg:col-span-4 pl-12 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                  onClick={() => sortedClients.requestSort("name")}
-                >
-                  Name <span className="sort-indicator">{sortedClients.getSortIndicator("name")}</span>
-                </div>
-                <div
-                  className="hidden sm:flex col-span-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                  onClick={() => sortedClients.requestSort("host")}
-                >
-                  Host <span className="sort-indicator">{sortedClients.getSortIndicator("host")}</span>
-                </div>
-                <div className="hidden sm:flex col-span-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                  onClick={() => sortedClients.requestSort("type")}
-                >
-                  Type <span className="sort-indicator">{sortedClients.getSortIndicator("type")}</span>
-                </div>
-              </li>
-              {sortedClients.items.map((client) => (
-                <ListItem key={client.id} client={client} />
-              ))}
-            </ol>
-          </section>
-          : <EmptySimple title="No download clients" subtitle="" buttonText="Add new client" buttonAction={toggleAddClient} />
-        }
+        {sortedClients.items.length > 0 ? (
+          <ul className="min-w-full relative">
+            <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
+              <div className="flex col-span-2 sm:col-span-1 pl-0 sm:pl-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+                onClick={() => sortedClients.requestSort("enabled")}>
+                Enabled <span className="sort-indicator">{sortedClients.getSortIndicator("enabled")}</span>
+              </div>
+              <div
+                className="col-span-6 sm:col-span-4 lg:col-span-4 pl-10 sm:pl-12 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+                onClick={() => sortedClients.requestSort("name")}
+              >
+                Name <span className="sort-indicator">{sortedClients.getSortIndicator("name")}</span>
+              </div>
+              <div
+                className="hidden sm:flex col-span-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+                onClick={() => sortedClients.requestSort("host")}
+              >
+                Host <span className="sort-indicator">{sortedClients.getSortIndicator("host")}</span>
+              </div>
+              <div className="hidden sm:flex col-span-3 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+                onClick={() => sortedClients.requestSort("type")}
+              >
+                Type <span className="sort-indicator">{sortedClients.getSortIndicator("type")}</span>
+              </div>
+            </li>
+            {sortedClients.items.map((client) => (
+              <ListItem key={client.id} client={client} />
+            ))}
+          </ul>
+        ) : (
+          <EmptySimple title="No download clients" subtitle="" buttonText="Add new client" buttonAction={toggleAddClient} />
+        )}
       </div>
     </Section>
   );

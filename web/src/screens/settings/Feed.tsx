@@ -105,42 +105,42 @@ function FeedSettings() {
       title="Feeds"
       description="Manage RSS, Newznab, and Torznab feeds."
     >
-      {data && data.length > 0 ?
-        <section className="light:bg-white dark:bg-gray-800 light:shadow sm:rounded-md">
-          <ol className="min-w-full relative">
-            <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
-              <div
-                className="flex col-span-2 sm:col-span-1 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedFeeds.requestSort("enabled")}>
-                Enabled <span className="sort-indicator">{sortedFeeds.getSortIndicator("enabled")}</span>
-              </div>
-              <div
-                className="col-span-5 pl-12 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedFeeds.requestSort("name")}>
-                Name <span className="sort-indicator">{sortedFeeds.getSortIndicator("name")}</span>
-              </div>
-              <div
-                className="hidden md:flex col-span-1 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedFeeds.requestSort("type")}>
-                Type <span className="sort-indicator">{sortedFeeds.getSortIndicator("type")}</span>
-              </div>
-              <div
-                className="hidden md:flex col-span-2 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedFeeds.requestSort("last_run")}>
-                Last run <span className="sort-indicator">{sortedFeeds.getSortIndicator("last_run")}</span>
-              </div>
-              <div
-                className="hidden md:flex col-span-2 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
-                onClick={() => sortedFeeds.requestSort("next_run")}>
-                Next run <span className="sort-indicator">{sortedFeeds.getSortIndicator("next_run")}</span>
-              </div>
-            </li>
-            {sortedFeeds.items.map((feed) => (
-              <ListItem key={feed.id} feed={feed} />
-            ))}
-          </ol>
-        </section>
-        : <EmptySimple title="No feeds" subtitle="Setup via indexers" />}
+      {data && data.length > 0 ? (
+        <ul className="min-w-full relative">
+          <li className="grid grid-cols-12 border-b border-gray-200 dark:border-gray-700">
+            <div
+              className="flex col-span-2 sm:col-span-1 pl-0 sm:pl-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedFeeds.requestSort("enabled")}>
+              Enabled <span className="sort-indicator">{sortedFeeds.getSortIndicator("enabled")}</span>
+            </div>
+            <div
+              className="col-span-5 pl-10 sm:pl-12 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedFeeds.requestSort("name")}>
+              Name <span className="sort-indicator">{sortedFeeds.getSortIndicator("name")}</span>
+            </div>
+            <div
+              className="hidden md:flex col-span-1 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedFeeds.requestSort("type")}>
+              Type <span className="sort-indicator">{sortedFeeds.getSortIndicator("type")}</span>
+            </div>
+            <div
+              className="hidden md:flex col-span-2 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedFeeds.requestSort("last_run")}>
+              Last run <span className="sort-indicator">{sortedFeeds.getSortIndicator("last_run")}</span>
+            </div>
+            <div
+              className="hidden md:flex col-span-2 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer"
+              onClick={() => sortedFeeds.requestSort("next_run")}>
+              Next run <span className="sort-indicator">{sortedFeeds.getSortIndicator("next_run")}</span>
+            </div>
+          </li>
+          {sortedFeeds.items.map((feed) => (
+            <ListItem key={feed.id} feed={feed} />
+          ))}
+        </ul>
+      ) : (
+        <EmptySimple title="No feeds" subtitle="Setup via indexers" />
+      )}
     </Section>
   );
 }
@@ -175,13 +175,13 @@ function ListItem({ feed }: ListItemProps) {
       <FeedUpdateForm isOpen={updateFormIsOpen} toggle={toggleUpdateForm} feed={feed} />
 
       <div className="grid grid-cols-12 items-center">
-        <div className="col-span-2 sm:col-span-1 px-6 flex items-center">
+        <div className="col-span-2 sm:col-span-1 pl-1 sm:pl-5 flex items-center">
           <Checkbox
             value={feed.enabled}
             setValue={toggleActive}
           />
         </div>
-        <div className="col-span-8 sm:col-span-5 pl-12 py-3 flex flex-col text-sm font-medium text-gray-900 dark:text-white">
+        <div className="col-span-8 sm:col-span-5 pl-10 sm:pl-12 py-3 flex flex-col text-sm font-medium text-gray-900 dark:text-white">
           <span>{feed.name}</span>
           <span className="text-gray-900 dark:text-gray-500 text-xs">
             {feed.indexer}

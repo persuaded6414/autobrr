@@ -90,7 +90,7 @@ function LogSettings() {
     >
       <form className="-mx-4 lg:col-span-9" action="#" method="POST">
         {!isLoading && data && (
-          <dl className="divide-y divide-gray-200 dark:divide-gray-750">
+          <div className="divide-y divide-gray-200 dark:divide-gray-750">
             <RowItem label="Path" value={data?.log_path} title="Set in config.toml" emptyText="Not set!" />
             <RowItem
               label="Level"
@@ -106,7 +106,7 @@ function LogSettings() {
             />
             <RowItem label="Max Size" value={data?.log_max_size} title="Set in config.toml" rightSide="MB" />
             <RowItem label="Max Backups" value={data?.log_max_backups} title="Set in config.toml" />
-          </dl>
+          </div>
         )}
       </form>
       

@@ -48,7 +48,7 @@ export const Header = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-gradient-to-b from-gray-100 dark:from-[#141414]"
+      className="bg-gradient-to-b from-gray-100 dark:from-gray-925"
     >
       {({ open }) => (
         <>

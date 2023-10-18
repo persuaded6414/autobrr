@@ -22,6 +22,7 @@ import {
 import { DeleteModal } from "@components/modals";
 import { DocsLink } from "@components/ExternalLink";
 import { Checkbox } from "@components/Checkbox";
+import { TitleSubtitle } from "@components/headings";
 
 export function External() {
   const { values } = useFormikContext<Filter>();
@@ -40,14 +41,11 @@ export function External() {
         {({ remove, push, move }: FieldArrayRenderProps) => (
           <>
             <div className="-ml-4 -mt-4 mb-6 flex justify-between items-center flex-wrap sm:flex-nowrap">
-              <div className="ml-4 mt-4">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
-                  External filters
-                </h3>
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Run external scripts or webhooks and check status as part of filtering.
-                </p>
-              </div>
+              <TitleSubtitle
+                className="ml-4 mt-4"
+                title="External filters"
+                subtitle="Run external scripts or webhooks and check status as part of filtering."
+              />
               <div className="ml-4 mt-4 flex-shrink-0">
                 <button
                   type="button"
@@ -178,7 +176,7 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
 
       </div>
       {edit && (
-        <div className="px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-600">
+        <div className="mt-1 px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-750">
           <DeleteModal
             isOpen={deleteModalIsOpen}
             isLoading={false}
@@ -190,7 +188,7 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
           />
 
           <div className="w-full">
-            <div className="mt-6 grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 pt-1 sm:pt-2">
               <Select
                 name={`external.${idx}.type`}
                 label="Type"
