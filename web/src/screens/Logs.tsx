@@ -205,7 +205,7 @@ export const LogFiles = () => {
             </div>
           </li>
 
-          {data && data.files.map((f, idx) => <LogFilesItem key={idx} file={f} />)}
+          {data.files.map((f, idx) => <LogFilesItem key={idx} file={f} />)}
         </ul>
       ) : (
         <EmptySimple
