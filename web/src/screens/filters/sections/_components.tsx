@@ -10,7 +10,30 @@ type FilterSectionProps = {
   subtitle?: string;
 };
 
-export const FilterSection = ({
+type OwningComponent = {
+  children: React.ReactNode;
+  className?: string;
+};
+
+export const NormalGridGapClass = "gap-x-2.5 gap-y-6 sm:gap-y-3";
+export const TightGridGapClass = "gap-x-0.5 gap-y-6 sm:gap-y-3";
+export const WideGridGapClass = "gap-x-3.5 gap-y-6 sm:gap-y-3";
+
+export const LayoutClass = "grid grid-cols-12 col-span-12";
+
+export const Layout = ({ children, className = "" }: OwningComponent) => (
+  <div className={classNames(className, LayoutClass, NormalGridGapClass)}>{children}</div>
+);
+
+export const Row = ({ children, className = "" }: OwningComponent) => (
+  <div className={classNames(className, NormalGridGapClass, "col-span-12")}>{children}</div>
+);
+
+export const HalfRow = ({ children, className = "" }: OwningComponent) => (
+  <div className={classNames(className, NormalGridGapClass, "col-span-12 sm:col-span-6")}>{children}</div>
+);
+
+export const Section = ({
   title,
   subtitle,
   children
@@ -18,52 +41,54 @@ export const FilterSection = ({
   return (
     <div
       className={classNames(
-        "",
-        "flex flex-col gap-x-2 gap-y-6 sm:gap-y-3"
+        !title ? "pt-3 pb-3" : "py-6",
+        "flex flex-col",
+        NormalGridGapClass
       )}
     >
       {(title && subtitle) ? (
-        <TitleSubtitle
-          title={title}
-          subtitle={subtitle}
-          className="pt-4"
-        />
+        <TitleSubtitle title={title} subtitle={subtitle} />
       ) : null}
       {children}
     </div>
-  )
+  );
 };
 
 type FilterPageProps = {
   children: React.ReactNode;
 };
 
-export const FilterPage = ({
+export const Page = ({
   children
-}: FilterPageProps) => {
-  return (
-    <div className="flex flex-col gap-y-6 sm:gap-y-3 divide-y divide-gray-150 dark:divide-gray-750">
-      {children}
-    </div>
-  )
-}
+}: FilterPageProps) => (
+  <div className="flex flex-col gap-y-6 sm:gap-y-3 divide-y divide-gray-150 dark:divide-gray-750">
+    {children}
+  </div>
+);
 
 interface CollapsibleSectionProps {
   title: string;
   subtitle?: string | React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  childClassName?: string;
 }
 
 // NOTE(stacksmash76): added text-shadow only for the dark theme - light theme is fine contrast-wise when it comes to headings
 // ideally, this would need a redesign
-export function CollapsibleSection({ title, subtitle, children, defaultOpen = false }: CollapsibleSectionProps) {
-  const [isOpen, toggleOpen] = useToggle(defaultOpen ?? false);
+export const CollapsibleSection = ({
+  title,
+  subtitle,
+  children,
+  defaultOpen = false,
+  childClassName = NormalGridGapClass
+}: CollapsibleSectionProps) => {
+  const [isOpen, toggleOpen] = useToggle(defaultOpen);
 
   return (
     <div
       className={classNames(
-        isOpen ? "pb-6" : "pb-3",
+        isOpen ? "pb-10" : "pb-4",
         "rounded-t-lg border-dashed border-b-2 border-gray-150 dark:border-gray-775"
       )}
     >
@@ -98,7 +123,7 @@ export function CollapsibleSection({ title, subtitle, children, defaultOpen = fa
       </div>
       {/*TODO: Animate this too*/}
       {isOpen && (
-        <div className="sm:px-2 mt-2 grid grid-cols-12 gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-3">
+        <div className={classNames(childClassName, "grid grid-cols-12 col-span-12 sm:px-2 mt-2")}>
           {children}
         </div>
       )}

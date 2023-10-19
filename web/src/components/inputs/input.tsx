@@ -624,6 +624,7 @@ interface NumberFieldProps {
   min?: number;
   max?: number;
   tooltip?: JSX.Element;
+  className?: string;
   isDecimal?: boolean;
 }
 
@@ -637,9 +638,10 @@ export const NumberField = ({
   tooltip,
   disabled,
   required,
-  isDecimal
+  isDecimal,
+  className = ""
 }: NumberFieldProps) => (
-  <div className="col-span-12 sm:col-span-6">
+  <div className={classNames(className, "col-span-12 sm:col-span-6")}>
     <label
       htmlFor={name}
       className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide"

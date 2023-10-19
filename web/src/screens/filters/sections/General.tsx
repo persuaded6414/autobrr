@@ -4,48 +4,49 @@ import { APIClient } from "@api/APIClient";
 import { downloadsPerUnitOptions } from "@domain/constants";
 
 import { DocsLink } from "@components/ExternalLink";
-import { TitleSubtitle } from "@components/headings";
 
 import * as Input from "@components/inputs";
-import * as Component from "./_components";
+import * as Components from "./_components";
+
+const MapIndexer = (indexer: Indexer) => (
+  { label: indexer.name, value: indexer.id } as Input.MultiSelectOption
+);
 
 export const General = () => {
-  const { isLoading, data: indexers } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["filters", "indexer_list"],
     queryFn: APIClient.indexers.getOptions,
     refetchOnWindowFocus: false
   });
 
-  const opts = indexers && indexers.length > 0 ? indexers.map(v => ({
-    label: v.name,
-    value: v.id
-  })) : [];
+  const indexerOptions = data?.map(MapIndexer) ?? [];
 
   return (
-    <div className="divide-y divide-gray-150 dark:divide-gray-750">
-      <div className="pt-4 pb-6 grid grid-cols-12 gap-x-2 gap-y-6 sm:gap-y-3">
-        <div className="grid grid-cols-12 col-span-12 gap-x-2 gap-y-6 sm:gap-y-3">
+    <Components.Page>
+      <Components.Section>
+        <Components.Layout>
           <Input.SwitchGroup
             name="enabled"
             label="Enabled"
             description="Enable or disable this filter."
             className="pb-2 col-span-12 sm:col-span-6"
           />
-        </div>
+        </Components.Layout>
 
-        <Input.TextField name="name" label="Filter name" columns={6} placeholder="eg. Filter 1" />
+        <Components.Layout>
+          <Input.TextField name="name" label="Filter name" columns={6} placeholder="eg. Filter 1" />
 
-        <div className="col-span-12 sm:col-span-6">
-          {!isLoading && <Input.IndexerMultiSelect name="indexers" options={opts} label="Indexers" columns={6} />}
-        </div>
-      </div>
+          {!isLoading && (
+            <Input.IndexerMultiSelect name="indexers" options={indexerOptions} label="Indexers" columns={6} />
+          )}
+        </Components.Layout>
+      </Components.Section>
 
-      <div className="py-6">
-        <TitleSubtitle
-          title="Rules"
-          subtitle="Specify rules on how torrents should be handled/selected."
-        />
-        <div className="mt-4 grid grid-cols-12 gap-x-2 gap-y-6 sm:gap-y-3">
+      <Components.Section
+        title="Rules"
+        subtitle="Specify rules on how torrents should be handled/selected."
+      >
+        <Components.Layout>
           <Input.TextField
             name="min_size"
             label="Min size"
@@ -115,8 +116,8 @@ export const General = () => {
               </div>
             }
           />
-        </div>
-      </div>
-    </div>
+        </Components.Layout>
+      </Components.Section>
+    </Components.Page>
   );
 }
