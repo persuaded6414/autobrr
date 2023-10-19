@@ -10,48 +10,21 @@ import { toast } from "react-hot-toast";
 import { Form, Formik, FormikValues, useFormikContext } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
-import {
-  CODECS_OPTIONS,
-  CONTAINER_OPTIONS,
-  downloadsPerUnitOptions,
-  FORMATS_OPTIONS,
-  HDR_OPTIONS,
-  LANGUAGE_OPTIONS,
-  ORIGIN_OPTIONS,
-  OTHER_OPTIONS,
-  QUALITY_MUSIC_OPTIONS,
-  RELEASE_TYPE_MUSIC_OPTIONS,
-  RESOLUTION_OPTIONS,
-  SOURCES_MUSIC_OPTIONS,
-  SOURCES_OPTIONS,
-  tagsMatchLogicOptions
-} from "@app/domain/constants";
 import { APIClient } from "@api/APIClient";
 import { useToggle } from "@hooks/hooks";
 import { classNames } from "@utils";
 
-import {
-  IndexerMultiSelect,
-  MultiSelect,
-  NumberField,
-  RegexField,
-  Select,
-  SwitchGroup,
-  TextField
-} from "@components/inputs";
 import DEBUG from "@components/debug";
 import Toast from "@components/notifications/Toast";
 import { DeleteModal } from "@components/modals";
-import { WarningAlert } from "@components/alerts";
-import { TitleSubtitle } from "@components/headings";
-import { RegexTextAreaField, TextAreaAutoResize } from "@components/inputs/input";
-import { FilterActions } from "./Action";
-import { filterKeys } from "./List";
 import { External } from "@screens/filters/External";
 import { SectionLoader } from "@components/SectionLoader";
-import { DocsLink } from "@components/ExternalLink";
+
+import { filterKeys } from "./List";
+import { FilterActions } from "./Action";
+import * as Section from "./sections";
 
 interface tabType {
   name: string;
@@ -172,7 +145,7 @@ const allowedClientType = ["QBITTORRENT", "DELUGE_V1", "DELUGE_V2", "RTORRENT", 
 const actionSchema = z.object({
   enabled: z.boolean(),
   name: z.string(),
-  type: z.enum(["QBITTORRENT", "DELUGE_V1", "DELUGE_V2", "RTORRENT", "TRANSMISSION", "PORLA", "RADARR", "SONARR", "LIDARR", "WHISPARR", "READARR", "SABNZBD", "TEST", "EXEC", "WATCH_FOLDER", "WEBHOOK"]),
+  type: z.enum(["TEST", "EXEC", "WATCH_FOLDER", "WEBHOOK", ...allowedClientType]),
   client_id: z.number().optional(),
   exec_cmd: z.string().optional(),
   exec_args: z.string().optional(),
@@ -235,12 +208,12 @@ const schema = z.object({
   external: z.array(externalFilterSchema)
 });
 
-export function FilterDetails() {
+export const FilterDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { filterId } = useParams<{ filterId: string }>();
 
-  if (filterId === "0" || undefined) {
+  if (filterId === "0" || filterId === undefined) {
     navigate("/filters");
   }
 
@@ -325,1020 +298,107 @@ export function FilterDetails() {
         <h1 className="text-3xl font-bold truncate" title={filter.name}>{filter.name}</h1>
       </div>
       <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-225 dark:border-gray-775">
-          <div className="rounded-t-lg bg-gray-100 dark:bg-gray-825 border-b border-gray-200 dark:border-gray-750">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-250 dark:border-gray-775">
+          <div className="rounded-t-lg bg-gray-125 dark:bg-gray-825 border-b border-gray-200 dark:border-gray-750">
             <nav className="px-4 -mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
               {tabs.map((tab) => (
                 <TabNavLink item={tab} key={tab.href} />
               ))}
             </nav>
           </div>
-          <div className="pt-1 px-4 pb-6 block">
-            <Formik
-              initialValues={{
-                id: filter.id,
-                name: filter.name,
-                enabled: filter.enabled,
-                min_size: filter.min_size,
-                max_size: filter.max_size,
-                delay: filter.delay,
-                priority: filter.priority,
-                max_downloads: filter.max_downloads,
-                max_downloads_unit: filter.max_downloads_unit,
-                use_regex: filter.use_regex || false,
-                shows: filter.shows,
-                years: filter.years,
-                resolutions: filter.resolutions || [],
-                sources: filter.sources || [],
-                codecs: filter.codecs || [],
-                containers: filter.containers || [],
-                match_hdr: filter.match_hdr || [],
-                except_hdr: filter.except_hdr || [],
-                match_other: filter.match_other || [],
-                except_other: filter.except_other || [],
-                seasons: filter.seasons,
-                episodes: filter.episodes,
-                smart_episode: filter.smart_episode,
-                match_releases: filter.match_releases,
-                except_releases: filter.except_releases,
-                match_release_groups: filter.match_release_groups,
-                except_release_groups: filter.except_release_groups,
-                match_release_tags: filter.match_release_tags,
-                except_release_tags: filter.except_release_tags,
-                use_regex_release_tags: filter.use_regex_release_tags,
-                match_description: filter.match_description,
-                except_description: filter.except_description,
-                use_regex_description: filter.use_regex_description,
-                match_categories: filter.match_categories,
-                except_categories: filter.except_categories,
-                tags: filter.tags,
-                except_tags: filter.except_tags,
-                tags_match_logic: filter.tags_match_logic,
-                except_tags_match_logic: filter.except_tags_match_logic,
-                match_uploaders: filter.match_uploaders,
-                except_uploaders: filter.except_uploaders,
-                match_language: filter.match_language || [],
-                except_language: filter.except_language || [],
-                freeleech: filter.freeleech,
-                freeleech_percent: filter.freeleech_percent,
-                formats: filter.formats || [],
-                quality: filter.quality || [],
-                media: filter.media || [],
-                match_release_types: filter.match_release_types || [],
-                log_score: filter.log_score,
-                log: filter.log,
-                cue: filter.cue,
-                perfect_flac: filter.perfect_flac,
-                artists: filter.artists,
-                albums: filter.albums,
-                origins: filter.origins || [],
-                except_origins: filter.except_origins || [],
-                indexers: filter.indexers || [],
-                actions: filter.actions || [],
-                external: filter.external || []
-              } as Filter}
-              onSubmit={handleSubmit}
-              enableReinitialize={true}
-              validationSchema={toFormikValidationSchema(schema)}
-            >
-              {({ values, dirty, resetForm }) => (
-                <Form>
-                  <FormErrorNotification />
-                  <Suspense fallback={<SectionLoader $size="large" />}>
-                    <Routes>
-                      <Route index element={<General />} />
-                      <Route path="movies-tv" element={<MoviesTv />} />
-                      <Route path="music" element={<Music values={values} />} />
-                      <Route path="advanced" element={<Advanced values={values} />} />
-                      <Route path="external" element={<External />} />
-                      <Route path="actions" element={<FilterActions filter={filter} values={values} />} />
-                    </Routes>
-                  </Suspense>
-                  <FormButtonsGroup
-                    values={values}
-                    deleteAction={deleteAction}
-                    dirty={dirty}
-                    reset={resetForm}
-                    isLoading={isLoading}
-                  />
-                  <DEBUG values={values} />
-                </Form>
-              )}
-            </Formik>
-          </div>
+          <Formik
+            initialValues={{
+              id: filter.id,
+              name: filter.name,
+              enabled: filter.enabled,
+              min_size: filter.min_size,
+              max_size: filter.max_size,
+              delay: filter.delay,
+              priority: filter.priority,
+              max_downloads: filter.max_downloads,
+              max_downloads_unit: filter.max_downloads_unit,
+              use_regex: filter.use_regex || false,
+              shows: filter.shows,
+              years: filter.years,
+              resolutions: filter.resolutions || [],
+              sources: filter.sources || [],
+              codecs: filter.codecs || [],
+              containers: filter.containers || [],
+              match_hdr: filter.match_hdr || [],
+              except_hdr: filter.except_hdr || [],
+              match_other: filter.match_other || [],
+              except_other: filter.except_other || [],
+              seasons: filter.seasons,
+              episodes: filter.episodes,
+              smart_episode: filter.smart_episode,
+              match_releases: filter.match_releases,
+              except_releases: filter.except_releases,
+              match_release_groups: filter.match_release_groups,
+              except_release_groups: filter.except_release_groups,
+              match_release_tags: filter.match_release_tags,
+              except_release_tags: filter.except_release_tags,
+              use_regex_release_tags: filter.use_regex_release_tags,
+              match_description: filter.match_description,
+              except_description: filter.except_description,
+              use_regex_description: filter.use_regex_description,
+              match_categories: filter.match_categories,
+              except_categories: filter.except_categories,
+              tags: filter.tags,
+              except_tags: filter.except_tags,
+              tags_match_logic: filter.tags_match_logic,
+              except_tags_match_logic: filter.except_tags_match_logic,
+              match_uploaders: filter.match_uploaders,
+              except_uploaders: filter.except_uploaders,
+              match_language: filter.match_language || [],
+              except_language: filter.except_language || [],
+              freeleech: filter.freeleech,
+              freeleech_percent: filter.freeleech_percent,
+              formats: filter.formats || [],
+              quality: filter.quality || [],
+              media: filter.media || [],
+              match_release_types: filter.match_release_types || [],
+              log_score: filter.log_score,
+              log: filter.log,
+              cue: filter.cue,
+              perfect_flac: filter.perfect_flac,
+              artists: filter.artists,
+              albums: filter.albums,
+              origins: filter.origins || [],
+              except_origins: filter.except_origins || [],
+              indexers: filter.indexers || [],
+              actions: filter.actions || [],
+              external: filter.external || []
+            } as Filter}
+            onSubmit={handleSubmit}
+            enableReinitialize={true}
+            validationSchema={toFormikValidationSchema(schema)}
+          >
+            {({ values, dirty, resetForm }) => (
+              <Form className="pt-1 pb-4 px-4">
+                <FormErrorNotification />
+                <Suspense fallback={<SectionLoader $size="large" />}>
+                  <Routes>
+                    <Route index element={<Section.General />} />
+                    <Route path="movies-tv" element={<Section.MoviesTv />} />
+                    <Route path="music" element={<Section.Music values={values} />} />
+                    <Route path="advanced" element={<Section.Advanced values={values} />} />
+                    <Route path="external" element={<External />} />
+                    <Route path="actions" element={<FilterActions filter={filter} values={values} />} />
+                  </Routes>
+                </Suspense>
+                <FormButtonsGroup
+                  values={values}
+                  deleteAction={deleteAction}
+                  dirty={dirty}
+                  reset={resetForm}
+                  isLoading={isLoading}
+                />
+                <DEBUG values={values} />
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     </main>
   );
 }
-
-export function General() {
-  const { isLoading, data: indexers } = useQuery({
-    queryKey: ["filters", "indexer_list"],
-    queryFn: APIClient.indexers.getOptions,
-    refetchOnWindowFocus: false
-  });
-
-  const opts = indexers && indexers.length > 0 ? indexers.map(v => ({
-    label: v.name,
-    value: v.id
-  })) : [];
-
-  return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <TextField name="name" label="Filter name" columns={6} placeholder="eg. Filter 1" />
-
-          <div className="col-span-12 sm:col-span-6">
-            {!isLoading && <IndexerMultiSelect name="indexers" options={opts} label="Indexers" columns={6} />}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <TitleSubtitle title="Rules" subtitle="Specify rules on how torrents should be handled/selected." />
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <TextField
-            name="min_size"
-            label="Min size"
-            columns={6}
-            placeholder="eg. 100MiB, 80GB"
-            tooltip={
-              <div>
-                <p>Supports units such as MB, MiB, GB, etc.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-          <TextField
-            name="max_size"
-            label="Max size"
-            columns={6}
-            placeholder="eg. 100MiB, 80GB"
-            tooltip={
-              <div>
-                <p>Supports units such as MB, MiB, GB, etc.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-          <NumberField
-            name="delay"
-            label="Delay"
-            placeholder="Number of seconds to delay actions"
-            tooltip={
-              <div>
-                <p>Number of seconds to wait before running actions.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-          <NumberField
-            name="priority"
-            label="Priority"
-            placeholder="Higher number = higher priority"
-            tooltip={
-              <div>
-                <p>Filters are checked in order of priority. Higher number = higher priority.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-          <NumberField
-            name="max_downloads"
-            label="Max downloads"
-            placeholder="Takes any number (0 is infinite)"
-            tooltip={
-              <div>
-                <p>Number of max downloads as specified by the respective unit.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-          <Select
-            name="max_downloads_unit"
-            label="Max downloads per"
-            options={downloadsPerUnitOptions}
-            optionDefaultText="Select unit"
-            tooltip={
-              <div>
-                <p>The unit of time for counting the maximum downloads per filter.</p>
-                <DocsLink href="https://autobrr.com/filters#rules" />
-              </div>
-            }
-          />
-        </div>
-      </div>
-
-      <SwitchGroup name="enabled" label="Enabled" description="Enable or disable this filter." />
-    </div>
-  );
-}
-
-export function MoviesTv() {
-  return (
-    <div className="divide-y divide-gray-150 dark:divide-gray-775">
-      <div className="py-4 grid grid-cols-12 gap-3">
-        <TextAreaAutoResize
-          name="shows"
-          label="Movies / Shows"
-          columns={8}
-          placeholder="eg. Movie,Show 1,Show?2"
-          tooltip={
-            <div>
-              <p>You can use basic filtering like wildcards <code>*</code> or replace single characters with <code>?</code></p>
-              <DocsLink href="https://autobrr.com/filters#tvmovies" />
-            </div>
-          }
-        />
-        <TextField
-          name="years"
-          label="Years"
-          columns={4}
-          placeholder="eg. 2018,2019-2021"
-          tooltip={
-            <div>
-              <p>This field takes a range of years and/or comma separated single years.</p>
-              <DocsLink href="https://autobrr.com/filters#tvmovies" />
-            </div>
-          }
-        />
-      </div>
-      <div className="py-6">
-        <TitleSubtitle
-          title="Seasons and Episodes"
-          subtitle="Set season and episode match constraints."
-        />
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <TextField
-            name="seasons"
-            label="Seasons"
-            columns={8}
-            placeholder="eg. 1,3,2-6"
-            tooltip={
-              <div>
-                <p>See docs for information about how to <b>only</b> grab season packs:</p>
-                <DocsLink href="https://autobrr.com/filters/examples#only-season-packs" />
-              </div>
-            }
-          />
-          <TextField
-            name="episodes"
-            label="Episodes"
-            columns={4}
-            placeholder="eg. 2,4,10-20"
-            tooltip={
-              <div>
-                <p>See docs for information about how to <b>only</b> grab episodes:</p>
-                <DocsLink href="https://autobrr.com/filters/examples/#skip-season-packs" />
-              </div>
-            }
-          />
-
-          <div className="col-span-12 sm:col-span-6">
-            <SwitchGroup
-              name="smart_episode"
-              label="Smart Episode"
-              description="Do not match episodes older than the last one matched."
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="py-6">
-        <TitleSubtitle
-          title="Quality"
-          subtitle="Set resolution, source, codec and related match constraints."
-        />
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="resolutions"
-            options={RESOLUTION_OPTIONS}
-            label="resolutions"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected resolutions.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="sources"
-            options={SOURCES_OPTIONS}
-            label="sources"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected sources.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-        </div>
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="codecs"
-            options={CODECS_OPTIONS}
-            label="codecs"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected codecs.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="containers"
-            options={CONTAINER_OPTIONS}
-            label="containers"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected containers.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-        </div>
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="match_hdr"
-            options={HDR_OPTIONS}
-            label="Match HDR"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected HDR designations.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="except_hdr"
-            options={HDR_OPTIONS}
-            label="Except HDR"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Won't match releases which contain any of the selected HDR designations (takes priority over Match HDR).</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-        </div>
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="match_other"
-            options={OTHER_OPTIONS}
-            label="Match Other"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Will match releases which contain any of the selected designations.</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="except_other"
-            options={OTHER_OPTIONS}
-            label="Except Other"
-            columns={6}
-            creatable={true}
-            tooltip={
-              <div>
-                <p>Won't match releases which contain any of the selected Other designations (takes priority over Match Other).</p>
-                <DocsLink href="https://autobrr.com/filters#quality" />
-              </div>
-            }
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function Music({ values }: AdvancedProps) {
-  return (
-    <div className="divide-y divide-gray-150 dark:divide-gray-775">
-      <div className="py-4 grid grid-cols-12 gap-3">
-        <TextAreaAutoResize
-          name="artists"
-          label="Artists"
-          columns={4}
-          placeholder="eg. Artist One"
-          tooltip={
-            <div>
-              <p>You can use basic filtering like wildcards <code>*</code> or replace single characters with <code>?</code></p>
-              <DocsLink href="https://autobrr.com/filters#music" />
-            </div>
-          }
-        />
-        <TextAreaAutoResize
-          name="albums"
-          label="Albums"
-          columns={4}
-          placeholder="eg. That Album"
-          tooltip={
-            <div>
-              <p>You can use basic filtering like wildcards <code>*</code> or replace single characters with <code>?</code></p>
-              <DocsLink href="https://autobrr.com/filters#music" />
-            </div>
-          }
-        />
-        <TextField
-          name="years"
-          label="Years"
-          columns={4}
-          placeholder="eg. 2018,2019-2021"
-          tooltip={
-            <div>
-              <p>This field takes a range of years and/or comma separated single years.</p>
-              <DocsLink href="https://autobrr.com/filters#music" />
-            </div>
-          }
-        />
-      </div>
-
-      <div className="py-6">
-        <TitleSubtitle title="Quality" subtitle="Format, source, log etc." />
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="formats"
-            options={FORMATS_OPTIONS}
-            label="Format"
-            columns={6}
-            disabled={values.perfect_flac}
-            tooltip={
-              <div>
-                <p>Will only match releases with any of the selected formats. This is overridden by Perfect FLAC.</p>
-                <DocsLink href="https://autobrr.com/filters#quality-1" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="quality"
-            options={QUALITY_MUSIC_OPTIONS}
-            label="Quality"
-            columns={6}
-            disabled={values.perfect_flac}
-            tooltip={
-              <div>
-                <p>Will only match releases with any of the selected qualities. This is overridden by Perfect FLAC.</p>
-                <DocsLink href="https://autobrr.com/filters#quality-1" />
-              </div>
-            }
-          />
-        </div>
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <MultiSelect
-            name="media"
-            options={SOURCES_MUSIC_OPTIONS}
-            label="Media"
-            columns={6}
-            disabled={values.perfect_flac}
-            tooltip={
-              <div>
-                <p>Will only match releases with any of the selected sources. This is overridden by Perfect FLAC.</p>
-                <DocsLink href="https://autobrr.com/filters#quality-1" />
-              </div>
-            }
-          />
-          <MultiSelect
-            name="match_release_types"
-            options={RELEASE_TYPE_MUSIC_OPTIONS}
-            label="Type"
-            columns={6}
-            tooltip={
-              <div>
-                <p>Will only match releases with any of the selected types.</p>
-                <DocsLink href="https://autobrr.com/filters#quality-1" />
-              </div>
-            }
-          />
-        </div>
-
-        <div className="mt-4 grid grid-cols-12 gap-3">
-          <div className="col-span-12 sm:col-span-6">
-            <SwitchGroup
-              name="perfect_flac"
-              label="Perfect FLAC"
-              description={
-                <p className="mr-3">Override all options about quality, source, format, and cue/log/log score.</p>
-              }
-              tooltip={
-                <div>
-                  <p>Override all options about quality, source, format, and CUE/LOG/LOG score.</p>
-                  <DocsLink href="https://autobrr.com/filters#quality-1" />
-                </div>
-              }
-            />
-          </div>
-
-          <span className="col-span-12 sm:col-span-6 self-center ml-0 text-center sm:ml-4 sm:text-left text-sm text-gray-500 dark:text-gray-425 underline underline-offset-2">
-            This is what you want in 99% of cases (instead of options below).
-          </span>
-
-          <div className="col-span-12 flex items-center justify-center">
-            <span className="border-b border-gray-150 dark:border-gray-725 w-full" />
-            <span className="flex mx-2 shrink-0 text-lg font-bold uppercase tracking-wide text-gray-700 dark:text-gray-200">
-              OR
-            </span>
-            <span className="border-b border-gray-150 dark:border-gray-725 w-full" />
-          </div>
-
-          <div className="col-span-12 sm:col-span-6">
-            <SwitchGroup
-              name="log"
-              label="Log"
-              description="Must include LOG info"
-              disabled={values.perfect_flac}
-            />
-            <SwitchGroup
-              name="cue"
-              label="Cue"
-              description="Must include CUE info"
-              disabled={values.perfect_flac}
-            />
-          </div>
-
-          <div className="col-span-12 sm:col-span-6">
-            <NumberField
-              name="log_score"
-              label="Log score"
-              placeholder="eg. 100"
-              min={0}
-              max={100}
-              disabled={values.perfect_flac}
-              tooltip={
-                <div>
-                  <p>Log scores go from 0 to 100. This is overridden by Perfect FLAC.</p>
-                  <DocsLink href="https://autobrr.com/filters#quality-1" />
-                </div>
-              }
-            />
-          </div>
-        </div>
-      </div>
-
-    </div>
-  );
-}
-
-interface AdvancedProps {
-  values: FormikValues;
-}
-
-export function Advanced({ values }: AdvancedProps) {
-  return (
-    <div>
-      <CollapsibleSection
-        defaultOpen
-        title="Releases"
-      >
-        <RegexTextAreaField
-          name="match_releases"
-          label="Match releases"
-          useRegex={values.use_regex}
-          columns={6}
-          placeholder="eg. *some?movie*,*some?show*s01*"
-          tooltip={
-            <div>
-              <p>This field has full regex support (Golang flavour).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-              <br />
-              <br />
-              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-            </div>
-          }
-        />
-        <RegexTextAreaField
-          name="except_releases"
-          label="Except releases"
-          useRegex={values.use_regex}
-          columns={6}
-          placeholder="eg. *bad?movie*,*bad?show*s03*"
-          tooltip={
-            <div>
-              <p>This field has full regex support (Golang flavour).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-              <br />
-              <br />
-              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-            </div>
-          }
-        />
-
-        <div className="col-span-12 lg:col-span-6">
-          <SwitchGroup name="use_regex" label="Use Regex" />
-        </div>
-
-        {values.match_releases ? (
-          <WarningAlert
-            alert="Ask yourself:"
-            text={
-              <>
-                Do you have a good reason to use <strong>Match releases</strong> instead of one of the other tabs?
-              </>
-            }
-            colors="text-cyan-700 bg-cyan-100 dark:bg-cyan-200 dark:text-cyan-800"
-          />
-        ) : null}
-        {values.except_releases ? (
-          <WarningAlert
-            alert="Ask yourself:"
-            text={
-              <>
-                Do you have a good reason to use <strong>Except releases</strong> instead of one of the other tabs?
-              </>
-            }
-            colors="text-fuchsia-700 bg-fuchsia-100 dark:bg-fuchsia-200 dark:text-fuchsia-800"
-          />
-        ) : null}
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Groups"
-      >
-        <TextAreaAutoResize
-          name="match_release_groups"
-          label="Match release groups"
-          columns={6}
-          placeholder="eg. group1,group2"
-          tooltip={
-            <div>
-              <p>Comma separated list of release groups to match.</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-        <TextAreaAutoResize
-          name="except_release_groups"
-          label="Except release groups"
-          columns={6}
-          placeholder="eg. badgroup1,badgroup2"
-          tooltip={
-            <div>
-              <p>Comma separated list of release groups to ignore (takes priority over Match releases).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Categories"
-      >
-        <TextAreaAutoResize
-          name="match_categories"
-          label="Match categories"
-          columns={6}
-          placeholder="eg. *category*,category1"
-          tooltip={
-            <div>
-              <p>Comma separated list of categories to match.</p>
-              <DocsLink href="https://autobrr.com/filters/categories" />
-            </div>
-          }
-        />
-        <TextAreaAutoResize
-          name="except_categories"
-          label="Except categories"
-          columns={6}
-          placeholder="eg. *category*"
-          tooltip={
-            <div>
-              <p>Comma separated list of categories to ignore (takes priority over Match releases).</p>
-              <DocsLink href="https://autobrr.com/filters/categories" />
-            </div>
-          }
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen
-        title="Tags"
-      >
-        <TextAreaAutoResize
-          name="tags"
-          label="Match tags"
-          columns={4}
-          placeholder="eg. tag1,tag2"
-          tooltip={
-            <div>
-              <p>Comma separated list of tags to match.</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-        <Select
-          name="tags_match_logic"
-          label="Tags logic"
-          columns={2}
-          options={tagsMatchLogicOptions}
-          optionDefaultText="any"
-          tooltip={
-            <div>
-              <p>Logic used to match filter tags.</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-        <TextAreaAutoResize
-          name="except_tags"
-          label="Except tags"
-          columns={4}
-          placeholder="eg. tag1,tag2"
-          tooltip={
-            <div>
-              <p>Comma separated list of tags to ignore (takes priority over Match releases).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-        <Select
-          name="except_tags_match_logic"
-          label="Except tags logic"
-          columns={2}
-          options={tagsMatchLogicOptions}
-          optionDefaultText="any"
-          tooltip={
-            <div>
-              <p>Logic used to match except tags.</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Uploaders"
-      >
-        <TextAreaAutoResize
-          name="match_uploaders"
-          label="Match uploaders"
-          columns={6}
-          placeholder="eg. uploader1,uploader2"
-          tooltip={
-            <div>
-              <p>Comma separated list of uploaders to match.</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-        <TextAreaAutoResize
-          name="except_uploaders"
-          label="Except uploaders"
-          columns={6}
-          placeholder="eg. anonymous1,anonymous2"
-          tooltip={
-            <div>
-              <p>Comma separated list of uploaders to ignore (takes priority over Match releases).
-              </p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-            </div>
-          }
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Language"
-      >
-        <MultiSelect
-          name="match_language"
-          options={LANGUAGE_OPTIONS}
-          label="Match Language"
-          columns={6}
-          creatable={true}
-        />
-        <MultiSelect
-          name="except_language"
-          options={LANGUAGE_OPTIONS}
-          label="Except Language"
-          columns={6}
-          creatable={true}
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Origins"
-        subtitle="Match Internals, Scene, P2P, ... (if announced!)"
-      >
-        <MultiSelect
-          name="origins"
-          options={ORIGIN_OPTIONS}
-          label="Match Origins"
-          columns={6}
-          creatable={true}
-        />
-        <MultiSelect
-          name="except_origins"
-          options={ORIGIN_OPTIONS}
-          label="Except Origins"
-          columns={6}
-          creatable={true}
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Feeds"
-        subtitle={
-          <>These options are <span className="italic">only</span> for Feeds such as RSS, Torznab and Newznab</>
-        }
-      >
-        <RegexTextAreaField
-          name="match_description"
-          label="Match description"
-          useRegex={values.use_regex_description}
-          columns={6}
-          placeholder="eg. *some?movie*,*some?show*s01*"
-          tooltip={
-            <div>
-              <p>This field has full regex support (Golang flavour).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-              <br />
-              <br />
-              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-            </div>
-          }
-        />
-        <RegexTextAreaField
-          name="except_description"
-          label="Except description"
-          useRegex={values.use_regex_description}
-          columns={6}
-          placeholder="eg. *bad?movie*,*bad?show*s03*"
-          tooltip={
-            <div>
-              <p>This field has full regex support (Golang flavour).</p>
-              <DocsLink href="https://autobrr.com/filters#advanced" />
-              <br />
-              <br />
-              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-            </div>
-          }
-        />
-        {/*</div>*/}
-
-        <div className="col-span-12 lg:col-span-6">
-          <SwitchGroup name="use_regex_description" label="Use Regex" />
-        </div>
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={true}
-        title="Freeleech"
-      >
-        <div className="col-span-12 sm:col-span-6">
-          <SwitchGroup
-            name="freeleech"
-            label="Freeleech"
-            tooltip={
-              <div>
-                <p>
-                  Freeleech may be announced as a binary true/false value or as
-                  a percentage, depending on the indexer. Use either or both,
-                  depending on the indexers you use.
-                </p>
-                <br />
-                <p>
-                  See who uses what in the documentation:{" "}
-                  <DocsLink href="https://autobrr.com/filters/freeleech" />
-                </p>
-              </div>
-            }
-          />
-        </div>
-
-        <TextField
-          name="freeleech_percent"
-          label="Freeleech percent"
-          disabled={values.freeleech}
-          tooltip={
-            <div>
-              <p>
-                Freeleech may be announced as a binary true/false value or as a
-                percentage, depending on the indexer. Use either or both,
-                depending on the indexers you use.
-              </p>
-              <br />
-              <p>
-                See who uses what in the documentation:{" "}
-                <DocsLink href="https://autobrr.com/filters/freeleech" />
-              </p>
-            </div>
-          }
-          columns={6}
-          placeholder="eg. 50,75-100"
-        />
-      </CollapsibleSection>
-
-      <CollapsibleSection
-        defaultOpen={false}
-        title="Release Tags"
-        subtitle={
-          <>This is the <span className="italic">raw</span> releaseTags string from the announce.</>
-        }
-      >
-        <WarningAlert
-          text={
-            <>These might not be what you think they are. For <span className="underline font-bold">very advanced</span> users who know how things are parsed.</>
-          }
-        />
-
-        <RegexField
-          name="match_release_tags"
-          label="Match release tags"
-          useRegex={values.use_regex_release_tags}
-          columns={6}
-          placeholder="eg. *mkv*,*foreign*"
-        />
-        <RegexField
-          name="except_release_tags"
-          label="Except release tags"
-          useRegex={values.use_regex_release_tags}
-          columns={6}
-          placeholder="eg. *mkv*,*foreign*"
-        />
-
-        <div className="col-span-12 lg:col-span-6">
-          <SwitchGroup name="use_regex_release_tags" label="Use Regex" />
-        </div>
-      </CollapsibleSection>
-
-    </div>
-  );
-}
-
-interface CollapsibleSectionProps {
-  title: string;
-  subtitle?: string | React.ReactNode;
-  children: React.ReactNode;
-  defaultOpen?: boolean;
-}
-
-export function CollapsibleSection({ title, subtitle, children, defaultOpen = false }: CollapsibleSectionProps) {
-  const [isOpen, toggleOpen] = useToggle(defaultOpen ?? false);
-
-  return (
-    <div className="pt-3 pb-3 rounded-t-lg border-dashed border-b-2 border-gray-200 dark:border-gray-775">
-      <div
-        className="flex select-none items-center py-3 px-2 cursor-pointer transition rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-        onClick={toggleOpen}
-      >
-        <div className="flex flex-row items-center gap-2">
-          <button
-            type="button"
-            className={classNames(
-              isOpen ? "rotate-0" : "-rotate-90",
-              "text-sm font-medium text-white transition-transform"
-            )}
-          >
-            <ChevronDownIcon className="h-6 w-6 text-gray-400" aria-hidden="true" />
-          </button>
-          <div className="flex flex-col sm:gap-2 sm:flex-row sm:items-end">
-            {/*
-            NOTE(stacksmash76): added text-shadow only for the dark theme - light theme is fine contrast-wise when it comes to headings
-            ideally, this would need a redesign
-            */}
-
-            <h3 className="text-xl leading-6 font-bold dark:text-shadow dark:shadow-gray-900 text-gray-900 dark:text-gray-200">
-              {title}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 truncate whitespace-normal break-words">{subtitle}</p>
-          </div>
-        </div>
-      </div>
-      {/*TODO: Animate this too*/}
-      {isOpen && (
-        <div className="sm:px-2 mt-2 grid grid-cols-12 gap-2 sm:gap-3">
-          {children}
-        </div>
-      )}
-    </div>
-  );
-}
-

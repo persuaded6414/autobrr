@@ -203,8 +203,8 @@ function FilterList({ toggleCreateFilter }: any) {
 
   return (
     <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-6 lg:px-8 relative">
-      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-lg bg-gray-50 dark:bg-gray-800 border border-gray-225 dark:border-gray-775">
-        <div className="rounded-t-lg flex justify-between px-4 bg-gray-100 dark:bg-gray-850 border-b border-gray-200 dark:border-gray-750">
+      <div className="align-middle min-w-full rounded-t-lg rounded-b-lg shadow-table bg-gray-50 dark:bg-gray-800 border border-gray-250 dark:border-gray-775">
+        <div className="rounded-t-lg flex justify-between px-4 bg-gray-125 dark:bg-gray-850 border-b border-gray-200 dark:border-gray-750">
           <div className="flex gap-4">
             <StatusButton data={filtered.all} label="All" value="" currentValue={status} dispatch={dispatchFilter} />
             <StatusButton data={filtered.enabled} label="Enabled" value="enabled" currentValue={status} dispatch={dispatchFilter} />
@@ -438,7 +438,7 @@ const FilterItemDropdown = ({ filter, onToggle }: FilterItemDropdownProps) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-gray-825 divide-y divide-gray-200 dark:divide-gray-750 rounded-md shadow-lg border border-gray-750 focus:outline-none z-10"
+          className="absolute right-0 w-56 mt-2 origin-top-right bg-white dark:bg-gray-825 divide-y divide-gray-200 dark:divide-gray-750 rounded-md shadow-lg border border-gray-250 dark:border-gray-750 focus:outline-none z-10"
         >
           <div className="px-1 py-1">
             <Menu.Item>
@@ -598,14 +598,14 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
     <li
       key={filter.id}
       className={classNames(
-        "flex items-center transition last:rounded-b-md",
+        "flex items-center transition last:rounded-b-md py-0.5",
         idx % 2 === 0
           ? "bg-white dark:bg-gray-800"
-          : "bg-gray-100 dark:bg-gray-850"
+          : "bg-gray-75 dark:bg-gray-825"
       )}
     >
       <span
-        className="px-3 whitespace-nowrap text-sm text-gray-500 dark:text-gray-100"
+        className="pl-2 pr-4 sm:px-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-100"
       >
         <Checkbox
           value={filter.enabled}
@@ -615,13 +615,15 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
       <div className="py-2 flex flex-col overflow-hidden w-full justify-center">
         <Link
           to={filter.id.toString()}
-          className="transition w-full break-words whitespace-wrap text-sm font-bold text-gray-900 dark:text-gray-100 hover:text-black dark:hover:text-gray-350"
+          className="transition w-full break-words whitespace-wrap text-sm font-bold text-gray-800 dark:text-gray-100 hover:text-black dark:hover:text-gray-350"
         >
           {filter.name}
         </Link>
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap">
           <span className="mr-2 break-words whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
-            Priority: {filter.priority}
+            Priority: {filter.priority !== 0 ? (
+              <span className="text-gray-850 dark:text-gray-200">{filter.priority}</span>
+            ) : filter.priority}
           </span>
           <span className="z-10 whitespace-nowrap text-xs font-medium text-gray-600 dark:text-gray-400">
             <Tooltip
@@ -635,10 +637,7 @@ function FilterListItem({ filter, values, idx }: FilterListItemProps) {
                   </span>
                   {!filter.actions_count && (
                     <span className="mr-2 ml-2 flex h-3 w-3 relative">
-                      <span className="animate-ping inline-flex h-full w-full rounded-full dark:bg-red-500 bg-red-400 opacity-75" />
-                      <span
-                        className="inline-flex absolute rounded-full h-3 w-3 dark:bg-red-500 bg-red-400"
-                      />
+                      
                     </span>
                   )}
                 </Link>

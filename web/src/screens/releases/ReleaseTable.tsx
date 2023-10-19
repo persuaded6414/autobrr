@@ -227,7 +227,7 @@ export const ReleaseTable = () => {
             ))
           )}
         </div>
-        <div className="bg-white dark:bg-gray-800 border border-gray-225 dark:border-gray-775 shadow-lg rounded-md overflow-auto">
+        <div className="bg-white dark:bg-gray-800 border border-gray-250 dark:border-gray-775 shadow-lg rounded-md overflow-auto">
           <table {...getTableProps()} className="min-w-full rounded-md divide-y divide-gray-200 dark:divide-gray-750">
             <thead className="bg-gray-100 dark:bg-gray-800">
               <tr>
@@ -392,7 +392,7 @@ export const ReleaseTable = () => {
           ))
         )}
       </div>
-      <div className="bg-white dark:bg-gray-800 border border-gray-225 dark:border-gray-775 shadow-lg rounded-md overflow-auto">
+      <div className="bg-white dark:bg-gray-800 border border-gray-250 dark:border-gray-775 shadow-table rounded-md overflow-auto">
         <table {...getTableProps()} className="min-w-full rounded-md divide-y divide-gray-200 dark:divide-gray-750">
           <thead className="bg-gray-100 dark:bg-gray-850">
             {headerGroups.map((headerGroup) => {

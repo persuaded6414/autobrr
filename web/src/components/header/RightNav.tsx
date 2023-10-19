@@ -53,7 +53,7 @@ export const RightNav = (props: RightNavProps) => {
               >
                 <Menu.Items
                   static
-                  className="origin-top-right absolute right-0 mt-2 w-48 z-10 divide-y divide-gray-100 dark:divide-gray-750 rounded-md shadow-lg bg-white dark:bg-gray-800 border border-gray-225 dark:border-gray-775 focus:outline-none"
+                  className="origin-top-right absolute right-0 mt-2 w-48 z-10 divide-y divide-gray-100 dark:divide-gray-750 rounded-md shadow-lg bg-white dark:bg-gray-800 border border-gray-250 dark:border-gray-775 focus:outline-none"
                 >
                   <Menu.Item>
                     {({ active }) => (

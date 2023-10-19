@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Field, FieldArray, FieldProps, FormikValues, useFormikContext } from "formik";
 import type { FieldArrayRenderProps } from "formik";
 import { ChevronRightIcon, BoltIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-
 
 import { classNames } from "@utils";
 import { useToggle } from "@hooks/hooks";
@@ -31,12 +30,12 @@ import {
 } from "@components/inputs";
 import { WarningAlert } from "@components/alerts";
 import { DeleteModal } from "@components/modals";
-import { TextArea } from "@components/inputs/input";
+import { TextArea, TextAreaAutoResize } from "@components/inputs/input";
 import { EmptyListState } from "@components/emptystates";
 import Toast from "@components/notifications/Toast";
 import { DocsLink } from "@components/ExternalLink";
 
-import { CollapsibleSection } from "./Details";
+import { CollapsibleSection } from "./sections/_components";
 import { Checkbox } from "@components/Checkbox";
 import { TitleSubtitle } from "@components/headings";
 
@@ -170,30 +169,33 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   switch (action.type) {
   case "TEST":
     return (
-      <WarningAlert className="mt-2" text="The test action does nothing except to show if the filter works." />
+      <WarningAlert
+        alert="Heads up!"
+        className="mt-2"
+        colors="text-fuchsia-700 bg-fuchsia-100 dark:bg-fuchsia-200 dark:text-fuchsia-800"
+        text="The test action does nothing except to show if the filter works. Make sure to have your Logs page open while testing."
+      />
     );
   case "EXEC":
     return (
-      <div>
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-          <TextField
-            name={`actions.${idx}.exec_cmd`}
-            label="Command"
-            columns={6}
-            placeholder="Path to program eg. /bin/test"
-          />
-          <TextField
-            name={`actions.${idx}.exec_args`}
-            label="Arguments"
-            columns={6}
-            placeholder="Arguments eg. --test"
-          />
-        </div>
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
+        <TextField
+          name={`actions.${idx}.exec_cmd`}
+          label="Command"
+          columns={6}
+          placeholder="Path to program eg. /bin/test"
+        />
+        <TextField
+          name={`actions.${idx}.exec_args`}
+          label="Arguments"
+          columns={6}
+          placeholder="Arguments eg. --test"
+        />
       </div>
     );
   case "WATCH_FOLDER":
     return (
-      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
         <TextField
           name={`actions.${idx}.watch_folder`}
           label="Watch folder"
@@ -204,51 +206,33 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "WEBHOOK":
     return (
-      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
         <TextField
           name={`actions.${idx}.webhook_host`}
           label="Host"
           columns={6}
           placeholder="Host eg. http://localhost/webhook"
+          tooltip={<p>URL or IP to your API. Pass params and set API tokens etc.</p>}
         />
-        <TextArea
+        <TextAreaAutoResize
           name={`actions.${idx}.webhook_data`}
           label="Data (json)"
-          columns={6}
-          rows={5}
           placeholder={"Request data: { \"key\": \"value\" }"}
         />
       </div>
     );
   case "QBITTORRENT":
     return (
-      <div className="w-full">
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
-
-          <div className="col-span-12 sm:col-span-6">
-            <TextField
-              name={`actions.${idx}.save_path`}
-              label="Save path"
-              columns={6}
-              placeholder="eg. /full/path/to/download_folder"
-              tooltip={
-                <div>
-                  <p>Set a custom save path for this action. Automatic Torrent Management will take care of this if using qBittorrent with categories.</p>
-                  <br />
-                  <p>The field can use macros to transform/add values from metadata:</p>
-                  <DocsLink href="https://autobrr.com/filters/macros" />
-                </div>
-              }
-            />
-          </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <TextField
             name={`actions.${idx}.category`}
             label="Category"
@@ -275,35 +259,41 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
           />
         </div>
 
-        <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
-          <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-              <NumberField
-                name={`actions.${idx}.limit_download_speed`}
-                label="Limit download speed (KiB/s)"
-                placeholder="Takes any number (0 is no limit)"
-              />
-              <NumberField
-                name={`actions.${idx}.limit_upload_speed`}
-                label="Limit upload speed (KiB/s)"
-                placeholder="Takes any number (0 is no limit)"
-              />
+        <TextAreaAutoResize
+          name={`actions.${idx}.save_path`}
+          label="Save path"
+          placeholder="eg. /full/path/to/download_folder"
+          tooltip={
+            <div>
+              <p>Set a custom save path for this action. Automatic Torrent Management will take care of this if using qBittorrent with categories.</p>
+              <br />
+              <p>The field can use macros to transform/add values from metadata:</p>
+              <DocsLink href="https://autobrr.com/filters/macros" />
             </div>
+          }
+        />
 
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-              <NumberField
-                name={`actions.${idx}.limit_ratio`}
-                label="Ratio limit"
-                placeholder="Takes any number (0 is no limit)"
-                step={0.25}
-                isDecimal
-              />
-              <NumberField
-                name={`actions.${idx}.limit_seed_time`}
-                label="Seed time limit (minutes)"
-                placeholder="Takes any number (0 is no limit)"
-              />
-            </div>
+        <CollapsibleSection
+          title="Rules"
+          subtitle="Configure your torrent client rules"
+        >
+          <div className="col-span-12 sm:col-span-6">
+            <SwitchGroup
+              name={`actions.${idx}.ignore_rules`}
+              label="Ignore existing client rules"
+              description={
+                <p>
+                  Choose to ignore rules set in <Link className="text-blue-400 visited:text-blue-400" to="/settings/clients">Client Settings</Link>.
+                </p>
+              }
+              className="py-2 pb-4"
+            />
+            <Select
+              name={`actions.${idx}.content_layout`}
+              label="Content Layout"
+              optionDefaultText="Select content layout"
+              options={ActionContentLayoutOptions}
+            />
           </div>
           <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
@@ -312,117 +302,124 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
               description="Add torrent as paused"
             />
             <SwitchGroup
-              name={`actions.${idx}.ignore_rules`}
-              label="Ignore client rules"
-              tooltip={
-                <p>
-                  Choose to ignore rules set in <Link className="text-blue-400 visited:text-blue-400" to="/settings/clients">Client Settings</Link>.
-                </p>
-              }
+              name={`actions.${idx}.skip_hash_check`}
+              label="Skip hash check"
+              description="Add torrent and skip hash check"
             />
-          </div>
-          <div className="col-span-12 sm:col-span-6">
-            <Select
-              name={`actions.${idx}.content_layout`}
-              label="Content Layout"
-              optionDefaultText="Select content layout"
-              options={ActionContentLayoutOptions}
-            />
-
-            <div className="mt-2">
-              <SwitchGroup
-                name={`actions.${idx}.skip_hash_check`}
-                label="Skip hash check"
-                description="Add torrent and skip hash check"
-              />
-            </div>
           </div>
         </CollapsibleSection>
 
-        <CollapsibleSection title="Advanced">
-          <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-              <NumberField
-                name={`actions.${idx}.reannounce_interval`}
-                label="Reannounce interval. Run every X seconds"
-                placeholder="7 is default and recommended"
-              />
-              <NumberField
-                name={`actions.${idx}.reannounce_max_attempts`}
-                label="Run reannounce Y times"
-              />
-            </div>
-          </div>
+        <CollapsibleSection title="Limits" subtitle="Configure your speed/ratio/seed time limits">
+          <NumberField
+            name={`actions.${idx}.limit_download_speed`}
+            label="Limit download speed (KiB/s)"
+            placeholder="Takes any number (0 is no limit)"
+          />
+          <NumberField
+            name={`actions.${idx}.limit_upload_speed`}
+            label="Limit upload speed (KiB/s)"
+            placeholder="Takes any number (0 is no limit)"
+          />
+
+          <NumberField
+            name={`actions.${idx}.limit_ratio`}
+            label="Ratio limit"
+            placeholder="Takes any number (0 is no limit)"
+            step={0.25}
+            isDecimal
+          />
+          <NumberField
+            name={`actions.${idx}.limit_seed_time`}
+            label="Seed time limit (minutes)"
+            placeholder="Takes any number (0 is no limit)"
+          />
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          title="Announce"
+          subtitle="Set number of reannounces (if needed), delete after Y announce failures, etc."
+        >
           <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_skip`}
               label="Skip reannounce"
-              description="If reannounce is not needed, skip"
+              description="If reannounce is not needed, skip it completely"
+              className="pt-2 pb-4"
             />
+            <NumberField
+              name={`actions.${idx}.reannounce_interval`}
+              label="Reannounce interval. Run every X seconds"
+              placeholder="7 is default and recommended"
+            />
+          </div>
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_delete`}
               label="Delete stalled"
-              description="Delete stalled torrents after X attempts"
+              description="Delete stalled torrents after Y attempts"
+              className="pt-2 pb-4"
+            />
+            <NumberField
+              name={`actions.${idx}.reannounce_max_attempts`}
+              label="Run reannounce Y times"
             />
           </div>
         </CollapsibleSection>
-      </div>
+      </>
     );
   case "DELUGE_V1":
   case "DELUGE_V2":
     return (
-      <div>
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
 
-          <div className="col-span-12 sm:col-span-6">
-            <TextField
-              name={`actions.${idx}.save_path`}
-              label="Save path"
-              columns={6}
-              placeholder="eg. /full/path/to/download_folder"
-            />
-          </div>
-        </div>
-
-        <div className="mt-6 col-span-12 sm:col-span-6">
           <TextField
             name={`actions.${idx}.label`}
             label="Label"
             columns={6}
             placeholder="eg. label1 (must exist in Deluge to work)"
           />
-        </div>
 
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-          <NumberField
-            name={`actions.${idx}.limit_download_speed`}
-            label="Limit download speed (KB/s)"
-          />
-          <NumberField
-            name={`actions.${idx}.limit_upload_speed`}
-            label="Limit upload speed (KB/s)"
+          <TextAreaAutoResize
+            name={`actions.${idx}.save_path`}
+            label="Save path"
+            placeholder="eg. /full/path/to/download_folder"
           />
         </div>
 
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
               label="Add paused"
+              description="Add torrent as paused"
             />
           </div>
         </div>
-      </div>
+
+        <CollapsibleSection title="Limits" subtitle="Configure your speed/ratio/seed time limits">
+          <NumberField
+            name={`actions.${idx}.limit_download_speed`}
+            label="Limit download speed (KB/s)"
+            placeholder="Takes any number (0 is no limit)"
+          />
+          <NumberField
+            name={`actions.${idx}.limit_upload_speed`}
+            label="Limit upload speed (KB/s)"
+            placeholder="Takes any number (0 is no limit)"
+          />
+        </CollapsibleSection>
+      </>
     );
   case "RTORRENT":
     return (
-      <div>
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -438,125 +435,116 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             />
           </div>
 
-          <div className="col-span-12 sm:col-span-6">
-            <TextField
-              name={`actions.${idx}.save_path`}
-              label="Save path"
-              columns={6}
-              placeholder="eg. /full/path/to/download_folder"
+          <TextAreaAutoResize
+            name={`actions.${idx}.save_path`}
+            label="Save path"
+            placeholder="eg. /full/path/to/download_folder"
+          />
+
+          <div className="col-span-12 sm:col-span-6 flex flex-col gap-2">
+            <SwitchGroup
+              name={`actions.${idx}.paused`}
+              label="Add paused"
+              description="Add torrent as paused"
+            />
+            <Select
+              name={`actions.${idx}.content_layout`}
+              label="Do not add torrent name to path"
+              optionDefaultText="No"
+              options={ActionRtorrentRenameOptions}
             />
           </div>
-          <div className="col-span-12 sm:col-span-6">
-            <div className="col-span-12 sm:col-span-6">
-              <Select
-                name={`actions.${idx}.content_layout`}
-                label="Don't add torrent's name to path"
-                optionDefaultText="No"
-                options={ActionRtorrentRenameOptions}
-              />
-            </div>
-          </div>
-          <div className="col-span-12 sm:col-span-6">
-            <div className="col-span-12 sm:col-span-6">
-              <SwitchGroup
-                name={`actions.${idx}.paused`}
-                label="Don't start download automatically"
-              />
-            </div>
-          </div>
         </div>
-      </div>
+      </>
     );
   case "TRANSMISSION":
     return (
-      <div>
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
-
-          <div className="col-span-12 sm:col-span-6">
-            <TextField
-              name={`actions.${idx}.save_path`}
-              label="Save path"
-              columns={6}
-              placeholder="eg. /full/path/to/download_folder"
-            />
-          </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+        <TextAreaAutoResize
+          name={`actions.${idx}.save_path`}
+          label="Save path"
+          columns={6}
+          placeholder="eg. /full/path/to/download_folder"
+        />
+
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.paused`}
               label="Add paused"
+              description="Add torrent as paused"
             />
           </div>
         </div>
 
-        <CollapsibleSection title="Re-announce" subtitle="Re-announce options">
-          <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
-              <NumberField
-                name={`actions.${idx}.reannounce_interval`}
-                label="Reannounce interval. Run every X seconds"
-                placeholder="7 is default and recommended"
-              />
-              <NumberField
-                name={`actions.${idx}.reannounce_max_attempts`}
-                label="Run reannounce Y times"
-              />
-            </div>
-          </div>
+        <CollapsibleSection
+          title="Announce"
+          subtitle="Set number of reannounces (if needed), delete after Y announce failures, etc."
+        >
           <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_skip`}
-              label="Disable reannounce"
-              description="Reannounce is enabled by default. Disable if needed."
+              label="Skip reannounce"
+              description="If reannounce is not needed, skip it completely"
+              className="pt-2 pb-4"
             />
+            <NumberField
+              name={`actions.${idx}.reannounce_interval`}
+              label="Reannounce interval. Run every X seconds"
+              placeholder="7 is default and recommended"
+            />
+          </div>
+          <div className="col-span-12 sm:col-span-6">
             <SwitchGroup
               name={`actions.${idx}.reannounce_delete`}
               label="Delete stalled"
-              description="Delete stalled torrents after X attempts"
+              description="Delete stalled torrents after Y attempts"
+              className="pt-2 pb-4"
+            />
+            <NumberField
+              name={`actions.${idx}.reannounce_max_attempts`}
+              label="Run reannounce Y times"
             />
           </div>
         </CollapsibleSection>
-      </div>
+      </>
     );
   case "PORLA":
     return (
-      <div className="w-full">
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
             clients={clients}
           />
 
-          <div className="col-span-12 sm:col-span-6">
-            <TextField
-              name={`actions.${idx}.save_path`}
-              label="Save path"
-              columns={6}
-              placeholder="eg. /full/path/to/torrent/data"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
           <TextField
             name={`actions.${idx}.label`}
             label="Preset"
             columns={6}
             placeholder="eg. default"
-            tooltip={<div>A case-sensitive preset name as configured in Porla.</div>} />
+            tooltip={<div>A case-sensitive preset name as configured in Porla.</div>}
+          />
         </div>
 
-        <CollapsibleSection title="Rules" subtitle="Configure your torrent client rules">
+        <TextAreaAutoResize
+          name={`actions.${idx}.save_path`}
+          label="Save path"
+          placeholder="eg. /full/path/to/torrent/data"
+        />
+
+        <CollapsibleSection title="Limits" subtitle="Configure your speed/ratio/seed time limits">
           <div className="col-span-12">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
               <NumberField
                 name={`actions.${idx}.limit_download_speed`}
                 label="Limit download speed (KiB/s)"
@@ -568,7 +556,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             </div>
           </div>
         </CollapsibleSection>
-      </div>
+      </>
     );
   case "RADARR":
   case "SONARR":
@@ -576,7 +564,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
   case "WHISPARR":
   case "READARR":
     return (
-      <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
         <DownloadClientSelect
           name={`actions.${idx}.client_id`}
           action={action}
@@ -591,8 +579,8 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
     );
   case "SABNZBD":
     return (
-      <div>
-        <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+      <>
+        <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
           <DownloadClientSelect
             name={`actions.${idx}.client_id`}
             action={action}
@@ -606,7 +594,7 @@ const TypeForm = ({ action, idx, clients }: TypeFormProps) => {
             placeholder="eg. category"
             tooltip={<p>Category must exist already.</p>} />
         </div>
-      </div>
+      </>
     );
 
   default:
@@ -693,7 +681,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
 
       </div>
       {edit && (
-        <div className="mt-1 px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-750">
+        <div className="mt-1 px-3 py-4 flex items-center sm:px-5 border rounded-md dark:border-gray-750">
           <DeleteModal
             isOpen={deleteModalIsOpen}
             isLoading={removeMutation.isLoading}
@@ -704,8 +692,8 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
             text="Are you sure you want to remove this action? This action cannot be undone."
           />
 
-          <div className="w-full">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 py-2">
+          <div className="flex flex-col w-full gap-2 sm:gap-x-3 sm:gap-y-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
               <Select
                 name={`actions.${idx}.type`}
                 label="Type"
@@ -728,17 +716,14 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
                 Remove
               </button>
 
-              <div>
-                <button
-                  type="button"
-                  className="light:bg-white light:border light:border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 dark:text-gray-500 light:hover:bg-gray-50 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  onClick={toggleEdit}
-                >
-                  Close
-                </button>
-              </div>
+              <button
+                type="button"
+                className="bg-white dark:bg-gray-700 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none"
+                onClick={toggleEdit}
+              >
+                Close
+              </button>
             </div>
-
           </div>
         </div>
       )}

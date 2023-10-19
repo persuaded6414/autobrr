@@ -53,7 +53,7 @@ export const Header = () => {
       {({ open }) => (
         <>
           <div className="max-w-screen-xl mx-auto sm:px-6 lg:px-8">
-            <div className="border-b border-gray-300 dark:border-gray-700">
+            <div className="border-b border-gray-300 dark:border-gray-775">
               <div className="flex items-center justify-between h-16 px-4 sm:px-0">
                 <LeftNav />
                 <RightNav logoutMutation={logoutMutation.mutate} />

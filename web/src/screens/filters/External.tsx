@@ -10,7 +10,7 @@ import { Field, FieldArray, FieldArrayRenderProps, FieldProps, useFormikContext 
 
 import { classNames } from "@utils";
 import { useToggle } from "@hooks/hooks";
-import { TextArea } from "@components/inputs/input";
+import { TextArea, TextAreaAutoResize } from "@components/inputs/input";
 import { EmptyListState } from "@components/emptystates";
 import { NumberField, Select, TextField } from "@components/inputs";
 import {
@@ -176,7 +176,7 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
 
       </div>
       {edit && (
-        <div className="mt-1 px-4 py-4 flex items-center sm:px-6 border rounded-md dark:border-gray-750">
+        <div className="mt-1 px-3 py-4 flex items-center sm:px-5 border rounded-md dark:border-gray-750">
           <DeleteModal
             isOpen={deleteModalIsOpen}
             isLoading={false}
@@ -187,8 +187,8 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
             text="Are you sure you want to remove this external filter? This action cannot be undone."
           />
 
-          <div className="w-full">
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 pt-1 sm:pt-2">
+          <div className="flex flex-col w-full gap-2 sm:gap-x-3 sm:gap-y-2">
+            <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
               <Select
                 name={`external.${idx}.type`}
                 label="Type"
@@ -202,28 +202,22 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
 
             <TypeForm external={external} idx={idx} />
 
-            <div className="pt-6 divide-y divide-gray-200">
-              <div className="mt-4 pt-4 flex justify-between">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center px-4 py-2 rounded-md sm:text-sm bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
-                  onClick={toggleDeleteModal}
-                >
-                  Remove
-                </button>
+            <div className="mt-4 pt-4 flex justify-between">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center px-4 py-2 rounded-md sm:text-sm bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
+                onClick={toggleDeleteModal}
+              >
+                Remove
+              </button>
 
-                <div>
-                  <button
-                    type="button"
-                    className={
-                      "bg-white dark:bg-gray-700 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none"
-                    }
-                    onClick={toggleEdit}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
+              <button
+                type="button"
+                className="bg-white dark:bg-gray-700 py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none"
+                onClick={toggleEdit}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
@@ -242,48 +236,44 @@ const TypeForm = ({ external, idx }: TypeFormProps) => {
   switch (external.type) {
   case "EXEC":
     return (
-      <div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
-          <TextField
-            name={`external.${idx}.exec_cmd`}
-            label="Command"
-            columns={6}
-            placeholder="Absolute path to executable eg. /bin/test"
-            tooltip={
-              <div>
-                <p>
-                  For custom commands you should specify the full path to the binary/program
-                  you want to run. And you can include your own static variables:
-                </p>
-                <DocsLink href="https://autobrr.com/filters/actions#custom-commands--exec" />
-              </div>
-            }
-          />
-          <TextField
-            name={`external.${idx}.exec_args`}
-            label="Arguments"
-            columns={6}
-            placeholder={"Arguments eg. --test \"{{ .TorrentName }}\""}
-          />
-        </div>
-        <div className="mt-6 grid grid-cols-12 gap-6">
-          <NumberField
-            name={`external.${idx}.exec_expect_status`}
-            label="Expected exit status"
-            placeholder="0"
-          />
-        </div>
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
+        <TextField
+          name={`external.${idx}.exec_cmd`}
+          label="Command"
+          columns={6}
+          placeholder="Absolute path to executable eg. /bin/test"
+          tooltip={
+            <div>
+              <p>
+                For custom commands you should specify the full path to the binary/program
+                you want to run. And you can include your own static variables:
+              </p>
+              <DocsLink href="https://autobrr.com/filters/actions#custom-commands--exec" />
+            </div>
+          }
+        />
+        <TextField
+          name={`external.${idx}.exec_args`}
+          label="Arguments"
+          columns={6}
+          placeholder={"Arguments eg. --test \"{{ .TorrentName }}\""}
+        />
+        <NumberField
+          name={`external.${idx}.exec_expect_status`}
+          label="Expected exit status"
+          placeholder="0"
+        />
       </div>
     );
   case "WEBHOOK":
     return (
-      <div className="mt-6 grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-2 sm:gap-x-3 sm:gap-y-2">
         <TextField
           name={`external.${idx}.webhook_host`}
           label="Host"
           columns={6}
           placeholder="Host eg. http://localhost/webhook"
-          tooltip={<p>URL or IP to api. Pass params and set api tokens etc.</p>}
+          tooltip={<p>URL or IP to your API. Pass params and set API tokens etc.</p>}
         />
         <Select
           name={`external.${idx}.webhook_method`}
@@ -298,18 +288,15 @@ const TypeForm = ({ external, idx }: TypeFormProps) => {
           columns={6}
           placeholder="HEADER=custom1,HEADER2=custom2"
         />
-        <TextArea
-          name={`external.${idx}.webhook_data`}
-          label="Data (json)"
-          columns={6}
-          rows={5}
-          placeholder={"Request data: { \"key\": \"value\" }"}
-        />
-
         <NumberField
           name={`external.${idx}.webhook_expect_status`}
           label="Expected http status"
           placeholder="200"
+        />
+        <TextAreaAutoResize
+          name={`external.${idx}.webhook_data`}
+          label="Data (json)"
+          placeholder={"Request data: { \"key\": \"value\" }"}
         />
       </div>
     );

@@ -34,6 +34,9 @@ module.exports = {
       },
       textShadow: {
         DEFAULT: "0 2px 4px var(--tw-shadow-color)"
+      },
+      boxShadow: {
+        table: "rgba(0, 0, 0, 0.1) 0px 4px 16px 0px"
       }
     },
   },
