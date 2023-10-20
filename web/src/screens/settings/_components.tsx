@@ -27,7 +27,7 @@ export const Section = ({
           : ""
       )}
     >
-      <div>
+      <div className="sm:px-2">
         <h2 className="text-lg leading-4 font-bold text-gray-900 dark:text-white">{title}</h2>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{description}</p>
       </div>

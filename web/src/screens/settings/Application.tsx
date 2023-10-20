@@ -60,9 +60,9 @@ function ApplicationSettings() {
       <div className="-mx-4 divide-y divide-gray-150 dark:divide-gray-750">
         <form className="mt-6 mb-4" action="#" method="POST">
           {data && (
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 px-4 sm:px-5">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 px-4 sm:px-6">
               <div className="col-span-12 sm:col-span-4">
-                <label htmlFor="host" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                <label htmlFor="host" className="block ml-px text-xs font-bold text-gray-700 dark:text-white uppercase tracking-wide">
                   Host
                 </label>
                 <input
@@ -71,12 +71,12 @@ function ApplicationSettings() {
                   id="host"
                   value={data.host}
                   disabled={true}
-                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
+                  className="mt-1 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
 
               <div className="col-span-12 sm:col-span-4">
-                <label htmlFor="port" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                <label htmlFor="port" className="block ml-px text-xs font-bold text-gray-700 dark:text-white uppercase tracking-wide">
                   Port
                 </label>
                 <input
@@ -85,12 +85,12 @@ function ApplicationSettings() {
                   id="port"
                   value={data.port}
                   disabled={true}
-                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
+                  className="mt-1 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
 
               <div className="col-span-12 sm:col-span-4">
-                <label htmlFor="base_url" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                <label htmlFor="base_url" className="block ml-px text-xs font-bold text-gray-700 dark:text-white uppercase tracking-wide">
                   Base url
                 </label>
                 <input
@@ -99,7 +99,7 @@ function ApplicationSettings() {
                   id="base_url"
                   value={data.base_url}
                   disabled={true}
-                  className="mt-2 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
+                  className="mt-1 block w-full sm:text-sm rounded-md border-gray-300 dark:border-gray-750 bg-gray-100 dark:bg-gray-825 dark:text-gray-100"
                 />
               </div>
             </div>

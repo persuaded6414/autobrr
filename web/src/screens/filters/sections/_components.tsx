@@ -8,43 +8,58 @@ type FilterSectionProps = {
   children: React.ReactNode;
   title?: string;
   subtitle?: string | React.ReactNode;
+  gap?: string;
 };
 
 type OwningComponent = {
   children: React.ReactNode;
   className?: string;
+  gap?: string;
 };
 
-const VerticalGap = "gap-y-6 sm:gap-y-2.5";
+const VerticalGap = "gap-y-6 sm:gap-y-4";
 
-export const NormalGridGapClass = `gap-x-0.5 sm:gap-x-2 ${VerticalGap}`;
-export const TightGridGapClass = `gap-x-0.5 ${VerticalGap}`;
+export const NormalGridGapClass = `gap-x-0.5 sm:gap-x-3 ${VerticalGap}`;
+export const TightGridGapClass = `gap-x-0.5 sm:gap-x-1.5 ${VerticalGap}`;
 export const WideGridGapClass = `gap-x-0.5 sm:gap-x-6 ${VerticalGap}`;
 
 export const LayoutClass = "grid grid-cols-12 col-span-12";
 
-export const Layout = ({ children, className = "" }: OwningComponent) => (
-  <div className={classNames(className, LayoutClass, NormalGridGapClass)}>{children}</div>
+export const Layout = ({
+  children,
+  className = "",
+  gap = NormalGridGapClass
+}: OwningComponent) => (
+  <div className={classNames(className, LayoutClass, gap)}>{children}</div>
 );
 
-export const Row = ({ children, className = "" }: OwningComponent) => (
-  <div className={classNames(className, NormalGridGapClass, "col-span-12")}>{children}</div>
+export const Row = ({
+  children,
+  className = "",
+  gap = NormalGridGapClass
+}: OwningComponent) => (
+  <div className={classNames(className, gap, "col-span-12")}>{children}</div>
 );
 
-export const HalfRow = ({ children, className = "" }: OwningComponent) => (
-  <div className={classNames(className, NormalGridGapClass, "col-span-12 sm:col-span-6")}>{children}</div>
+export const HalfRow = ({
+  children,
+  className = "",
+  gap = NormalGridGapClass
+}: OwningComponent) => (
+  <div className={classNames(className, gap, "col-span-12 sm:col-span-6")}>{children}</div>
 );
 
 export const Section = ({
   title,
   subtitle,
-  children
+  children,
+  gap = NormalGridGapClass
 }: FilterSectionProps) => (
   <div
     className={classNames(
       title ? "py-6" : "pt-5 pb-4",
       "flex flex-col",
-      NormalGridGapClass
+      gap
     )}
   >
     {(title && subtitle) ? (

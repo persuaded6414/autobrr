@@ -47,7 +47,7 @@ export const TextField = ({
     )}
   >
     {label && (
-      <label htmlFor={name} className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+      <label htmlFor={name} className="flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
         {tooltip ? (
           <DocsTooltip label={label}>{tooltip}</DocsTooltip>
         ) : label}
@@ -71,11 +71,11 @@ export const TextField = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
                 ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              "mt-2 block border w-full dark:text-gray-100 rounded-md"
+                : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100",
+              "mt-1 block border w-full dark:text-gray-100 rounded-md"
             )}
             disabled={disabled}
             placeholder={placeholder}
@@ -190,7 +190,7 @@ export const RegexField = ({
       {label && (
         <label
           htmlFor={name}
-          className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide"
+          className="flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide"
         >
           {tooltip ? (
             <DocsTooltip label={label}>{tooltip}</DocsTooltip>
@@ -212,14 +212,14 @@ export const RegexField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                  : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                 disabled
                   ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                  : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                  : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
                   : "",
-                "mt-2 block w-full dark:text-gray-100 rounded-md"
+                "mt-1 block w-full dark:text-gray-100 rounded-md"
               )}
               disabled={disabled}
               placeholder={placeholder}
@@ -332,7 +332,7 @@ export const RegexTextAreaField = ({
           htmlFor={name}
           className={classNames(
             tooltip ? "z-10" : "",
-            "flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide"
+            "flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide"
           )}
         >
           {tooltip ? (
@@ -356,14 +356,14 @@ export const RegexTextAreaField = ({
               className={classNames(
                 useRegex && meta.error
                   ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                  : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                 disabled
                   ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                  : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
+                  : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100",
                 useRegex
                   ? "pr-10"
                   : "",
-                "mt-2 block w-full dark:text-gray-100 rounded-md"
+                "mt-1 block w-full dark:text-gray-100 rounded-md"
               )}
               placeholder={placeholder}
               disabled={disabled}
@@ -421,7 +421,7 @@ export const TextArea = ({
     )}
   >
     {label && (
-      <label htmlFor={name} className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+      <label htmlFor={name} className="flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
         {tooltip ? (
           <DocsTooltip label={label}>{tooltip}</DocsTooltip>
         ) : label}
@@ -442,11 +442,11 @@ export const TextArea = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
                 ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              "mt-2 block border w-full dark:text-gray-100 rounded-md"
+                : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100",
+              "mt-1 block border w-full dark:text-gray-100 rounded-md"
             )}
             placeholder={placeholder}
             disabled={disabled}
@@ -497,7 +497,7 @@ export const TextAreaAutoResize = ({
     )}
   >
     {label && (
-      <label htmlFor={name} className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+      <label htmlFor={name} className="flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
         {tooltip ? (
           <DocsTooltip label={label}>{tooltip}</DocsTooltip>
         ) : label}
@@ -519,11 +519,11 @@ export const TextAreaAutoResize = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               disabled
                 ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100",
-              "mt-2 block w-full dark:text-gray-100 rounded-md"
+                : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100",
+              "mt-1 block w-full dark:text-gray-100 rounded-md"
             )}
             placeholder={placeholder}
             disabled={disabled}
@@ -570,7 +570,7 @@ export const PasswordField = ({
       )}
     >
       {label && (
-        <label htmlFor={name} className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+        <label htmlFor={name} className="block ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
           {label} {required && <span className="text-gray-500">*</span>}
         </label>
       )}
@@ -590,8 +590,8 @@ export const PasswordField = ({
                   className={classNames(
                     meta.touched && meta.error
                       ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                      : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-                    "mt-2 block w-full rounded-md bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                      : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                    "mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                   )}
                   placeholder={placeholder}
                 />
@@ -646,7 +646,7 @@ export const NumberField = ({
   <div className={classNames(className, "col-span-12 sm:col-span-6")}>
     <label
       htmlFor={name}
-      className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide"
+      className="flex ml-px text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide"
     >
       {tooltip ? (
         <DocsTooltip label={label}>{tooltip}</DocsTooltip>
@@ -667,11 +667,11 @@ export const NumberField = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
-              "mt-2 block w-full border rounded-md",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+              "mt-1 block w-full border rounded-md",
               disabled
                 ? "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                : "bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                : "bg-gray-100 dark:bg-gray-815 dark:text-gray-100"
             )}
             placeholder={placeholder}
             disabled={disabled}

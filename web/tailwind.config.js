@@ -29,7 +29,7 @@ module.exports = {
         ...extendedColors,
         gray: {
           ...extendedColors.zinc,
-          815: "rgb(37 37 40 / var(--tw-bg-opacity))"
+          815: "#232427"
         }
       },
       margin: { // for the checkmarks used for regex validation in Filters/Advanced

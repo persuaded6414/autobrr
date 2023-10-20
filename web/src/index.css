@@ -113,9 +113,9 @@ html.dark .rmsc {
   --rmsc-main: theme(colors.blue.500) !important;
   --rmsc-hover: theme(colors.gray.750) !important;
   --rmsc-selected: theme(colors.gray.900) !important;
-  --rmsc-border: theme(colors.gray.775) !important;
+  --rmsc-border: theme(colors.gray.700) !important;
   --rmsc-gray: theme(colors.gray.500) !important;
-  --rmsc-bg: theme(colors.gray.850) !important;
+  --rmsc-bg: theme(colors.gray.815) !important;
   color: #fff !important;
 }
 

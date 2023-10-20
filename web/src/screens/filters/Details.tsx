@@ -326,7 +326,7 @@ export const FilterDetails = () => {
       </div>
       <div className="max-w-screen-xl mx-auto pb-12 px-2 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-250 dark:border-gray-775">
-          <div className="rounded-t-lg bg-gray-125 dark:bg-gray-825 border-b border-gray-200 dark:border-gray-750">
+          <div className="rounded-t-lg bg-gray-125 dark:bg-gray-850 border-b border-gray-200 dark:border-gray-750">
             <nav className="px-4 -mb-px flex space-x-6 sm:space-x-8 overflow-x-auto">
               {tabs.map((tab) => (
                 <TabNavLink item={tab} key={tab.href} />
@@ -401,7 +401,7 @@ export const FilterDetails = () => {
             validationSchema={toFormikValidationSchema(schema)}
           >
             {({ values, dirty, resetForm }) => (
-              <Form className="pt-1 pb-4 px-4">
+              <Form className="pt-1 pb-4 px-5">
                 <FormErrorNotification />
                 <Suspense fallback={<SectionLoader $size="large" />}>
                   <Routes>

@@ -28,7 +28,7 @@ export function SelectFieldCreatable<T>({ name, label, help, placeholder, toolti
       <div>
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
+          className="block ml-px text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
         >
           <div className="flex">
             {tooltip ? (
@@ -99,7 +99,7 @@ export function SelectField<T>({ name, label, help, placeholder, options }: Sele
       <div>
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
+          className="block ml-px text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
         >
           {label}
         </label>
@@ -164,7 +164,7 @@ export function SelectFieldBasic<T>({ name, label, help, placeholder, tooltip, d
       <div>
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
+          className="block ml-px text-sm font-medium text-gray-900 dark:text-white sm:pt-2"
         >
           <div className="flex">
             {tooltip ? (

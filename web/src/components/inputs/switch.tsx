@@ -42,7 +42,7 @@ const SwitchGroup = ({
         passive
         as={heading ? "h2" : "span"}
         className={classNames(
-          "flex float-left cursor-default text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide",
+          "flex float-left cursor-default text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide",
           heading ? "text-lg" : "text-sm"
         )}
       >

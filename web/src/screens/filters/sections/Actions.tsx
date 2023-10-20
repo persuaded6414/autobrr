@@ -266,7 +266,7 @@ function FilterActionsItem({ action, clients, idx, initialEdit, remove }: Filter
             text="Are you sure you want to remove this action? This action cannot be undone."
           />
 
-          <FilterSection.Page gap="sm:gap-y-0">
+          <FilterSection.Page gap="sm:gap-y-6">
             <FilterSection.Section
               title="Action"
               subtitle="Define the download client for your action and its name"

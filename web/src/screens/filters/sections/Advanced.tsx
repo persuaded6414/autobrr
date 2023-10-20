@@ -22,7 +22,7 @@ const Releases = ({ values }: ValueConsumer) => (
   >
     <Components.Layout>
       <Components.HalfRow>
-        <Input.SwitchGroup name="use_regex" label="Use Regex" />
+        <Input.SwitchGroup name="use_regex" label="Use Regex" className="pt-2" />
       </Components.HalfRow>
     </Components.Layout>
 
@@ -356,13 +356,13 @@ const FeedSpecific = ({ values }: ValueConsumer) => (
       <>These options are <span className="font-bold">only</span> for Feeds such as RSS, Torznab and Newznab</>
     }
   >
-    <div className="grid grid-cols-12 col-span-12 gap-x-2 gap-y-6 sm:gap-y-3">
+    <Components.Layout>
       <Input.SwitchGroup
         name="use_regex_description"
         label="Use Regex"
         className="col-span-12 sm:col-span-6"
       />
-    </div>
+    </Components.Layout>
 
     <Input.RegexTextAreaField
       name="match_description"
@@ -409,7 +409,6 @@ const RawReleaseTags = ({ values }: ValueConsumer) => (
         This is the <span className="font-bold">raw</span> releaseTags string from the announce.
       </>
     }
-    childClassName={Components.WideGridGapClass}
   >
     <WarningAlert
       text={
@@ -417,13 +416,13 @@ const RawReleaseTags = ({ values }: ValueConsumer) => (
       }
     />
 
-    <div className="grid grid-cols-12 col-span-12 gap-x-2 gap-y-6 sm:gap-y-3">
+    <Components.Layout>
       <Input.SwitchGroup
         name="use_regex_release_tags"
         label="Use Regex"
         className="col-span-12 sm:col-span-6"
       />
-    </div>
+    </Components.Layout>
 
     <Input.RegexField
       name="match_release_tags"
@@ -443,7 +442,7 @@ const RawReleaseTags = ({ values }: ValueConsumer) => (
 );
 
 export const Advanced = ({ values }: { values: FormikValues; }) => (
-  <div className="flex flex-col w-full gap-y-4 py-2 -mt-1 sm:-mx-1">
+  <div className="flex flex-col w-full gap-y-4 py-2 sm:-mx-1">
     <Releases values={values} />
     <Groups />
     <Categories />

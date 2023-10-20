@@ -45,7 +45,7 @@ export const TextFieldWide = ({
 }: TextFieldWideProps) => (
   <div hidden={hidden} className="space-y-1 p-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4">
     <div>
-      <label htmlFor={name} className="flex text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2">
+      <label htmlFor={name} className="flex ml-px text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2">
         <div className="flex">
           {tooltip ? (
             <DocsTooltip label={label}>{tooltip}</DocsTooltip>
@@ -71,7 +71,7 @@ export const TextFieldWide = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             placeholder={placeholder}
@@ -120,7 +120,7 @@ export const PasswordFieldWide = ({
   return (
     <div className="space-y-1 p-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4">
       <div>
-        <label htmlFor={name} className="flex text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2">
+        <label htmlFor={name} className="flex ml-px text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2">
           <div className="flex">
             {tooltip ? (
               <DocsTooltip label={label}>{tooltip}</DocsTooltip>
@@ -146,7 +146,7 @@ export const PasswordFieldWide = ({
                 className={classNames(
                   meta.touched && meta.error
                     ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                    : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                    : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
                   "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
                 )}
                 placeholder={placeholder}
@@ -192,7 +192,7 @@ export const NumberFieldWide = ({
     <div>
       <label
         htmlFor={name}
-        className="block text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2"
+        className="block ml-px text-sm font-medium text-gray-900 dark:text-white sm:mt-px sm:pt-2"
       >
         <div className="flex">
           {tooltip ? (
@@ -217,7 +217,7 @@ export const NumberFieldWide = ({
             className={classNames(
               meta.touched && meta.error
                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                : "border-gray-300 dark:border-gray-775 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
+                : "border-gray-300 dark:border-gray-700 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500",
               "block w-full shadow-sm sm:text-sm rounded-md border py-2.5 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
             )}
             onWheel={(event) => {
@@ -304,7 +304,7 @@ export const SelectFieldWide = ({
     <div>
       <label
         htmlFor={name}
-        className="flex text-sm font-medium text-gray-900 dark:text-white"
+        className="flex ml-px text-sm font-medium text-gray-900 dark:text-white"
       >
         <div className="flex">
           {tooltip ? (

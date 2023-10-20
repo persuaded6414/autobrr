@@ -67,7 +67,7 @@ export const KeyField = ({ value }: KeyFieldProps) => {
             type={isVisible ? "text" : "password"}
             value={value}
             readOnly={true}
-            className="focus:outline-none dark:focus:border-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 block w-full rounded-none rounded-l-md sm:text-sm border border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+            className="focus:outline-none dark:focus:border-blue-500 focus:border-blue-500 dark:focus:ring-blue-500 block w-full rounded-none rounded-l-md sm:text-sm border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100"
           />
         </div>
         <button

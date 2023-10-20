@@ -197,7 +197,7 @@ function FilterExternalItem({ idx, external, initialEdit, remove, move }: Filter
             text="Are you sure you want to remove this external filter? This action cannot be undone."
           />
 
-          <FilterSection.Page gap="sm:gap-y-0">
+          <FilterSection.Page gap="sm:gap-y-6">
             <FilterSection.Section
               title="External Filter"
               subtitle="Define the type of your filter and its name"

@@ -42,7 +42,7 @@ const ChannelsFieldArray = ({ channels }: ChannelsFieldArrayProps) => (
                         value={field.value ?? ""}
                         onChange={field.onChange}
                         placeholder="#Channel"
-                        className="mr-4 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100 rounded-md"
+                        className="mr-4 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100 rounded-md"
                       />
                     )}
                   </Field>
@@ -55,7 +55,7 @@ const ChannelsFieldArray = ({ channels }: ChannelsFieldArrayProps) => (
                         value={field.value ?? ""}
                         onChange={field.onChange}
                         placeholder="Password"
-                        className="mr-4 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 block w-full shadow-sm sm:text-sm rounded-md border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100"
+                        className="mr-4 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 block w-full shadow-sm sm:text-sm rounded-md border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100"
                       />
                     )}
                   </Field>

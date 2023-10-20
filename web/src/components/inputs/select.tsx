@@ -52,7 +52,7 @@ export const MultiSelect = ({
       )}
     >
       <label
-        htmlFor={label} className="flex mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-200">
+        htmlFor={label} className="flex ml-px mb-1 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-100">
         <div className="flex">
           {tooltip ? (
             <DocsTooltip label={label}>{tooltip}</DocsTooltip>
@@ -107,7 +107,7 @@ export const IndexerMultiSelect = ({
     )}
   >
     <label
-      className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-200"
+      className="block ml-px mb-1 text-xs font-bold tracking-wide text-gray-700 uppercase dark:text-gray-200"
       htmlFor={label}
     >
       {label}
@@ -166,11 +166,11 @@ export function DownloadClientSelect({
           >
             {({ open }) => (
               <>
-                <Listbox.Label className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                <Listbox.Label className="block text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
                   Client
                 </Listbox.Label>
-                <div className="mt-2 relative">
-                  <Listbox.Button className="block w-full shadow-sm sm:text-sm rounded-md border py-2 pl-3 pr-10 text-left focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100">
+                <div className="mt-1 relative">
+                  <Listbox.Button className="block w-full shadow-sm sm:text-sm rounded-md border py-2 pl-3 pr-10 text-left focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? clients.find((c) => c.id === field.value)?.name
@@ -292,13 +292,13 @@ export const Select = ({
           >
             {({ open }) => (
               <>
-                <Listbox.Label className="flex text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
+                <Listbox.Label className="flex text-xs font-bold text-gray-700 dark:text-gray-100 uppercase tracking-wide">
                   {tooltip ? (
                     <DocsTooltip label={label}>{tooltip}</DocsTooltip>
                   ) : label}
                 </Listbox.Label>
-                <div className="mt-2 relative">
-                  <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100">
+                <div className="mt-1 relative">
+                  <Listbox.Button className="block w-full relative shadow-sm sm:text-sm text-left rounded-md border pl-3 pr-10 py-2.5 focus:ring-blue-500 dark:focus:ring-blue-500 focus:border-blue-500 dark:focus:border-blue-500 border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100">
                     <span className="block truncate">
                       {field.value
                         ? options.find((c) => c.value === field.value)?.label
@@ -322,7 +322,7 @@ export const Select = ({
                   >
                     <Listbox.Options
                       static
-                      className="absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-gray-300 dark:border-gray-775 bg-gray-100 dark:bg-gray-850 dark:text-gray-100 focus:outline-none sm:text-sm"
+                      className="absolute z-10 mt-1 w-full shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-815 dark:text-gray-100 focus:outline-none sm:text-sm"
                     >
                       {options.map((opt) => (
                         <Listbox.Option

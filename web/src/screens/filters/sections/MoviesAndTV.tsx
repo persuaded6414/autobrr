@@ -52,7 +52,7 @@ const Quality = () => (
     title="Quality"
     subtitle="Set resolution, source, codec and related match constraints."
   >
-    <Components.Layout>
+    <Components.Layout gap={Components.WideGridGapClass}>
       <MultiSelect
         name="resolutions"
         options={CONSTS.RESOLUTION_OPTIONS}
@@ -79,7 +79,7 @@ const Quality = () => (
       />
     </Components.Layout>
 
-    <Components.Layout>
+    <Components.Layout gap={Components.WideGridGapClass}>
       <MultiSelect
         name="codecs"
         options={CONSTS.CODECS_OPTIONS}
@@ -106,7 +106,7 @@ const Quality = () => (
       />
     </Components.Layout>
 
-    <Components.Layout>
+    <Components.Layout gap={Components.WideGridGapClass}>
       <MultiSelect
         name="match_hdr"
         options={CONSTS.HDR_OPTIONS}
@@ -133,7 +133,7 @@ const Quality = () => (
       />
     </Components.Layout>
 
-    <Components.Layout>
+    <Components.Layout gap={Components.WideGridGapClass}>
       <MultiSelect
         name="match_other"
         options={CONSTS.OTHER_OPTIONS}
