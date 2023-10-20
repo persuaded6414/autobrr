@@ -168,7 +168,7 @@ const Tags = () => (
       <Input.TextAreaAutoResize
         name="tags"
         label="Match tags"
-        columns={4}
+        columns={8}
         placeholder="eg. tag1,tag2"
         tooltip={
           <div>
@@ -180,7 +180,7 @@ const Tags = () => (
       <Input.Select
         name="tags_match_logic"
         label="Match logic"
-        columns={2}
+        columns={4}
         options={CONSTS.tagsMatchLogicOptions}
         optionDefaultText="any"
         tooltip={
@@ -195,7 +195,7 @@ const Tags = () => (
       <Input.TextAreaAutoResize
         name="except_tags"
         label="Except tags"
-        columns={4}
+        columns={8}
         placeholder="eg. tag1,tag2"
         tooltip={
           <div>
@@ -207,7 +207,7 @@ const Tags = () => (
       <Input.Select
         name="except_tags_match_logic"
         label="Except logic"
-        columns={2}
+        columns={4}
         options={CONSTS.tagsMatchLogicOptions}
         optionDefaultText="any"
         tooltip={

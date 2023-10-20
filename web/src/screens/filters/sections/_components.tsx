@@ -15,7 +15,7 @@ type OwningComponent = {
   className?: string;
 };
 
-const VerticalGap = "gap-y-6 sm:gap-y-3";
+const VerticalGap = "gap-y-6 sm:gap-y-2.5";
 
 export const NormalGridGapClass = `gap-x-0.5 sm:gap-x-2 ${VerticalGap}`;
 export const TightGridGapClass = `gap-x-0.5 ${VerticalGap}`;
