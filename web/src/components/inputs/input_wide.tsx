@@ -78,6 +78,7 @@ export const TextFieldWide = ({
             hidden={hidden}
             required={required}
             autoComplete={autoComplete}
+            data-1p-ignore
           />
         )}
       </Field>
@@ -96,6 +97,7 @@ interface PasswordFieldWideProps {
   defaultValue?: string;
   help?: string;
   required?: boolean;
+  autoComplete?: string;
   defaultVisible?: boolean;
   tooltip?: JSX.Element;
   validate?: FieldValidator;
@@ -108,6 +110,7 @@ export const PasswordFieldWide = ({
   defaultValue,
   help,
   required,
+  autoComplete,
   defaultVisible,
   tooltip,
   validate
@@ -148,6 +151,8 @@ export const PasswordFieldWide = ({
                 )}
                 placeholder={placeholder}
                 required={required}
+                autoComplete={autoComplete}
+                data-1p-ignore
               />
               <div className="absolute inset-y-0 right-0 px-3 flex items-center" onClick={toggleVisibility}>
                 {!isVisible ? <EyeIcon className="h-5 w-5 text-gray-400 hover:text-gray-500" aria-hidden="true" /> : <EyeSlashIcon className="h-5 w-5 text-gray-400 hover:text-gray-500" aria-hidden="true" />}
