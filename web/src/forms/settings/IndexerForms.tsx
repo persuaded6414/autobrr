@@ -484,7 +484,9 @@ export function IndexerAddForm({ isOpen, toggle }: AddProps) {
                                       Input: common.SelectInput,
                                       Control: common.SelectControl,
                                       Menu: common.SelectMenu,
-                                      Option: common.SelectOption
+                                      Option: common.SelectOption,
+                                      IndicatorSeparator: common.IndicatorSeparator,
+                                      DropdownIndicator: common.DropdownIndicator
                                     }}
                                     placeholder="Choose an indexer"
                                     styles={{

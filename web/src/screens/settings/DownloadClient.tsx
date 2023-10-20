@@ -12,7 +12,7 @@ import { useToggle } from "@hooks/hooks";
 import { DownloadClientAddForm, DownloadClientUpdateForm } from "@forms";
 import { EmptySimple } from "@components/emptystates";
 import { APIClient } from "@api/APIClient";
-import { DownloadClientTypeNameMap } from "@domain/constants";
+import { ActionTypeNameMap } from "@domain/constants";
 import Toast from "@components/notifications/Toast";
 import { Checkbox } from "@components/Checkbox";
 
@@ -124,7 +124,9 @@ function ListItem({ client }: DLSettingsItemProps) {
         </div>
         <div className="col-span-8 sm:col-span-4 lg:col-span-4 pl-10 sm:pl-12 pr-6 py-3 block flex-col text-sm font-medium text-gray-900 dark:text-white truncate" title={client.name}>{client.name}</div>
         <div className="hidden sm:block col-span-4 pr-6 py-3 text-left items-center whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 truncate" title={client.host}>{client.host}</div>
-        <div className="hidden sm:block col-span-2 py-3 text-left items-center text-sm text-gray-600 dark:text-gray-400">{DownloadClientTypeNameMap[client.type]}</div>
+        <div className="hidden sm:block col-span-2 py-3 text-left items-center text-sm text-gray-600 dark:text-gray-400">
+          {ActionTypeNameMap[client.type]}
+        </div>
         <div className="col-span-1 pl-0.5 whitespace-nowrap text-center text-sm font-medium">
           <span className="text-blue-600 dark:text-gray-300 hover:text-blue-900 cursor-pointer" onClick={toggleUpdateClient}>
             Edit

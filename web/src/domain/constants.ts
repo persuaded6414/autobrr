@@ -290,21 +290,6 @@ export const DownloadClientTypeOptions: RadioFieldsetOption[] = [
   }
 ];
 
-export const DownloadClientTypeNameMap: Record<DownloadClientType | string, string> = {
-  "DELUGE_V1": "Deluge v1",
-  "DELUGE_V2": "Deluge v2",
-  "QBITTORRENT": "qBittorrent",
-  "RTORRENT": "rTorrent",
-  "TRANSMISSION": "Transmission",
-  "PORLA": "Porla",
-  "RADARR": "Radarr",
-  "SONARR": "Sonarr",
-  "LIDARR": "Lidarr",
-  "WHISPARR": "Whisparr",
-  "READARR": "Readarr",
-  "SABNZBD": "SABnzbd"
-};
-
 export const ActionTypeOptions: RadioFieldsetOption[] = [
   { label: "Test", description: "A simple action to test a filter.", value: "TEST" },
   { label: "Watch dir", description: "Add filtered torrents to a watch directory", value: "WATCH_FOLDER" },
@@ -324,7 +309,7 @@ export const ActionTypeOptions: RadioFieldsetOption[] = [
   { label: "SABnzbd", description: "Add to SABnzbd", value: "SABNZBD" }
 ];
 
-export const ActionTypeNameMap = {
+export const ActionTypeNameMap: Record<ActionType, string> = {
   "TEST": "Test",
   "WATCH_FOLDER": "Watch folder",
   "WEBHOOK": "Webhook",
@@ -341,7 +326,22 @@ export const ActionTypeNameMap = {
   "WHISPARR": "Whisparr",
   "READARR": "Readarr",
   "SABNZBD": "SABnzbd"
-};
+} as const;
+
+export const DOWNLOAD_CLIENTS = [
+  "QBITTORRENT",
+  "DELUGE_V1",
+  "DELUGE_V2",
+  "RTORRENT",
+  "TRANSMISSION",
+  "PORLA",
+  "RADARR",
+  "SONARR",
+  "LIDARR",
+  "WHISPARR",
+  "READARR",
+  "SABNZBD"
+];
 
 export const ActionContentLayoutOptions: SelectGenericOption<ActionContentLayout>[] = [
   { label: "Original", description: "Original", value: "ORIGINAL" },

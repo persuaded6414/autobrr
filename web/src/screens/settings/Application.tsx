@@ -60,7 +60,7 @@ function ApplicationSettings() {
       <div className="-mx-4 divide-y divide-gray-150 dark:divide-gray-750">
         <form className="mt-6 mb-4" action="#" method="POST">
           {data && (
-            <div className="grid grid-cols-12 gap-2 sm:gap-6 px-4">
+            <div className="grid grid-cols-12 gap-2 sm:gap-6 px-4 sm:px-5">
               <div className="col-span-12 sm:col-span-4">
                 <label htmlFor="host" className="block text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wide">
                   Host

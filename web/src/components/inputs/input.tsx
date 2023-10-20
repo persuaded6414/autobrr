@@ -472,7 +472,7 @@ interface TextAreaAutoResizeProps {
   hidden?: boolean;
   disabled?: boolean;
   tooltip?: JSX.Element;
-
+  className?: string;
 }
 
 export const TextAreaAutoResize = ({
@@ -485,10 +485,12 @@ export const TextAreaAutoResize = ({
   autoComplete,
   hidden,
   tooltip,
-  disabled
+  disabled,
+  className = ""
 }: TextAreaAutoResizeProps) => (
   <div
     className={classNames(
+      className,
       "col-span-12",
       hidden ? "hidden" : "",
       columns ? `sm:col-span-${columns}` : ""

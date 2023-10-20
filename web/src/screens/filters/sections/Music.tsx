@@ -116,7 +116,7 @@ export const Music = ({ values }: { values: FormikValues; }) => (
           />
         </Components.Layout>
 
-        <Components.Layout className="items-end sm:gap-x-6">
+        <Components.Layout className="items-end sm:!gap-x-6">
           <Components.Row className="sm:col-span-4">
             <Input.SwitchGroup
               name="cue"
@@ -164,7 +164,7 @@ export const Music = ({ values }: { values: FormikValues; }) => (
         <span className="border-b border-gray-150 dark:border-gray-750 w-full" />
       </div>
 
-      <Components.Layout>
+      <Components.Layout className="sm:!gap-x-6">
         <Input.SwitchGroup
           name="perfect_flac"
           label="Perfect FLAC"

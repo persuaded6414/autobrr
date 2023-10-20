@@ -52,7 +52,9 @@ export function SelectFieldCreatable<T>({ name, label, help, placeholder, toolti
                 Input: common.SelectInput,
                 Control: common.SelectControl,
                 Menu: common.SelectMenu,
-                Option: common.SelectOption
+                Option: common.SelectOption,
+                IndicatorSeparator: common.IndicatorSeparator,
+                DropdownIndicator: common.DropdownIndicator
               }}
               placeholder={placeholder ?? "Choose an option"}
               styles={{
@@ -115,7 +117,9 @@ export function SelectField<T>({ name, label, help, placeholder, options }: Sele
                 Input: common.SelectInput,
                 Control: common.SelectControl,
                 Menu: common.SelectMenu,
-                Option: common.SelectOption
+                Option: common.SelectOption,
+                IndicatorSeparator: common.IndicatorSeparator,
+                DropdownIndicator: common.DropdownIndicator
               }}
               placeholder={placeholder ?? "Choose an option"}
               styles={{
@@ -182,7 +186,9 @@ export function SelectFieldBasic<T>({ name, label, help, placeholder, tooltip, d
                 Input: common.SelectInput,
                 Control: common.SelectControl,
                 Menu: common.SelectMenu,
-                Option: common.SelectOption
+                Option: common.SelectOption,
+                IndicatorSeparator: common.IndicatorSeparator,
+                DropdownIndicator: common.DropdownIndicator
               }}
               placeholder={placeholder ?? "Choose an option"}
               styles={{

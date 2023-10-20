@@ -29,7 +29,9 @@ const SelectWrapper = ({ id, value, onChange, options }: SelectWrapperProps) => 
       Input: common.SelectInput,
       Control: common.SelectControl,
       Menu: common.SelectMenu,
-      Option: common.SelectOption
+      Option: common.SelectOption,
+      IndicatorSeparator: common.IndicatorSeparator,
+      DropdownIndicator: common.DropdownIndicator
     }}
     placeholder="Choose a type"
     styles={{
@@ -93,6 +95,7 @@ function LogSettings() {
           <div className="divide-y divide-gray-200 dark:divide-gray-750">
             <RowItem label="Path" value={data?.log_path} title="Set in config.toml" emptyText="Not set!" />
             <RowItem
+              desktopColSpan={1}
               label="Level"
               title="Log level"
               value={

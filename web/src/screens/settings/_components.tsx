@@ -45,12 +45,27 @@ interface RowItemProps {
   title?: string;
   emptyText?: string;
   rightSide?: React.ReactNode;
+  desktopColSpan?: number;
 }
 
-export const RowItem = ({ label, value, title, emptyText, rightSide }: RowItemProps) => (
+export const RowItem = ({
+  label,
+  value,
+  title,
+  emptyText,
+  rightSide,
+  desktopColSpan = 3
+}: RowItemProps) => (
   <div className="p-4 sm:px-6 sm:grid sm:grid-cols-4 sm:gap-4">
-    <div className="font-medium text-gray-900 dark:text-white text-sm self-center" title={title}>{label}</div>
-    <div className="mt-1 text-gray-900 dark:text-gray-300 text-sm sm:mt-0 sm:col-span-3 break-all">
+    <div className="font-medium text-gray-900 dark:text-white text-sm self-center" title={title}>
+      {label}
+    </div>
+    <div
+      className={classNames(
+        `sm:col-span-${desktopColSpan}`,
+        "mt-1 text-gray-900 dark:text-gray-300 text-sm break-all sm:mt-0"
+      )}
+    >
       {value
         ? (
           <>

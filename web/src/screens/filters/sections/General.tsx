@@ -120,4 +120,4 @@ export const General = () => {
       </Components.Section>
     </Components.Page>
   );
-}
+};

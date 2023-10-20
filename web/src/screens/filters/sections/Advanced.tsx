@@ -20,42 +20,52 @@ const Releases = ({ values }: ValueConsumer) => (
     title="Release Names"
     subtitle="Match only certain release names and/or ignore other release names."
   >
-    <div className="grid grid-cols-12 col-span-12 gap-x-2 gap-y-6 sm:gap-y-3">
-      <Input.SwitchGroup name="use_regex" label="Use Regex" className="col-span-12 sm:col-span-6" />
-    </div>
+    <Components.Layout>
+      <Components.HalfRow>
+        <Input.SwitchGroup name="use_regex" label="Use Regex" />
+      </Components.HalfRow>
+    </Components.Layout>
 
-    <Input.RegexTextAreaField
-      name="match_releases"
-      label="Match releases"
-      useRegex={values.use_regex}
-      columns={6}
-      placeholder="eg. *some?movie*,*some?show*s01*"
-      tooltip={
-        <div>
-          <p>This field has full regex support (Golang flavour).</p>
-          <DocsLink href="https://autobrr.com/filters#advanced" />
-          <br />
-          <br />
-          <p>Remember to tick <b>Use Regex</b> if using more than <code>*</code> and <code>?</code>.</p>
-        </div>
-      }
-    />
-    <Input.RegexTextAreaField
-      name="except_releases"
-      label="Except releases"
-      useRegex={values.use_regex}
-      columns={6}
-      placeholder="eg. *bad?movie*,*bad?show*s03*"
-      tooltip={
-        <div>
-          <p>This field has full regex support (Golang flavour).</p>
-          <DocsLink href="https://autobrr.com/filters#advanced" />
-          <br />
-          <br />
-          <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
-        </div>
-      }
-    />
+    <Components.Layout>
+      <Components.HalfRow>
+        <Input.RegexTextAreaField
+          name="match_releases"
+          label="Match releases"
+          useRegex={values.use_regex}
+          columns={6}
+          placeholder="eg. *some?movie*,*some?show*s01*"
+          tooltip={
+            <div>
+              <p>This field has full regex support (Golang flavour).</p>
+              <DocsLink href="https://autobrr.com/filters#advanced" />
+              <br />
+              <br />
+              <p>Remember to tick <b>Use Regex</b> if using more than <code>*</code> and <code>?</code>.</p>
+            </div>
+          }
+        />
+      </Components.HalfRow>
+
+      <Components.HalfRow>
+        <Input.RegexTextAreaField
+          name="except_releases"
+          label="Except releases"
+          useRegex={values.use_regex}
+          columns={6}
+          placeholder="eg. *bad?movie*,*bad?show*s03*"
+          tooltip={
+            <div>
+              <p>This field has full regex support (Golang flavour).</p>
+              <DocsLink href="https://autobrr.com/filters#advanced" />
+              <br />
+              <br />
+              <p>Remember to tick <b>Use Regex</b> below if using more than <code>*</code> and <code>?</code>.</p>
+            </div>
+          }
+        />
+      </Components.HalfRow>
+
+    </Components.Layout>
 
     {values.match_releases ? (
       <WarningAlert

@@ -5,25 +5,25 @@
 
 import { Suspense, useEffect, useRef } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-hot-toast";
-import { Form, Formik, FormikValues, useFormikContext } from "formik";
+import { Form, Formik, useFormikContext } from "formik";
+import type { FormikErrors, FormikValues } from "formik";
 import { z } from "zod";
+import { toast } from "react-hot-toast";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { NavLink, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { APIClient } from "@api/APIClient";
 import { useToggle } from "@hooks/hooks";
 import { classNames } from "@utils";
+import { DOWNLOAD_CLIENTS } from "@domain/constants";
 
 import DEBUG from "@components/debug";
 import Toast from "@components/notifications/Toast";
 import { DeleteModal } from "@components/modals";
-import { External } from "@screens/filters/External";
 import { SectionLoader } from "@components/SectionLoader";
 
 import { filterKeys } from "./List";
-import { FilterActions } from "./Action";
 import * as Section from "./sections";
 
 interface tabType {
@@ -81,7 +81,7 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
   const cancelModalButtonRef = useRef(null);
 
   return (
-    <div>
+    <>
       <DeleteModal
         isOpen={deleteModalIsOpen}
         isLoading={isLoading}
@@ -92,13 +92,13 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
         text="Are you sure you want to remove this filter? This action cannot be undone."
       />
 
-      <div className="mt-4 flex flex-col-reverse sm:flex-row flex-wrap-reverse justify-between">
+      <div className="px-0.5 mt-8 flex flex-col-reverse sm:flex-row flex-wrap-reverse justify-between">
         <button
           type="button"
           className="flex items-center justify-center px-4 py-2 rounded-md sm:text-sm transition bg-red-700 dark:bg-red-900 hover:dark:bg-red-700 hover:bg-red-800 text-white focus:outline-none"
           onClick={toggleDeleteModal}
         >
-          Remove
+          Delete Filter
         </button>
 
         <div className="flex justify-between mb-4 sm:mb-0">
@@ -123,29 +123,56 @@ const FormButtonsGroup = ({ values, deleteAction, reset, isLoading }: FormButton
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
+
+const ResolveKV = (obj: unknown, depth: string[] = []) => {
+  if (obj === undefined || obj === null) {
+    return [];
+  }
+
+  if (typeof (obj) !== "object") {
+    return [`${depth.join("->")}: ${String(obj)}`];
+  }
+
+  const resolved: string[] = [];
+  for (const [key, value] of Object.entries(obj)) {
+    resolved.push(...ResolveKV(value, [...depth, key]));
+  }
+
+  return resolved;
+};
+
+const FormatFormikErrorObject = (obj: FormikErrors<unknown>) => "\n" + ResolveKV(obj).join("\n");
 
 const FormErrorNotification = () => {
   const { isValid, isValidating, isSubmitting, errors } = useFormikContext();
 
   useEffect(() => {
     if (!isValid && !isValidating && isSubmitting) {
-      console.log("validation errors: ", errors);
-      toast.custom((t) => <Toast type="error" body={`Validation error. Check fields: ${Object.keys(errors)}`} t={t} />);
+      console.log("Formik error object: ", errors);
+
+      const formattedErrors = FormatFormikErrorObject(errors);
+      console.log("--> Formatted Errors: ", formattedErrors);
+      
+      toast.custom((t) => (
+        <Toast
+          type="error"
+          body={`Validation error${formattedErrors.length > 1 ? "s" : ""}: ${formattedErrors}`}
+          t={t}
+        />
+      ));
     }
   }, [isSubmitting, isValid, isValidating]);
 
   return null;
 };
 
-const allowedClientType = ["QBITTORRENT", "DELUGE_V1", "DELUGE_V2", "RTORRENT", "TRANSMISSION", "PORLA", "RADARR", "SONARR", "LIDARR", "WHISPARR", "READARR", "SABNZBD"];
-
 const actionSchema = z.object({
   enabled: z.boolean(),
   name: z.string(),
-  type: z.enum(["TEST", "EXEC", "WATCH_FOLDER", "WEBHOOK", ...allowedClientType]),
+  type: z.enum(["TEST", "EXEC", "WATCH_FOLDER", "WEBHOOK", ...DOWNLOAD_CLIENTS]),
   client_id: z.number().optional(),
   exec_cmd: z.string().optional(),
   exec_args: z.string().optional(),
@@ -169,8 +196,8 @@ const actionSchema = z.object({
   webhook_method: z.string().optional(),
   webhook_data: z.string().optional()
 }).superRefine((value, ctx) => {
-  if (allowedClientType.includes(value.type)) {
-    if (value.client_id === 0) {
+  if (DOWNLOAD_CLIENTS.includes(value.type)) {
+    if (!value.client_id) {
       ctx.addIssue({
         message: "Must select client",
         code: z.ZodIssueCode.custom,
@@ -382,8 +409,8 @@ export const FilterDetails = () => {
                     <Route path="movies-tv" element={<Section.MoviesTv />} />
                     <Route path="music" element={<Section.Music values={values} />} />
                     <Route path="advanced" element={<Section.Advanced values={values} />} />
-                    <Route path="external" element={<External />} />
-                    <Route path="actions" element={<FilterActions filter={filter} values={values} />} />
+                    <Route path="external" element={<Section.External />} />
+                    <Route path="actions" element={<Section.Actions filter={filter} values={values} />} />
                   </Routes>
                 </Suspense>
                 <FormButtonsGroup
@@ -401,4 +428,4 @@ export const FilterDetails = () => {
       </div>
     </main>
   );
-}
+};

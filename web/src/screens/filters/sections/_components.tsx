@@ -7,7 +7,7 @@ import { TitleSubtitle } from "@components/headings";
 type FilterSectionProps = {
   children: React.ReactNode;
   title?: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
 };
 
 type OwningComponent = {
@@ -15,9 +15,11 @@ type OwningComponent = {
   className?: string;
 };
 
-export const NormalGridGapClass = "gap-x-2.5 gap-y-6 sm:gap-y-3";
-export const TightGridGapClass = "gap-x-0.5 gap-y-6 sm:gap-y-3";
-export const WideGridGapClass = "gap-x-3.5 gap-y-6 sm:gap-y-3";
+const VerticalGap = "gap-y-6 sm:gap-y-3";
+
+export const NormalGridGapClass = `gap-x-0.5 sm:gap-x-2 ${VerticalGap}`;
+export const TightGridGapClass = `gap-x-0.5 ${VerticalGap}`;
+export const WideGridGapClass = `gap-x-0.5 sm:gap-x-6 ${VerticalGap}`;
 
 export const LayoutClass = "grid grid-cols-12 col-span-12";
 
@@ -37,31 +39,36 @@ export const Section = ({
   title,
   subtitle,
   children
-}: FilterSectionProps) => {
-  return (
-    <div
-      className={classNames(
-        !title ? "pt-3 pb-3" : "py-6",
-        "flex flex-col",
-        NormalGridGapClass
-      )}
-    >
-      {(title && subtitle) ? (
-        <TitleSubtitle title={title} subtitle={subtitle} />
-      ) : null}
-      {children}
-    </div>
-  );
-};
+}: FilterSectionProps) => (
+  <div
+    className={classNames(
+      title ? "py-6" : "pt-5 pb-4",
+      "flex flex-col",
+      NormalGridGapClass
+    )}
+  >
+    {(title && subtitle) ? (
+      <TitleSubtitle title={title} subtitle={subtitle} />
+    ) : null}
+    {children}
+  </div>
+);
 
 type FilterPageProps = {
+  gap?: string;
   children: React.ReactNode;
 };
 
 export const Page = ({
+  gap = VerticalGap,
   children
 }: FilterPageProps) => (
-  <div className="flex flex-col gap-y-6 sm:gap-y-3 divide-y divide-gray-150 dark:divide-gray-750">
+  <div
+    className={classNames(
+      gap,
+      "flex flex-col w-full divide-y divide-gray-150 dark:divide-gray-750"
+    )}
+  >
     {children}
   </div>
 );
@@ -71,6 +78,7 @@ interface CollapsibleSectionProps {
   subtitle?: string | React.ReactNode;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  noBottomBorder?: boolean;
   childClassName?: string;
 }
 
@@ -81,6 +89,7 @@ export const CollapsibleSection = ({
   subtitle,
   children,
   defaultOpen = false,
+  noBottomBorder = false,
   childClassName = NormalGridGapClass
 }: CollapsibleSectionProps) => {
   const [isOpen, toggleOpen] = useToggle(defaultOpen);
@@ -89,7 +98,8 @@ export const CollapsibleSection = ({
     <div
       className={classNames(
         isOpen ? "pb-10" : "pb-4",
-        "rounded-t-lg border-dashed border-b-2 border-gray-150 dark:border-gray-775"
+        noBottomBorder ? "" : "border-dashed border-b-2 border-gray-150 dark:border-gray-775",
+        "rounded-t-lg"
       )}
     >
       <div
@@ -129,4 +139,4 @@ export const CollapsibleSection = ({
       )}
     </div>
   );
-}
+};

@@ -27,7 +27,10 @@ module.exports = {
     extend: {
       colors: {
         ...extendedColors,
-        gray: extendedColors.zinc,
+        gray: {
+          ...extendedColors.zinc,
+          815: "rgb(37 37 40 / var(--tw-bg-opacity))"
+        }
       },
       margin: { // for the checkmarks used for regex validation in Filters/Advanced
         "2.5": "0.625rem", // 10px, between mb-2 (8px) and mb-3 (12px)
@@ -45,14 +48,14 @@ module.exports = {
   },
   plugins: [
     require("@tailwindcss/forms"),
-    // Pipe --tw-shadow-color (i.e. shadow-cyan-500/50) to our new text-shadow
-    // Credits: https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
-    // Use it like: text-shadow shadow-cyan-500/50
     plugin(function ({ matchUtilities, theme }) {
+      // Pipe --tw-shadow-color (i.e. shadow-cyan-500/50) to our new text-shadow
+      // Credits: https://www.hyperui.dev/blog/text-shadow-with-tailwindcss
+      // Use it like: text-shadow shadow-cyan-500/50
       matchUtilities(
         { "text-shadow": (value) => ({ textShadow: value }) },
         { values: theme("textShadow") }
-      )
+      );
     }),
   ],
 }
