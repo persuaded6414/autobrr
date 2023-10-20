@@ -95,7 +95,7 @@ function LogSettings() {
           <div className="divide-y divide-gray-200 dark:divide-gray-750">
             <RowItem label="Path" value={data?.log_path} title="Set in config.toml" emptyText="Not set!" />
             <RowItem
-              desktopColSpan={1}
+              className="sm:col-span-1"
               label="Level"
               title="Log level"
               value={
